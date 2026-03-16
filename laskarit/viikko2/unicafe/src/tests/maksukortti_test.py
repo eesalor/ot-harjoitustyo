@@ -8,6 +8,9 @@ class TestMaksukortti(unittest.TestCase):
     def test_luotu_kortti_on_olemassa(self):
         self.assertNotEqual(self.maksukortti, None)
 
+    def test_konstruktori_asettaa_saldon_oikein(self):
+        self.assertEqual(str(self.maksukortti), "Kortilla on rahaa 10.00 euroa")
+
     def test_kortin_saldo_alussa_oikein(self):
         self.assertEqual(self.maksukortti.saldo, 1000)
 
@@ -31,3 +34,6 @@ class TestMaksukortti(unittest.TestCase):
 
     def test_rahan_ottaminen_toimii_2(self):
         self.assertFalse(self.maksukortti.ota_rahaa(1500))
+
+    def test_saldo_euroina_oikein(self):
+        self.assertEqual(self.maksukortti.saldo_euroina(), 10.0)
