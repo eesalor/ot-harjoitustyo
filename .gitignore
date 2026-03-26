@@ -3,4 +3,5 @@ __pycache__
 .coverage
 htlmcov
 database.db
+test_database.db
 .venv
