@@ -21,7 +21,7 @@ class TaskRepository:
 
         for row in tasks:
             task = Task(row[0])
-            all_tasks.append(task)
+            all_tasks.append(str(task))
 
         return all_tasks
 
