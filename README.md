@@ -17,12 +17,12 @@ Tavoitteena on toteuttaa omavalintainen **ohjelmisto** ns. **työpöytäsovelluk
 
 1. Kopioi Git-projekti omalle koneellesi:
 ```
-$ git clone https://github.com/eesalor/ot-harjoitustyo.git
+git clone https://github.com/eesalor/ot-harjoitustyo.git
 ```
 
 2. Siirry projektikansioon ja asenna projektin riippuvuudet Poetrylla:
 ```
-$ poetry install
+poetry install
 ```
 - Huom. Jos asennuksessa tulee alla oleva virhe, suorita komento `poetry lock` ja sen jälkeen asenna uudelleen `poetry install`.
 
@@ -31,9 +31,33 @@ $ poetry install
 
 3. Alusta tietokanta:
 ```
-$ poetry run invoke init-database
+poetry run invoke init-database
 ```
 4. Käynnistä sovellus:
 ```
-$ poetry run invoke start
+poetry run invoke start
+```
+
+## Komentorivillä suoritettavia komentoja
+
+**Tietokannan alustaminen**
+
+Komento alustaa SQL-tietokannan. Komennon suorittaminen korvaa mahdollisen olemassa olevan tietokannan.
+```
+poetry run invoke init-database
+```
+
+**Sovelluksen käynnistäminen**
+```
+poetry run invoke start
+```
+
+**Testien suorittaminen**
+```
+poetry run invoke test
+```
+
+**Testikattavuusraportin tuottaminen**
+```
+poetry run invoke coverage-report
 ```
