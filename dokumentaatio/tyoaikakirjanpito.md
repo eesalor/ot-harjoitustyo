@@ -8,9 +8,9 @@
 | 23.3. |  6  | Sovelluksen ensimmäinen kehitysversio. Alustava toiminnallisuus tehtävän lisäämisestä ja käyttöliittymä |
 | 26.3. |  6  | Sovelluksen konfigurointi ympäristömuuttujilla, yksikkötestejä tehtävien lisäämiselle ja hakemiselle tietokannasta, testikattavuuden konfigurointi |
 | 27.3  |  2  | Invoke-tehtävien lisääminen, sovelluksen asentamisen ja toimivuuden testaamista virtuaalityöasemalla |
-|    .  |    | |
+| 30.3. |  3.5 | Sovelluksen asentamisen ja toimivuuden testaamista virtuaalityöasemalla, ohjeet sovelluksen asentamiseen ja komentorivikomentoihin Readme-tiedostoon, sovelluksen käyttöliittymän muokkaamista, muutosloki viikon 3 osalta |
 |    .  |    | |
 |    .  |    | |
 |    .  |    |  |
 |   .   |    | |
-| **Yhteensä**   |  **23**  | | 
+| **Yhteensä**   |  **26.5**  | | 
