@@ -1,10 +1,8 @@
-# Ohjelmistotekniikka, harjoitustyö
+# Tehtävienhallintasovellus
 
-Tavoitteena on toteuttaa omavalintainen **ohjelmisto** ns. **työpöytäsovelluksena**. Alustava idea on toteuttaa jonkinlainen tehtävienhallintaan tai kirjanpitoon liittyvä sovellus.
+Sovelluksen tarkoituksena on, että käyttäjä voi pitää kirjaa ja hallita tekemättömiä tehtäviään. Sovellusta on mahdollista käyttää yksi käyttäjä. Sovellus toteutetaan työpöytäsovelluksena, joka hyödyntää SQL-tietokantaa.
 
- *Sovelluksen aihe tarkentuu myöhemmin.*
-
-[laskarit](https://github.com/eesalor/ot-harjoitustyo/tree/main/laskarit)
+Sovellus on ohjelmistotekniikan harjoitustyö.
 
 ## Dokumentaatio
 
