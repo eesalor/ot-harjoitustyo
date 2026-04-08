@@ -59,3 +59,10 @@ poetry run invoke test
 ```
 poetry run invoke coverage-report
 ```
+
+**Koodin laadun tarkistaminen**
+
+Komento suorittaa koodin laadun tarkistuksen hyödyntämällä Pylint-työkalua. Laadun tarkistus tehdään [.pylintrc](https://github.com/eesalor/ot-harjoitustyo/blob/main/.pylintrc)-tiedoston sisältämien sääntöjen perusteella.
+```
+poetry run invoke lint
+```
