@@ -7,6 +7,7 @@ Sovellus on ohjelmistotekniikan harjoitustyö.
 ## Dokumentaatio
 
 - [Vaatimusmäärittely](https://github.com/eesalor/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
+- [Sovelluksen arkkitehtuuri](https://github.com/eesalor/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
 - [Työaikakirjanpito](https://github.com/eesalor/ot-harjoitustyo/blob/main/dokumentaatio/tyoaikakirjanpito.md)
 - [Muutosloki (changelog)](https://github.com/eesalor/ot-harjoitustyo/blob/main/dokumentaatio/changelog.md)
 
