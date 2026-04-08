@@ -9,7 +9,7 @@ def main():
 
     ui = UI(window)
     ui.start()
-    
+
     window.mainloop()
 
 

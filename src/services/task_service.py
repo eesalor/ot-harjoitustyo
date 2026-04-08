@@ -11,6 +11,6 @@ class TaskService:
 
     def get_all_tasks(self):
         return self._task_repository.get_all_tasks()
-        
+
 
 task_service = TaskService()
