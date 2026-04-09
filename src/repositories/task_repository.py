@@ -15,14 +15,22 @@ class TaskRepository:
 
     def get_all_tasks(self):
         cursor = self._connection.cursor()
-        tasks = cursor.execute("SELECT title, date FROM Tasks").fetchall()
-        all_tasks = []
+        tasks = cursor.execute("SELECT id, title, date FROM Tasks").fetchall()
+        all_tasks = {}
 
         for row in tasks:
-            task = Task(row[0], row[1])
-            all_tasks.append(str(task))
+            id = row[0]
+            task = Task(row[1], row[2])
+            all_tasks[id] = str(task)
 
         return all_tasks
+
+    def delete_task(self, id):
+        cursor = self._connection.cursor()
+
+        cursor.execute("DELETE FROM Tasks WHERE id = ?", [id])
+
+        self._connection.commit()
 
 
 task_repository = TaskRepository(get_database_connection())
