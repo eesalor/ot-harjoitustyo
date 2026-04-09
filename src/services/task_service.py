@@ -5,8 +5,8 @@ class TaskService:
     def __init__(self):
         self._task_repository = task_repository
 
-    def create_task(self, entry):
-        task = Task(entry)
+    def create_task(self, title, date):
+        task = Task(title, date)
         return self._task_repository.create_task(task)
 
     def get_all_tasks(self):

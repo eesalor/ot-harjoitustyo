@@ -8,19 +8,18 @@ class TaskRepository:
     def create_task(self, task: Task):
         cursor = self._connection.cursor()
 
-        cursor.execute("INSERT INTO Tasks (title) VALUES (?)",
-                       [task.title])
+        cursor.execute("INSERT INTO Tasks (title, date) VALUES (?, ?)",
+                       [task.title, task.date])
 
         self._connection.commit()
 
     def get_all_tasks(self):
         cursor = self._connection.cursor()
-        tasks = cursor.execute("SELECT title FROM Tasks").fetchall()
-
+        tasks = cursor.execute("SELECT title, date FROM Tasks").fetchall()
         all_tasks = []
 
         for row in tasks:
-            task = Task(row[0])
+            task = Task(row[0], row[1])
             all_tasks.append(str(task))
 
         return all_tasks

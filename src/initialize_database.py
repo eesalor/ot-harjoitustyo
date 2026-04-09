@@ -17,7 +17,8 @@ def create_tables(connection):
     cursor.execute('''
         create table Tasks (
             id integer primary key,
-            title text
+            title text,
+            date date
         );
     ''')
 
