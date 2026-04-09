@@ -19,16 +19,16 @@ class TaskRepository:
         all_tasks = {}
 
         for row in tasks:
-            id = row[0]
+            task_id = row[0]
             task = Task(row[1], row[2])
-            all_tasks[id] = str(task)
+            all_tasks[task_id] = str(task)
 
         return all_tasks
 
-    def delete_task(self, id):
+    def delete_task(self, task_id):
         cursor = self._connection.cursor()
 
-        cursor.execute("DELETE FROM Tasks WHERE id = ?", [id])
+        cursor.execute("DELETE FROM Tasks WHERE id = ?", [task_id])
 
         self._connection.commit()
 
