@@ -8,9 +8,9 @@
 | 23.3. |  6  | Sovelluksen ensimmäinen kehitysversio. Alustava toiminnallisuus tehtävän lisäämisestä ja käyttöliittymä |
 | 26.3. |  6  | Sovelluksen konfigurointi ympäristömuuttujilla, yksikkötestejä tehtävien lisäämiselle ja hakemiselle tietokannasta, testikattavuuden konfigurointi |
 | 27.3  |  2  | Invoke-tehtävien lisääminen, sovelluksen asentamisen ja toimivuuden testaamista virtuaalityöasemalla |
-| 30.3. |  3.5 | Sovelluksen asentamisen ja toimivuuden testaamista virtuaalityöasemalla, ohjeet sovelluksen asentamiseen ja komentorivikomentoihin Readme-tiedostoon, sovelluksen käyttöliittymän muokkaamista, muutosloki viikon 3 osalta |
-|    .  |    | |
-|    .  |    | |
+| 30.3. | 3.5 | Sovelluksen asentamisen ja toimivuuden testaamista virtuaalityöasemalla, ohjeet sovelluksen asentamiseen ja komentorivikomentoihin Readme-tiedostoon, sovelluksen käyttöliittymän muokkaamista, muutosloki viikon 3 osalta |
+|  8.4. |  1  | Pylint-työkalun käyttöönotto koodin laadun tarkistamiseksi, tiedostopohja arkkitehtuurikuvausta varten, Readme-tiedoston päivitys |
+|  9.4. | 5.5 | Tehtävän lisäämiseen liittyvän toiminnallisuuden täydentäminen päivämäärän lisäämisellä. Alustava toiminnallisuus yksittäisten tehtävien poistamiseen. Yksikkötestit tehtävien poistamiselle. Yksikkötestit palvelukerrokseen. |
 |    .  |    |  |
 |   .   |    | |
-| **Yhteensä**   |  **26.5**  | | 
+| **Yhteensä**   |  **33**  | | 
