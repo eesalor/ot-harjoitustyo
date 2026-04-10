@@ -11,6 +11,10 @@
 | 30.3. | 3.5 | Sovelluksen asentamisen ja toimivuuden testaamista virtuaalityöasemalla, ohjeet sovelluksen asentamiseen ja komentorivikomentoihin Readme-tiedostoon, sovelluksen käyttöliittymän muokkaamista, muutosloki viikon 3 osalta |
 |  8.4. |  1  | Pylint-työkalun käyttöönotto koodin laadun tarkistamiseksi, tiedostopohja arkkitehtuurikuvausta varten, Readme-tiedoston päivitys |
 |  9.4. | 5.5 | Tehtävän lisäämiseen liittyvän toiminnallisuuden täydentäminen päivämäärän lisäämisellä. Alustava toiminnallisuus yksittäisten tehtävien poistamiseen. Yksikkötestit tehtävien poistamiselle. Yksikkötestit palvelukerrokseen. |
-|    .  |    |  |
+|  10.4 | 2.5 | Arkkitehtuuria kuvaavat luokka- ja pakkauskaaviot |
 |   .   |    | |
-| **Yhteensä**   |  **33**  | | 
+|   .   |    | |
+|   .   |    | |
+|   .   |    | |
+|   .   |    | |
+| **Yhteensä**   |  **35.5**  | | 
