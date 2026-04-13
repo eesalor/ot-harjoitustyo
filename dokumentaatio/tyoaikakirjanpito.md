@@ -12,9 +12,9 @@
 |  8.4. |  1  | Pylint-työkalun käyttöönotto koodin laadun tarkistamiseksi, tiedostopohja arkkitehtuurikuvausta varten, Readme-tiedoston päivitys |
 |  9.4. | 5.5 | Tehtävän lisäämiseen liittyvän toiminnallisuuden täydentäminen päivämäärän lisäämisellä. Alustava toiminnallisuus yksittäisten tehtävien poistamiseen. Yksikkötestit tehtävien poistamiselle. Yksikkötestit palvelukerrokseen. |
 |  10.4 | 2.5 | Arkkitehtuuria kuvaavat luokka- ja pakkauskaaviot |
+| 13.4. | 2   | Lisätty lomakkeen syötteisiin tarkistuksia, dokumentaation päivitykset: merkitty tehdyt toiminnallisuudet, muutosloki viikon 4 osalta |
 |   .   |    | |
 |   .   |    | |
 |   .   |    | |
 |   .   |    | |
-|   .   |    | |
-| **Yhteensä**   |  **35.5**  | | 
+| **Yhteensä**   |  **37.5**  | | 
