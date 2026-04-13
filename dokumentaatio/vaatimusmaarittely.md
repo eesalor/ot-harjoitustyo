@@ -7,22 +7,26 @@ Sovelluksen tarkoituksena on, että käyttäjä voi pitää kirjaa ja hallita te
 ## Suunnitellut toiminnallisuudet
 
 Sovellukseen suunnitellut toiminnallisuudet:
+- *Tehdyt toiminnallisuudet merkitty ruksilla*
 
-- Käyttäjä voi lisätä uuden tehtävän
-  - Tehtävä sisältää tiedot tehtävän nimestä, tehtävän deadlinesta, aihekategoriasta, ja onko tehtävä tehty / tekemättä
-- Käyttäjä näkee sovellukseen lisätyt tehtävät
-- Käyttäjä voi merkitä tehtäviä tehdyksi
-- Käyttäjä voi poistaa tehtäviä
-- Käyttäjä voi muokata lisäämiään tehtäviä
+- [x] Käyttäjä voi lisätä uuden tehtävän sisältäen seuraavat tiedot:
+  - [x] Tehtävän kuvaus
+  - [x] Tehtävän määräaika
+  - [ ] Aihekategoria
+  - [ ] Onko tehtävä tehty / tekemättä
+- [x] Käyttäjä näkee sovellukseen lisätyt tehtävät
+- [ ] Käyttäjä voi merkitä tehtäviä tehdyksi
+- [x] Käyttäjä voi poistaa tehtäviä
+- [ ] Käyttäjä voi muokata lisäämiään tehtäviä
 
 ## Jatkokehitysideoita
 
 Sovelluksen mahdollisia jatkokehityssuuntia:
 
-- Käyttäjä voi tarkastella tekemiään tehtäviä
-- Käyttäjä voi lisätä muita tehtäviin liittyviä tietoja
+- [ ] Käyttäjä voi tarkastella tekemiään tehtäviä
+- [ ] Käyttäjä voi lisätä muita tehtäviin liittyviä tietoja
   - Esim. käyttäjä voi määritellä tehtäviin toistumistiheyden, jolloin sovellus näyttää seuraavan ajankohdan tehtävän tekemiselle
-- Käyttäjä voi järjestää tehtäviä esimerkiksi päivänmäärän tai kategorian mukaan
-- Käyttäjä voi suodattaa tehtävänäkymää tehtäviin liittyvien kategorioiden perusteella
-- Käyttäjä voi lisätä uusia kategorioita valmiiseen valikkoon
-- Mahdollisuus luoda käyttäjätunnuksia ja kirjatua sovellukseen eri käyttäjillä
+- [ ] Käyttäjä voi järjestää tehtäviä esimerkiksi päivänmäärän tai kategorian mukaan
+- [ ] Käyttäjä voi suodattaa tehtävänäkymää tehtäviin liittyvien kategorioiden perusteella
+- [ ] Käyttäjä voi lisätä uusia kategorioita valmiiseen valikkoon
+- [ ] Mahdollisuus luoda käyttäjätunnuksia ja kirjatua sovellukseen eri käyttäjillä
