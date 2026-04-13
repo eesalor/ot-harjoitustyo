@@ -33,7 +33,7 @@ class TaskView:
         self._task_date = ttk.Entry(master=self._frame)
         
         button = ttk.Button(master=self._frame, text="Create", command=self._handle_create_button_click)
-        
+
         create_label.grid(padx=5, pady=5)
         task_title_label.grid(row=0, column=1,padx=5, pady=5)
         task_date_label.grid(row=0, column=2, padx=5, pady=5)
@@ -62,7 +62,8 @@ class TaskView:
         title = self._task_title.get()
         date = self._task_date.get()
 
-        task_service.create_task(title, date)
+        if title:
+            task_service.create_task(title, date)
 
         self._update_task_view()
 
@@ -75,6 +76,3 @@ class TaskView:
         results = task_service.get_all_tasks()
         
         return results
-
-
-
