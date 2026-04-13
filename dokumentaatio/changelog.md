@@ -8,3 +8,10 @@
 - Sovellukseen on lisätty sovelluslogiikkaa hoitava TaskService-luokka.
 - Sovellukseen on lisätty tehtävien tallennuksesta SQL-tietokantaan huolehtiva TaskRepository-luokka.
 - Sovellusta on testattu, että TaskRepository-luokka lisää uuden tehtävän ja palauttaa kaikki sovellukseen lisätyt tehtävät.
+
+## Viikko 4
+- Käyttäjä voi lisätä tehtävään myös deadlinen.
+- Käyttäjä voi poistaa lisäämiään tehtäviä.
+- Sovellusta on testattu, että TaskRepository-luokka poistaa tehtävän.
+- Sovellusta on testattu, että TaskService-luokka lisää uuden tehtävän, palauttaa sovellukseen lisätyt tehtävät ja poistaa tehtäviä.
+- Sovellukseen on lisätty Pylint-työkalu koodin laadun tarkistamiseksi.
