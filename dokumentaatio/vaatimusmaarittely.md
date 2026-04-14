@@ -11,7 +11,10 @@ Sovellukseen suunnitellut toiminnallisuudet:
 
 - [x] Käyttäjä voi lisätä uuden tehtävän sisältäen seuraavat tiedot:
   - [x] Tehtävän kuvaus
+    - [X] Tehtävän kuvaus ei saa olla tyhjä syöte (*virheviesti toistaiseksi toteuttamatta*)
+    - [ ] Tehtävän kuvaukseen määriteltävä enimmäismerkkimäärä
   - [x] Tehtävän määräaika
+    - [ ] Syötettävän päivämäärän validointi (*alustavasti luotu vain tekstikenttä, mutta validointi toteuttamatta*)
   - [ ] Aihekategoria
   - [ ] Onko tehtävä tehty / tekemättä
 - [x] Käyttäjä näkee sovellukseen lisätyt tehtävät
