@@ -13,8 +13,8 @@
 |  9.4. | 5.5 | Tehtävän lisäämiseen liittyvän toiminnallisuuden täydentäminen päivämäärän lisäämisellä. Alustava toiminnallisuus yksittäisten tehtävien poistamiseen. Yksikkötestit tehtävien poistamiselle. Yksikkötestit palvelukerrokseen. |
 |  10.4 | 2.5 | Arkkitehtuuria kuvaavat luokka- ja pakkauskaaviot |
 | 13.4. | 2   | Lisätty lomakkeen syötteisiin tarkistuksia, dokumentaation päivitykset: merkitty tehdyt toiminnallisuudet, muutosloki viikon 4 osalta |
+|  14.4 | 0.5 | Sovelluksen toimivuuden testaaminen, vaatimusmäärittelyn päivittäminen |
 |   .   |    | |
 |   .   |    | |
 |   .   |    | |
-|   .   |    | |
-| **Yhteensä**   |  **37.5**  | | 
+| **Yhteensä**   |  **38**  | | 
