@@ -23,6 +23,8 @@ class TaskView:
         self._listbox_dictionary_completed_tasks = None
 
         self._selected_task_id = None
+        self._selected_completed_task_id = None
+
         self._error = False
         self._error_label = None
         self._error_label_var = None
@@ -132,8 +134,8 @@ class TaskView:
         delete_button = ttk.Button(master=self._frame, text="Delete selected task", command=self._handle_delete_completed_button_click)
         delete_button.grid(row=7, column=2, sticky=(constants.E, constants.W), padx=5, pady=5)
 
-        #set_completed_button = ttk.Button(master=self._frame, text="Set uncompleted", command=self._handle_set_completed_button_click)
-        #set_completed_button.grid(row=8, column=2, sticky=(constants.E, constants.W), padx=5, pady=5)
+        set_uncompleted_button = ttk.Button(master=self._frame, text="Set uncompleted", command=self._handle_set_uncompleted_button_click)
+        set_uncompleted_button.grid(row=8, column=2, sticky=(constants.E, constants.W), padx=5, pady=5)
 
     def _show_task_list(self):
 
@@ -171,8 +173,8 @@ class TaskView:
             self._update_task_view()
 
     def _handle_delete_completed_button_click(self):
-        if self._selected_task_id:
-            task_service.delete_task(self._selected_task_id)
+        if self._selected_completed_task_id:
+            task_service.delete_task(self._selected_completed_task_id)
 
             self._update_task_view()
 
@@ -182,8 +184,17 @@ class TaskView:
 
             self._update_task_view()
 
+        else:
+            return
+
     def _handle_set_uncompleted_button_click(self):
-        pass
+        if self._selected_completed_task_id:
+            task_service.set_uncompleted(self._selected_completed_task_id)
+
+            self._update_task_view()
+
+        else:
+            return
 
     def _get_all_tasks(self):
         all_tasks = task_service.get_all_tasks()
@@ -206,5 +217,5 @@ class TaskView:
 
     def _select_completed_task(self, event):
         index = event.widget.curselection()[0]
-        self._selected_task_id = self._listbox_dictionary_completed_tasks[index][0]
+        self._selected_completed_task_id = self._listbox_dictionary_completed_tasks[index][0]
 
