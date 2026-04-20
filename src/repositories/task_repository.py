@@ -28,6 +28,21 @@ class TaskRepository:
 
         return all_tasks
 
+    def get_all_tasks_as_objects(self):
+        cursor = self._connection.cursor()
+        tasks = cursor.execute("SELECT id, title, date, completed FROM Tasks").fetchall()
+        all_task_objects = {}
+
+        for row in tasks:
+            task_id = row[0]
+            task = Task(row[1], row[2])
+            completed = row[3]
+            if completed == 1:
+                task.completed = True
+            all_task_objects[task_id] = task
+
+        return all_task_objects
+
     def delete_task(self, task_id):
         cursor = self._connection.cursor()
 
@@ -40,5 +55,7 @@ class TaskRepository:
 
         cursor.execute("UPDATE Tasks SET completed = 1 WHERE id = ?",
                         [task_id])
+
+        self._connection.commit()
 
 task_repository = TaskRepository(get_database_connection())
