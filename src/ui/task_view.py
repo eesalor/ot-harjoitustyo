@@ -92,7 +92,9 @@ class TaskView:
                 n += 1
 
         self._listbox.grid(column=1, sticky=(constants.E, constants.W))
-        self._listbox.bind('<<ListboxSelect>>', self._select_task)
+
+        if len(self._all_tasks) != 0:
+            self._listbox.bind('<<ListboxSelect>>', self._select_task)
 
         delete_button = ttk.Button(master=self._frame, text="Delete selected task", command=self._handle_delete_button_click)
         delete_button.grid(column=1, sticky=(constants.E, constants.W))
