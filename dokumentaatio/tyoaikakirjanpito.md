@@ -14,7 +14,7 @@
 |  10.4 | 2.5 | Arkkitehtuuria kuvaavat luokka- ja pakkauskaaviot |
 | 13.4. | 2   | Lisätty lomakkeen syötteisiin tarkistuksia, dokumentaation päivitykset: merkitty tehdyt toiminnallisuudet, muutosloki viikon 4 osalta |
 |  14.4 | 0.5 | Sovelluksen toimivuuden testaaminen, vaatimusmäärittelyn päivittäminen |
+|  16.4 | 5.5 | Tkinter Listbox-widgetiin perehtyminen. Käyttöliittymän muokkaus: tehtävät laatikkoon ja toiminnallisuus valitun tehtävän poistamiseksi. Käyttöliittymästä vastaavan koodin refaktorointi. Syötteen tarkistus ja virheviestien toteutuksen aloittaminen. |
+| 20.4. | 6.0 | Tehtävän määräajan validointi ja virheviestit. Toiminnallisuudet tehtävän tehdyksi/tekemättömäksi merkitsemiseksi. Yksikkötestit tehtyjen ja tekemättömien tehtävien hakemiseen sekä tehtävien merkistemiseen tehdyksi/tekemättömäksi. |
 |   .   |    | |
-|   .   |    | |
-|   .   |    | |
-| **Yhteensä**   |  **38**  | | 
+| **Yhteensä**   |  **49.5**  | | 
