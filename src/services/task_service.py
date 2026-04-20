@@ -15,5 +15,7 @@ class TaskService:
     def delete_task(self, task_id):
         return self._task_repository.delete_task(task_id)
 
+    def set_completed(self, task_id):
+        return self._task_repository.set_completed(task_id)
 
 task_service = TaskService()

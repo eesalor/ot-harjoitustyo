@@ -18,7 +18,8 @@ def create_tables(connection):
         create table Tasks (
             id integer primary key,
             title text,
-            date date
+            date date,
+            completed integer
         );
     ''')
 

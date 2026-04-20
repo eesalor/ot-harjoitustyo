@@ -97,6 +97,9 @@ class TaskView:
         delete_button = ttk.Button(master=self._frame, text="Delete selected task", command=self._handle_delete_button_click)
         delete_button.grid(column=1, sticky=(constants.E, constants.W))
 
+        set_completed_button = ttk.Button(master=self._frame, text="Set completed", command=self._handle_set_completed_button_click)
+        set_completed_button.grid(column=1, sticky=(constants.E, constants.W))
+
 
     def _show_task_list(self):
 
@@ -126,6 +129,12 @@ class TaskView:
     def _handle_delete_button_click(self):
         if self._selected_task_id:
             task_service.delete_task(self._selected_task_id)
+
+            self._update_task_view()
+
+    def _handle_set_completed_button_click(self):
+        if self._selected_task_id:
+            task_service.set_completed(self._selected_task_id)
 
             self._update_task_view()
 
