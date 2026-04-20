@@ -90,4 +90,13 @@ class TaskRepository:
 
         self._connection.commit()
 
+    def set_uncompleted(self, task_id):
+        cursor = self._connection.cursor()
+
+        cursor.execute("UPDATE Tasks SET completed = 0 WHERE id = ?",
+                        [task_id])
+
+        self._connection.commit()
+
+
 task_repository = TaskRepository(get_database_connection())

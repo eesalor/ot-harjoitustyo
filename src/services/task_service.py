@@ -24,4 +24,7 @@ class TaskService:
     def set_completed(self, task_id):
         return self._task_repository.set_completed(task_id)
 
+    def set_uncompleted(self, task_id):
+        return self._task_repository.set_uncompleted(task_id)
+
 task_service = TaskService()
