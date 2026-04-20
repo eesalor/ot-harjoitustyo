@@ -43,6 +43,38 @@ class TaskRepository:
 
         return all_task_objects
 
+    def get_uncompleted_tasks(self):
+        cursor = self._connection.cursor()
+
+        tasks = cursor.execute("SELECT id, title, date, completed FROM Tasks").fetchall()
+
+        all_uncompleted_tasks = {}
+
+        for row in tasks:
+            task_id = row[0]
+            task = Task(row[1], row[2])
+            completed = row[3]
+            if completed == 0:
+                all_uncompleted_tasks[task_id] = str(task)
+
+        return all_uncompleted_tasks
+
+    def get_completed_tasks(self):
+        cursor = self._connection.cursor()
+
+        tasks = cursor.execute("SELECT id, title, date, completed FROM Tasks").fetchall()
+
+        all_completed_tasks = {}
+
+        for row in tasks:
+            task_id = row[0]
+            task = Task(row[1], row[2])
+            completed = row[3]
+            if completed == 1:
+                all_completed_tasks[task_id] = str(task)
+
+        return all_completed_tasks
+
     def delete_task(self, task_id):
         cursor = self._connection.cursor()
 

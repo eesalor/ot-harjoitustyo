@@ -12,6 +12,12 @@ class TaskService:
     def get_all_tasks(self):
         return self._task_repository.get_all_tasks()
 
+    def get_uncompleted_tasks(self):
+        return self._task_repository.get_uncompleted_tasks()
+
+    def get_completed_tasks(self):
+        return self._task_repository.get_completed_tasks()
+
     def delete_task(self, task_id):
         return self._task_repository.delete_task(task_id)
 
