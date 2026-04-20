@@ -37,3 +37,28 @@ class TestTaskRepository(unittest.TestCase):
         tasks = self.database.get_all_tasks()
 
         self.assertEqual(tasks, {})
+
+    def test_set_task_completed_updates_completed_status(self):
+        self.database.create_task(self.task1)
+
+        self.database.set_completed(1)
+
+        tasks = self.database.get_all_tasks_as_objects()
+
+        self.assertEqual(tasks[1].completed, True)
+
+    def test_tasks_have_right_completed_status(self):
+        self.database.create_task(self.task1)
+        self.database.create_task(self.task2)
+
+        self.database.set_completed(1)
+
+        tasks_as_objects = self.database.get_all_tasks_as_objects()
+
+        self.assertEqual(tasks_as_objects[1].completed, True)
+        self.assertEqual(tasks_as_objects[2].completed, False)
+
+        tasks = self.database.get_all_tasks()
+
+        self.assertEqual(tasks[1], f"{self.task1.title} {self.task1.date} (completed)")
+        self.assertEqual(tasks[2], f"{self.task2.title} {self.task2.date}")
