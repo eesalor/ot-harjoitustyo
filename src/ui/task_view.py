@@ -3,6 +3,8 @@ from tkinter import *
 import tkinter as tk
 from services.task_service import task_service
 
+from datetime import datetime, timedelta
+
 class TaskView:
     def __init__(self, root, update_task_view):
         self._root = root
@@ -14,6 +16,10 @@ class TaskView:
         self._listbox = None
         self._listbox_dictionary = None
         self._selected_task_id = None
+        self._error = False
+        self._error_label = None
+        self._error_label_var = None
+        self._error_message = None
 
         self._initialize()
     
@@ -28,15 +34,37 @@ class TaskView:
 
         self._show_task_list()
 
+    def _validate_task_date_entry(self, entry):
+        try:
+            validated_date_entry = datetime.strptime(entry,  "%d.%m.%Y")
+        except:
+            self._error = True
+            self._error_message="The date not in form dd.mm.yyyy"
+            return
+
+        if validated_date_entry < datetime.now() - timedelta(days=1):
+            self._error = True
+            self._error_message = "The date has already passed"
+            return
+
+        self._error = False
+        self._error_message = None
+        return
+
     def _create_task_form(self):
 
         create_label= ttk.Label(master=self._frame, text="Create new task")
         task_title_label = ttk.Label(master=self._frame, text="Task")
-        task_date_label = ttk.Label(master=self._frame, text="Date")
+        task_date_label = ttk.Label(master=self._frame, text="Date (dd.mm.yyyy)")
 
         self._task_title_entry = ttk.Entry(master=self._frame)
         self._task_date_entry = ttk.Entry(master=self._frame)
         
+        self._error_label_var=StringVar()
+        self._error_label_var.set("")
+        self._error_label = tk.Label(master=self._frame, textvariable=self._error_label_var, fg="red")
+        self._error_label.grid(row=2, column=2, padx=5, pady=5)
+
         create_button = ttk.Button(master=self._frame, text="Create", command=self._handle_create_button_click)
 
         create_label.grid(padx=5, pady=5)
@@ -50,7 +78,7 @@ class TaskView:
 
     def _create_task_listbox(self):
         label = ttk.Label(master=self._frame, text="Task list:")
-        label.grid(padx=5, pady=5)
+        label.grid(row=5, column=0, padx=5, pady=5)
 
         self._listbox = Listbox(master=self._frame)
 
@@ -67,7 +95,8 @@ class TaskView:
         self._listbox.bind('<<ListboxSelect>>', self._select_task)
 
         delete_button = ttk.Button(master=self._frame, text="Delete selected task", command=self._handle_delete_button_click)
-        delete_button.grid(column=3, sticky=(constants.E, constants.W))
+        delete_button.grid(column=1, sticky=(constants.E, constants.W))
+
 
     def _show_task_list(self):
 
@@ -82,6 +111,12 @@ class TaskView:
     def _handle_create_button_click(self):
         title = self._task_title_entry.get()
         date = self._task_date_entry.get()
+
+        self._validate_task_date_entry(date)
+
+        if self._error:
+            self._error_label_var.set(self._error_message)
+            return
 
         if title:
             task_service.create_task(title, date)
