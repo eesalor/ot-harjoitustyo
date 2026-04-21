@@ -16,5 +16,5 @@
 |  14.4 | 0.5 | Sovelluksen toimivuuden testaaminen, vaatimusmäärittelyn päivittäminen |
 |  16.4 | 5.5 | Tkinter Listbox-widgetiin perehtyminen. Käyttöliittymän muokkaus: tehtävät laatikkoon ja toiminnallisuus valitun tehtävän poistamiseksi. Käyttöliittymästä vastaavan koodin refaktorointi. Syötteen tarkistus ja virheviestien toteutuksen aloittaminen. |
 | 20.4. | 6.0 | Tehtävän määräajan validointi ja virheviestit. Toiminnallisuudet tehtävän tehdyksi/tekemättömäksi merkitsemiseksi. Yksikkötestit tehtyjen ja tekemättömien tehtävien hakemiseen sekä tehtävien merkistemiseen tehdyksi/tekemättömäksi. |
-|   .   |    | |
-| **Yhteensä**   |  **49.5**  | | 
+| 21.4. | 4.5 | Sekvenssikaaviot tehtävän lisäämiselle ja tehtävän merkitsemiseksi tehdyksi. Tehtävän kuvauksen validointi ja virheviestit. Vaatimusmäärittelyn päivittäminen. Muutosloki viikon 5 osalta. Ensimmäinen GitHub release. |
+| **Yhteensä**   |  **54**  | | 
