@@ -25,10 +25,15 @@ class TaskView:
         self._selected_task_id = None
         self._selected_completed_task_id = None
 
-        self._error = False
-        self._error_label = None
-        self._error_label_var = None
-        self._error_message = None
+        self._task_error = False
+        self._task_error_label = None
+        self._task_error_label_var = None
+        self._task_error_message = None
+
+        self._date_error = False
+        self._date_error_label = None
+        self._date_error_label_var = None
+        self._date_error_message = None
 
         self._initialize()
     
@@ -41,38 +46,34 @@ class TaskView:
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
 
+        self._show_new_task_form()
+
         self._show_task_list()
 
-    def _validate_task_date_entry(self, entry):
-        try:
-            validated_date_entry = datetime.strptime(entry,  "%d.%m.%Y")
-        except:
-            self._error = True
-            self._error_message="The date not in form dd.mm.yyyy"
-            return
+    def _show_new_task_form(self):
 
-        if validated_date_entry < datetime.now() - timedelta(days=1):
-            self._error = True
-            self._error_message = "The date has already passed"
-            return
+        self._create_task_form()
 
-        self._error = False
-        self._error_message = None
-        return
+        self._show_errors()
+
+    def _show_task_list(self):
+
+        self._uncompleted_tasks = self._get_uncompleted_tasks()
+        self._completed_tasks = self._get_completed_tasks()
+
+        self._create_uncompleted_task_listbox()
+        self._create_completed_task_listbox()
+
+        self._root.grid_columnconfigure(1, weight=1)
 
     def _create_task_form(self):
 
         create_label= ttk.Label(master=self._frame, text="Create new task")
-        task_title_label = ttk.Label(master=self._frame, text="Task")
-        task_date_label = ttk.Label(master=self._frame, text="Date (dd.mm.yyyy)")
+        task_title_label = ttk.Label(master=self._frame, text="Task*")
+        task_date_label = ttk.Label(master=self._frame, text="Date (dd.mm.yyyy)*")
 
         self._task_title_entry = ttk.Entry(master=self._frame)
         self._task_date_entry = ttk.Entry(master=self._frame)
-        
-        self._error_label_var=StringVar()
-        self._error_label_var.set("")
-        self._error_label = tk.Label(master=self._frame, textvariable=self._error_label_var, fg="red")
-        self._error_label.grid(row=2, column=2, padx=5, pady=5)
 
         create_button = ttk.Button(master=self._frame, text="Create", command=self._handle_create_button_click)
 
@@ -84,6 +85,17 @@ class TaskView:
         self._task_date_entry.grid(row=1, column=2, sticky=(constants.E, constants.W), padx=5, pady=5)
 
         create_button.grid(row=1, column=3, sticky=(constants.E, constants.W))
+
+    def _show_errors(self):
+        self._task_error_label_var = StringVar()
+        self._task_error_label_var.set("")
+        self._task_error_label = tk.Label(master=self._frame, textvariable=self._task_error_label_var, fg="red")
+        self._task_error_label.grid(row=2, column=1, padx=5, pady=5)
+
+        self._date_error_label_var = StringVar()
+        self._date_error_label_var.set("")
+        self._date_error_label = tk.Label(master=self._frame, textvariable=self._date_error_label_var, fg="red")
+        self._date_error_label.grid(row=2, column=2, padx=5, pady=5)
 
     def _create_uncompleted_task_listbox(self):
         label = ttk.Label(master=self._frame, text="Uncompleted tasks:")
@@ -137,32 +149,21 @@ class TaskView:
         set_uncompleted_button = ttk.Button(master=self._frame, text="Set uncompleted", command=self._handle_set_uncompleted_button_click)
         set_uncompleted_button.grid(row=8, column=2, sticky=(constants.E, constants.W), padx=5, pady=5)
 
-    def _show_task_list(self):
-
-        self._create_task_form()
-
-        self._uncompleted_tasks = self._get_uncompleted_tasks()
-
-        self._completed_tasks = self._get_completed_tasks()
-
-        self._create_uncompleted_task_listbox()
-
-        self._create_completed_task_listbox()
-
-        self._root.grid_columnconfigure(1, weight=1)
-
     def _handle_create_button_click(self):
         title = self._task_title_entry.get()
         date = self._task_date_entry.get()
 
+        self._validate_task_title_entry(title)
         self._validate_task_date_entry(date)
 
-        if self._error:
-            self._error_label_var.set(self._error_message)
+        self._task_error_label_var.set(self._task_error_message)
+
+        self._date_error_label_var.set(self._date_error_message)
+
+        if self._task_error or self._date_error:
             return
 
-        if title:
-            task_service.create_task(title, date)
+        task_service.create_task(title, date)
 
         self._update_task_view()
 
@@ -219,3 +220,38 @@ class TaskView:
         index = event.widget.curselection()[0]
         self._selected_completed_task_id = self._listbox_dictionary_completed_tasks[index][0]
 
+    def _validate_task_title_entry(self, entry):
+        if len(entry) == 0:
+            self._task_error = True
+            self._task_error_message = "Please enter a task"
+            self._task_error_label_var.set(self._task_error_message)
+            return
+
+        elif len(entry) > 100:
+            self._task_error = True
+            self._task_error_message = "Maximum length is 100 character"
+            self._date_error_label_var.set(self._date_error_message)
+            return
+
+        self._task_error = False
+        self._task_error_message = ""
+        self._task_error_label_var.set(self._task_error_message)
+        return
+
+    def _validate_task_date_entry(self, entry):
+        try:
+            validated_date_entry = datetime.strptime(entry,  "%d.%m.%Y")
+        except:
+            self._date_error = True
+            self._date_error_message="The date not in form dd.mm.yyyy"
+            return
+
+        if validated_date_entry < datetime.now() - timedelta(days=1):
+            self._date_error = True
+            self._date_error_message = "The date has already passed"
+            return
+
+        self._date_error = False
+        self._date_error_message = ""
+        self._date_error_label_var.set(self._date_error_message)
+        return
