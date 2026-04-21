@@ -13,6 +13,7 @@ Kuvaus `Task`-luokasta, jossa määritellään sovellukseen lisättävän tehtä
     class Task{
         title
         date
+        completed
     }
 ```
 
