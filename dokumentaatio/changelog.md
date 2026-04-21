@@ -15,3 +15,10 @@
 - Sovellusta on testattu, että TaskRepository-luokka poistaa tehtävän.
 - Sovellusta on testattu, että TaskService-luokka lisää uuden tehtävän, palauttaa sovellukseen lisätyt tehtävät ja poistaa tehtäviä.
 - Sovellukseen on lisätty Pylint-työkalu koodin laadun tarkistamiseksi.
+
+## Viikko 5
+- Käyttäjä voi merkitä tekemättömän tehtävän tehdyksi ja tehdyn tehtävän tekemättömäksi.
+- Käyttäjä näkee tekemättömät ja tehdyt tehtävät erillisissä luetteloruuduissa.
+- Käyttäjä voi poistaa sekä tekemättömiä että tehtyjä tehtäviä.
+- Sovellusta on testattu, että TaskReporitory-luokka merkitsee tehtävät tehdyksi/tekemättömäksi.
+- Sovellusta on testattu, että TaskRepository-luokka hakee tekemättömät ja tehdyt tehtävät.
