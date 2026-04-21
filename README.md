@@ -4,6 +4,10 @@ Sovelluksen tarkoituksena on, että käyttäjä voi pitää kirjaa ja hallita te
 
 Sovellus on ohjelmistotekniikan harjoitustyö.
 
+## Versiot
+
+- Sovelluksen viimeisin GitHub release: [viikko5](https://github.com/eesalor/ot-harjoitustyo/releases/tag/viikko5)
+
 ## Dokumentaatio
 
 - [Vaatimusmäärittely](https://github.com/eesalor/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
