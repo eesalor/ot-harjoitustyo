@@ -4,7 +4,7 @@ from ui.ui import UI
 
 def main():
     window = Tk()
-    window.title("Title")
+    window.title("Manage Your Tasks")
     window.minsize(400, 400)
 
     ui = UI(window)
