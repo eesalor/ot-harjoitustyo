@@ -1,4 +1,4 @@
-# Tehtävienhallintasovellus
+# Manage Your Tasks
 
 Sovelluksen tarkoituksena on, että käyttäjä voi pitää kirjaa ja hallita tekemättömiä tehtäviään. Sovellusta on mahdollista käyttää yksi käyttäjä. Sovellus toteutetaan työpöytäsovelluksena, joka hyödyntää SQL-tietokantaa.
 
