@@ -14,11 +14,14 @@ Sovellukseen suunnitellut toiminnallisuudet:
     - [X] Tehtävän kuvaus ei saa olla tyhjä syöte (*virheviesti toistaiseksi toteuttamatta*)
     - [ ] Tehtävän kuvaukseen määriteltävä enimmäismerkkimäärä
   - [x] Tehtävän määräaika
-    - [ ] Syötettävän päivämäärän validointi (*alustavasti luotu vain tekstikenttä, mutta validointi toteuttamatta*)
+    - [X] Syötettävän päivämäärän oltava muotoa pp.kk.vvvv
+    - [X] Syötettävä päivämäärä ei voi olla mennyt päivämäärä
   - [ ] Aihekategoria
-  - [ ] Onko tehtävä tehty / tekemättä
+  - [X] Onko tehtävä tehty / tekemättä
 - [x] Käyttäjä näkee sovellukseen lisätyt tehtävät
-- [ ] Käyttäjä voi merkitä tehtäviä tehdyksi
+    - [X] Tekemättömät ja tehdyt tehtävät näkyvät käyttäjälle erillisissä luetteloruuduissa
+- [X] Käyttäjä voi merkitä tekemättömiä tehtäviä tehdyksi
+- [X] Käyttäjä voi merkitä tehtyjä tehtäviä tekemättömäksi 
 - [x] Käyttäjä voi poistaa tehtäviä
 - [ ] Käyttäjä voi muokata lisäämiään tehtäviä
 
