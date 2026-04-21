@@ -11,8 +11,8 @@ Sovellukseen suunnitellut toiminnallisuudet:
 
 - [x] Käyttäjä voi lisätä uuden tehtävän sisältäen seuraavat tiedot:
   - [x] Tehtävän kuvaus
-    - [X] Tehtävän kuvaus ei saa olla tyhjä syöte (*virheviesti toistaiseksi toteuttamatta*)
-    - [ ] Tehtävän kuvaukseen määriteltävä enimmäismerkkimäärä
+    - [X] Tehtävän kuvaus ei saa olla tyhjä syöte
+    - [X] Tehtävän kuvauksen enimmäispituus on 100 merkkiä
   - [x] Tehtävän määräaika
     - [X] Syötettävän päivämäärän oltava muotoa pp.kk.vvvv
     - [X] Syötettävä päivämäärä ei voi olla mennyt päivämäärä
