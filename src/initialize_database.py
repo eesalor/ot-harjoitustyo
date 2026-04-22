@@ -8,6 +8,10 @@ def drop_tables(connection):
         drop table if exists Tasks;
     ''')
 
+    cursor.execute('''
+        drop table if exists Categories;
+    ''')
+
     connection.commit()
 
 
@@ -19,10 +23,17 @@ def create_tables(connection):
             id integer primary key,
             title text,
             date date,
-            completed integer
+            completed integer,
+            category_id references Categories
         );
     ''')
 
+    cursor.execute('''
+        create table Categories (
+            id integer primary key,
+            title text
+        );
+    ''')
     connection.commit()
 
 
