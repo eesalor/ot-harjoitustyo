@@ -13,6 +13,9 @@ class TaskView:
 
         self._task_title_entry = None
         self._task_date_entry = None
+        self._task_category_combobox = None
+
+        self._all_categories = None
 
         self._selected_uncompleted_task_id = None
         self._selected_completed_task_id = None
@@ -120,6 +123,8 @@ class TaskView:
 
         self._initialize_date_field()
 
+        self._initialize_category_combobox()
+
     def _initialize_task_field(self):
         task_title_label = ttk.Label(master=self._frame, text="Task*")
 
@@ -160,9 +165,27 @@ class TaskView:
 
         create_button.grid(row=1, column=7, sticky=(constants.E, constants.W))
 
+    def _initialize_category_combobox(self):
+        category_label = ttk.Label(master=self._frame, text="Enter or select category:")
+        category_label.grid(row=0, column=11, padx=5, pady=5)
+
+        selected = tk.StringVar()
+        self._task_category_combobox = ttk.Combobox(
+            master=self._frame,
+            width=20,
+            textvariable=selected
+            )
+
+        self._task_category_combobox['values'] = ('Test1', 'Test2')
+
+        self._task_category_combobox.grid(row=1, column=11, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
+
     def _handle_create_button_click(self):
         title = self._task_title_entry.get()
         date = self._task_date_entry.get()
+        category = self._task_category_combobox.get()
+
+        self._all_categories = task_service.get_categories()
 
         self._validate_task_title_entry(title)
         self._validate_task_date_entry(date)
@@ -174,7 +197,8 @@ class TaskView:
         if self._task_error or self._date_error:
             return
 
-        task_service.create_task(title, date)
+        task_service.create_category(category)
+        task_service.create_task(title, date, category)
 
         self._update_task_view()
 

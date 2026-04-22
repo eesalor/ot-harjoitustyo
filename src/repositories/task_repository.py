@@ -5,11 +5,12 @@ class TaskRepository:
     def __init__(self, connection):
         self._connection = connection
 
-    def create_task(self, task: Task):
+    def create_task(self, task: Task, category_id):
         cursor = self._connection.cursor()
 
-        cursor.execute("INSERT INTO Tasks (title, date, completed) VALUES (?, ?, 0)",
-                       [task.title, task.date])
+        cursor.execute("""INSERT INTO Tasks (title, date, category_id, completed)
+                    VALUES (?, ?, ?, 0)""",
+                       [task.title, task.date, category_id])
 
         self._connection.commit()
 
