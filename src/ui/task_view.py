@@ -214,12 +214,16 @@ class TaskView:
         return completed_tasks
 
     def _select_uncompleted_task(self, event):
-        index = event.widget.curselection()[0]
-        self._selected_uncompleted_task_id = self._listbox_dictionary[index][0]
+        selection = event.widget.curselection()
+        if selection:
+            index = selection[0]
+            self._selected_uncompleted_task_id = self._listbox_dictionary[index][0]
 
     def _select_completed_task(self, event):
-        index = event.widget.curselection()[0]
-        self._selected_completed_task_id = self._listbox_dictionary_completed_tasks[index][0]
+        selection = event.widget.curselection()
+        if selection:
+            index = selection[0]
+            self._selected_completed_task_id = self._listbox_dictionary_completed_tasks[index][0]
 
     def _validate_task_title_entry(self, entry):
         if len(entry) == 0:
