@@ -10,20 +10,18 @@ class TaskView:
         self._root = root
         self._frame = None
         self._update_task_view = update_task_view
+
         self._task_title_entry = None
         self._task_date_entry = None
-        self._all_tasks = None
-        self._uncompleted_tasks = None
-        self._completed_tasks = None
-
-        self._listbox = None
-        self._listbox_dictionary = None
-
-        self._listbox_completed_tasks = None
-        self._listbox_dictionary_completed_tasks = None
 
         self._selected_uncompleted_task_id = None
         self._selected_completed_task_id = None
+
+        self._listbox_uncompleted_tasks = None
+        self._listbox_completed_tasks = None
+
+        self._listbox_dict_uncompleted_tasks = None
+        self._listbox_dict_completed_tasks = None
 
         self._task_error = False
         self._task_error_label = None
@@ -50,7 +48,9 @@ class TaskView:
 
         self._show_errors()
 
-        self._show_task_listboxes()
+        self._initialize_uncompleted_task_listbox()
+
+        self._initialize_completed_task_listbox()
 
         set_completed_button = ttk.Button(
             master=self._frame,
@@ -108,20 +108,12 @@ class TaskView:
             pady=5
             )
 
-    def _show_task_listboxes(self):
-
-        self._uncompleted_tasks = self._get_uncompleted_tasks()
-        self._completed_tasks = self._get_completed_tasks()
-
-        self._create_uncompleted_task_listbox()
-        self._create_completed_task_listbox()
-
         self._root.grid_columnconfigure(1, weight=1)
         self._root.grid_columnconfigure(2, weight=1)
 
     def _initialize_task_creation_form(self):
-
         create_label= ttk.Label(master=self._frame, text="Create new task")
+
         create_label.grid(row=0, column=0, padx=5, pady=5)
 
         self._initialize_task_field()
@@ -197,44 +189,46 @@ class TaskView:
         self._date_error_label = tk.Label(master=self._frame, textvariable=self._date_error_label_var, fg="red")
         self._date_error_label.grid(row=2, column=3, columnspan=2, padx=5, pady=5)
 
-    def _create_uncompleted_task_listbox(self):
+    def _initialize_uncompleted_task_listbox(self):
         label = ttk.Label(master=self._frame, text="Uncompleted tasks:")
         label.grid(row=5, column=1, columnspan=2, padx=5, pady=5)
 
         self._listbox = Listbox(master=self._frame, width=60)
 
-        self._listbox_dictionary = {}
+        self._listbox.grid(column=1, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
+
+        self._uncompleted_tasks = task_service.get_uncompleted_tasks()
+
+        self._listbox_dict_uncompleted_tasks = {}
 
         n = 0
         if len(self._uncompleted_tasks) != 0:
             for row in self._uncompleted_tasks.items():
-                self._listbox_dictionary[n] = row
+                self._listbox_dict_uncompleted_tasks[n] = row
                 self._listbox.insert(tk.END, row[1])
                 n += 1
 
-        self._listbox.grid(column=1, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
-
-        if len(self._uncompleted_tasks) != 0:
             self._listbox.bind('<<ListboxSelect>>', self._select_uncompleted_task)
 
-    def _create_completed_task_listbox(self):
+    def _initialize_completed_task_listbox(self):
         label = ttk.Label(master=self._frame, text="Completed tasks:")
         label.grid(row=5, column=3, columnspan=2, padx=5, pady=5)
 
         self._listbox_completed_tasks = Listbox(master=self._frame, width=60)
 
-        self._listbox_dictionary_completed_tasks = {}
+        self._listbox_completed_tasks.grid(row=6, column=3, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
+
+        self._completed_tasks = task_service.get_completed_tasks()
+
+        self._listbox_dict_completed_tasks = {}
 
         n = 0
         if len(self._completed_tasks) != 0:
             for row in self._completed_tasks.items():
-                self._listbox_dictionary_completed_tasks[n] = row
+                self._listbox_dict_completed_tasks[n] = row
                 self._listbox_completed_tasks.insert(tk.END, row[1])
                 n += 1
 
-        self._listbox_completed_tasks.grid(row=6, column=3, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
-
-        if len(self._completed_tasks) != 0:
             self._listbox_completed_tasks.bind('<<ListboxSelect>>', self._select_completed_task)
 
     def _handle_delete_uncompleted_button_click(self):
@@ -267,32 +261,17 @@ class TaskView:
         else:
             return
 
-    def _get_all_tasks(self):
-        all_tasks = task_service.get_all_tasks()
-        
-        return all_tasks
-
-    def _get_uncompleted_tasks(self):
-        uncompleted_tasks = task_service.get_uncompleted_tasks()
-
-        return uncompleted_tasks
-
-    def _get_completed_tasks(self):
-        completed_tasks = task_service.get_completed_tasks()
-
-        return completed_tasks
-
     def _select_uncompleted_task(self, event):
         selection = event.widget.curselection()
         if selection:
             index = selection[0]
-            self._selected_uncompleted_task_id = self._listbox_dictionary[index][0]
+            self._selected_uncompleted_task_id = self._listbox_dict_uncompleted_tasks[index][0]
 
     def _select_completed_task(self, event):
         selection = event.widget.curselection()
         if selection:
             index = selection[0]
-            self._selected_completed_task_id = self._listbox_dictionary_completed_tasks[index][0]
+            self._selected_completed_task_id = self._listbox_dict_completed_tasks[index][0]
 
     def _validate_task_title_entry(self, entry):
         if len(entry) == 0:
