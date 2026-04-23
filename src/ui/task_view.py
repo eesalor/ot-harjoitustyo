@@ -17,6 +17,7 @@ class TaskView:
 
         self._all_categories = None
 
+        self._selected_category = None
         self._selected_uncompleted_task_id = None
         self._selected_completed_task_id = None
 
@@ -169,17 +170,16 @@ class TaskView:
         category_label = ttk.Label(master=self._frame, text="Enter or select category:")
         category_label.grid(row=0, column=11, padx=5, pady=5)
 
-        selected = tk.StringVar()
-
         self._task_category_combobox = ttk.Combobox(
             master=self._frame,
-            width=20,
-            textvariable=selected
+            width=20
             )
 
         categories = task_service.get_categories()
 
         self._task_category_combobox['values'] = categories
+
+        self._task_category_combobox.bind('<<ComboboxSelected>>', self._select_category)
 
         self._task_category_combobox.grid(
             row=1,
@@ -189,6 +189,25 @@ class TaskView:
             padx=5,
             pady=5
             )
+
+        delete_category_button = ttk.Button(
+            master=self._frame,
+            text="Delete selected category",
+            command=self._handle_delete_category_button_click
+            )
+
+        delete_category_button.grid(
+            row=2,
+            column=15,
+            columnspan=2,
+            sticky=(constants.E, constants.W),
+            padx=5,
+            pady=5
+        )
+
+    def _select_category(self, event):
+        self._selected_category = event.widget.get()
+        return
 
     def _handle_create_button_click(self):
         title = self._task_title_entry.get()
@@ -209,6 +228,16 @@ class TaskView:
 
         task_service.create_category(category)
         task_service.create_task(title, date, category)
+
+        self._update_task_view()
+
+    def _handle_delete_category_button_click(self):
+        if not self._selected_category:
+            return
+
+        category = self._task_category_combobox.get()
+
+        task_service.delete_category(category)
 
         self._update_task_view()
 

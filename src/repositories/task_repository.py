@@ -99,5 +99,12 @@ class TaskRepository:
 
         self._connection.commit()
 
+    def delete_category_from_task(self, category_id):
+        cursor = self._connection.cursor()
+
+        cursor.execute("UPDATE Tasks SET category_id = ? WHERE category_id = ?", [None, category_id])
+
+        self._connection.commit()
 
 task_repository = TaskRepository(get_database_connection())
+

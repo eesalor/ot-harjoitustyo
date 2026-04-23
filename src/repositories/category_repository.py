@@ -57,5 +57,12 @@ class CategoryRepository:
 
         return True if result else False
 
+    def delete_category(self, id):
+        cursor = self._connection.cursor()
+
+        cursor.execute("DELETE FROM Categories WHERE id = ?", [id])
+
+        self._connection.commit()
+
 category_repository = CategoryRepository(get_database_connection())
 
