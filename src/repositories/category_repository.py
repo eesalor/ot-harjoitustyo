@@ -4,7 +4,7 @@ from database_connection import get_database_connection
 class CategoryRepository:
     def __init__(self, connection):
         self._connection = connection
-    
+
     def create_category(self, category: Category):
         cursor = self._connection.cursor()
         print(category.title)
@@ -13,14 +13,14 @@ class CategoryRepository:
                        [category.title])
 
         self._connection.commit()
-    
+
     def get_categories_with_id(self):
         cursor = self._connection.cursor()
 
         categories = cursor.execute("SELECT id, title FROM Categories").fetchall()
 
         all_categories = {}
-        
+
         for row in categories:
             category_id = row[0]
             category = Category(row[1])
@@ -40,7 +40,7 @@ class CategoryRepository:
             all_categories.append(str(category))
 
         return all_categories
-    
+
     def get_category_id(self, category):
         cursor = self._connection.cursor()
 
@@ -53,16 +53,19 @@ class CategoryRepository:
     def find_category_by_name(self, category):
         cursor = self._connection.cursor()
 
-        result = cursor.execute("SELECT title FROM Categories WHERE title = ?", [category]).fetchone()
+        result = cursor.execute("""SELECT title FROM Categories
+                                WHERE title = ?""", [category]).fetchone()
 
-        return True if result else False
+        if result:
+            return True
 
-    def delete_category(self, id):
+        return False
+
+    def delete_category(self, category_id):
         cursor = self._connection.cursor()
 
-        cursor.execute("DELETE FROM Categories WHERE id = ?", [id])
+        cursor.execute("DELETE FROM Categories WHERE id = ?", [category_id])
 
         self._connection.commit()
 
 category_repository = CategoryRepository(get_database_connection())
-

@@ -43,18 +43,15 @@ class TaskService:
         return self._category_repository.get_categories()
 
     def create_category(self, category):
-
-        if not category:
-            return
-
         existing_category = self._category_repository.find_category_by_name(category)
 
-        if existing_category:
-            return
+        if not existing_category:
 
-        category = Category(title=category)
+            category = Category(title=category)
 
-        return self._category_repository.create_category(category)
+            return self._category_repository.create_category(category)
+
+        return category
 
     def delete_category(self, category):
         category_id = self._category_repository.get_category_id(category)
@@ -64,4 +61,3 @@ class TaskService:
         self._category_repository.delete_category(category_id)
 
 task_service = TaskService()
-

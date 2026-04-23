@@ -131,7 +131,12 @@ class TaskView:
 
         self._task_title_entry = ttk.Entry(master=self._frame)
 
-        task_title_label.grid(row=0, column=1, padx=5, pady=5)
+        task_title_label.grid(
+            row=0,
+            column=1,
+            padx=5,
+            pady=5
+            )
 
         self._task_title_entry.grid(
             row=1,
@@ -147,7 +152,13 @@ class TaskView:
 
         self._task_date_entry = ttk.Entry(master=self._frame)
 
-        task_date_label.grid(row=0, column=3, padx=5, pady=5)
+        task_date_label.grid(
+            row=0,
+            column=3,
+            columnspan=2,
+            padx=5,
+            pady=5
+            )
 
         self._task_date_entry.grid(
             row=1,
@@ -160,19 +171,26 @@ class TaskView:
 
         create_button = ttk.Button(
             master=self._frame,
-            text="Create",
+            text="Create task",
             command=self._handle_create_button_click
             )
 
-        create_button.grid(row=1, column=7, sticky=(constants.E, constants.W))
+        create_button.grid(
+            row=1,
+            column=11,
+            columnspan=2,
+            sticky=(constants.E, constants.W),
+            padx=5,
+            pady=5
+            )
 
     def _initialize_category_combobox(self):
         category_label = ttk.Label(master=self._frame, text="Enter or select category:")
-        category_label.grid(row=0, column=11, padx=5, pady=5)
+        category_label.grid(row=0, column=8, padx=5, pady=5)
 
         self._task_category_combobox = ttk.Combobox(
             master=self._frame,
-            width=20
+            width=20,
             )
 
         categories = task_service.get_categories()
@@ -183,7 +201,7 @@ class TaskView:
 
         self._task_category_combobox.grid(
             row=1,
-            column=11,
+            column=8,
             columnspan=2,
             sticky=(constants.E, constants.W),
             padx=5,
@@ -198,7 +216,7 @@ class TaskView:
 
         delete_category_button.grid(
             row=2,
-            column=15,
+            column=11,
             columnspan=2,
             sticky=(constants.E, constants.W),
             padx=5,
@@ -226,7 +244,9 @@ class TaskView:
         if self._task_error or self._date_error:
             return
 
-        task_service.create_category(category)
+        if category != "":
+            task_service.create_category(category)
+
         task_service.create_task(title, date, category)
 
         self._update_task_view()
