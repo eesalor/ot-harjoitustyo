@@ -9,14 +9,13 @@ class Task:
         if self.completed is False:
             if not self.category:
                 return f"{self.date:15} {self.title:30} (No category)"
-            else:
-                return f"{self.date:15} {self.title:30} {self.category}"
-        else:
-            if not self.category:
-                return f"{self.date:15} {self.title:30} (No category)"
-            else:
-                return f"{self.date:15} {self.title:30} {self.category}"
+
+            return f"{self.date:15} {self.title:30} {self.category}"
+
+        if not self.category:
+            return f"{self.date:15} {self.title:30} (No category)"
+
+        return f"{self.date:15} {self.title:30} {self.category}"
 
     def __repr__(self):
         return f"({self.title}, {self.date}, {self.category}, {self.completed})"
-

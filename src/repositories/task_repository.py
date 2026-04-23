@@ -31,7 +31,8 @@ class TaskRepository:
 
     def get_all_tasks_as_objects(self):
         cursor = self._connection.cursor()
-        tasks = cursor.execute("SELECT id, title, date, completed, category_id FROM Tasks").fetchall()
+        tasks = cursor.execute("""SELECT id, title, date, completed, category_id
+                               FROM Tasks""").fetchall()
         all_task_objects = {}
 
         for row in tasks:
@@ -49,7 +50,8 @@ class TaskRepository:
     def get_tasks_with_categories(self, categories):
 
         cursor = self._connection.cursor()
-        tasks = cursor.execute("SELECT id, title, date, completed, category_id FROM Tasks").fetchall()
+        tasks = cursor.execute("""SELECT id, title, date, completed, category_id
+                               FROM Tasks""").fetchall()
 
         all_task_objects = {}
 
