@@ -5,8 +5,18 @@ class Task:
         self.completed = completed
         self.category = category
 
-    def __repr__(self):
+    def __str__(self):
         if self.completed is False:
-            return f"{self.title} {self.date} {self.category}"
+            if not self.category:
+                return f"{self.date:15} {self.title:30} (No category)"
+            else:
+                return f"{self.date:15} {self.title:30} {self.category}"
+        else:
+            if not self.category:
+                return f"{self.date:15} {self.title:30} (No category)"
+            else:
+                return f"{self.date:15} {self.title:30} {self.category}"
 
-        return f"{self.title} {self.date} (completed)"
+    def __repr__(self):
+        return f"({self.title}, {self.date}, {self.category}, {self.completed})"
+
