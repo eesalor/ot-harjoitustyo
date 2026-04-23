@@ -170,15 +170,25 @@ class TaskView:
         category_label.grid(row=0, column=11, padx=5, pady=5)
 
         selected = tk.StringVar()
+
         self._task_category_combobox = ttk.Combobox(
             master=self._frame,
             width=20,
             textvariable=selected
             )
 
-        self._task_category_combobox['values'] = ('Test1', 'Test2')
+        categories = task_service.get_categories()
 
-        self._task_category_combobox.grid(row=1, column=11, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
+        self._task_category_combobox['values'] = categories
+
+        self._task_category_combobox.grid(
+            row=1,
+            column=11,
+            columnspan=2,
+            sticky=(constants.E, constants.W),
+            padx=5,
+            pady=5
+            )
 
     def _handle_create_button_click(self):
         title = self._task_title_entry.get()

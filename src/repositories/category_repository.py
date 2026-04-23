@@ -14,7 +14,7 @@ class CategoryRepository:
 
         self._connection.commit()
     
-    def get_categories(self):
+    def get_categories_with_id(self):
         cursor = self._connection.cursor()
 
         categories = cursor.execute("SELECT id, title FROM Categories").fetchall()
@@ -27,6 +27,19 @@ class CategoryRepository:
             all_categories[category_id] = str(category)
 
         return all_categories
+
+    def get_categories(self):
+        cursor = self._connection.cursor()
+
+        categories = cursor.execute("SELECT title FROM Categories").fetchall()
+
+        all_categories = []
+
+        for row in categories:
+            category = Category(row[0])
+            all_categories.append(str(category))
+
+        return all_categories
     
     def get_category_id(self, category):
         cursor = self._connection.cursor()
@@ -36,6 +49,13 @@ class CategoryRepository:
             category_id = row[0]
 
         return category_id
+
+    def find_category_by_name(self, category):
+        cursor = self._connection.cursor()
+
+        result = cursor.execute("SELECT title FROM Categories WHERE title = ?", [category]).fetchone()
+
+        return True if result else False
 
 category_repository = CategoryRepository(get_database_connection())
 

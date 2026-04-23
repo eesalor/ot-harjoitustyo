@@ -36,10 +36,22 @@ class TaskService:
     def set_uncompleted(self, task_id):
         return self._task_repository.set_uncompleted(task_id)
 
+    def get_categories_with_id(self):
+        return self._category_repository.get_categories_with_id()
+
     def get_categories(self):
         return self._category_repository.get_categories()
 
     def create_category(self, category):
+
+        if not category:
+            return
+
+        existing_category = self._category_repository.find_category_by_name(category)
+
+        if existing_category:
+            return
+
         category = Category(title=category)
 
         return self._category_repository.create_category(category)
