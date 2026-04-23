@@ -31,7 +31,7 @@ class TaskRepository:
 
     def get_all_tasks_as_objects(self):
         cursor = self._connection.cursor()
-        tasks = cursor.execute("SELECT id, title, date, completed FROM Tasks").fetchall()
+        tasks = cursor.execute("SELECT id, title, date, completed, category_id FROM Tasks").fetchall()
         all_task_objects = {}
 
         for row in tasks:
@@ -40,9 +40,75 @@ class TaskRepository:
             completed = row[3]
             if completed == 1:
                 task.completed = True
+            task.category = row[4]
+
             all_task_objects[task_id] = task
 
         return all_task_objects
+
+    def get_tasks_with_categories(self, categories):
+
+        cursor = self._connection.cursor()
+        tasks = cursor.execute("SELECT id, title, date, completed, category_id FROM Tasks").fetchall()
+
+        all_task_objects = {}
+
+        for row in tasks:
+            task_id = row[0]
+            task = Task(row[1], row[2])
+            completed = row[3]
+
+            if completed == 1:
+                task.completed = True
+
+            category_id = row[4]
+            if category_id:
+                task.category = categories[category_id]
+
+            all_task_objects[task_id] = str(task)
+
+        return all_task_objects
+
+    def get_uncompleted_tasks_with_categories(self, categories):
+
+        cursor = self._connection.cursor()
+        tasks = cursor.execute("""SELECT id, title, date, completed, category_id FROM Tasks
+                               WHERE completed = 0""").fetchall()
+
+        uncompleted_task_objects = {}
+
+        for row in tasks:
+            task_id = row[0]
+            task = Task(row[1], row[2])
+            task.completed = False
+            category_id = row[4]
+            if category_id:
+                task.category = categories[category_id]
+
+            uncompleted_task_objects[task_id] = str(task)
+
+        return uncompleted_task_objects
+
+    def get_completed_tasks_with_categories(self, categories):
+
+        cursor = self._connection.cursor()
+        tasks = cursor.execute("""SELECT id, title, date, completed, category_id FROM Tasks
+                               WHERE completed = 1""").fetchall()
+
+        completed_task_objects = {}
+
+        for row in tasks:
+            task_id = row[0]
+            task = Task(row[1], row[2])
+            task.completed = True
+            category_id = row[4]
+            if category_id:
+                task.category = categories[category_id]
+
+            completed_task_objects[task_id] = str(task)
+
+        return completed_task_objects
+
 
     def get_uncompleted_tasks(self):
         cursor = self._connection.cursor()

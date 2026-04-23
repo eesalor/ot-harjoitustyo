@@ -21,6 +21,21 @@ class TaskService:
     def get_all_tasks(self):
         return self._task_repository.get_all_tasks()
 
+    def get_tasks_with_categories(self):
+        categories = self._category_repository.get_categories_with_id()
+
+        return self._task_repository.get_tasks_with_categories(categories)
+
+    def get_uncompleted_tasks_with_categories(self):
+        categories = self._category_repository.get_categories_with_id()
+
+        return self._task_repository.get_uncompleted_tasks_with_categories(categories)
+
+    def get_completed_tasks_with_categories(self):
+        categories = self._category_repository.get_categories_with_id()
+
+        return self._task_repository.get_completed_tasks_with_categories(categories)
+
     def get_uncompleted_tasks(self):
         return self._task_repository.get_uncompleted_tasks()
 
