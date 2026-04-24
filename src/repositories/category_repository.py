@@ -7,7 +7,6 @@ class CategoryRepository:
 
     def create_category(self, category: Category):
         cursor = self._connection.cursor()
-        print(category.title)
 
         cursor.execute("INSERT INTO Categories (title) VALUES (?)",
                        [category.title])
