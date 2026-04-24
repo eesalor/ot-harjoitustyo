@@ -124,7 +124,7 @@ class TaskRepository:
             task = Task(row[1], row[2])
             completed = row[3]
             if completed == 0:
-                all_uncompleted_tasks[task_id] = str(task)
+                all_uncompleted_tasks[task_id] = repr(task)
 
         return all_uncompleted_tasks
 
@@ -140,7 +140,7 @@ class TaskRepository:
             task = Task(row[1], row[2])
             completed = row[3]
             if completed == 1:
-                all_completed_tasks[task_id] = str(task)
+                all_completed_tasks[task_id] = repr(task)
 
         return all_completed_tasks
 
