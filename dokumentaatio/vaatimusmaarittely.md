@@ -16,13 +16,19 @@ Sovellukseen suunnitellut toiminnallisuudet:
   - [x] Tehtävän määräaika
     - [X] Syötettävän päivämäärän oltava muotoa pp.kk.vvvv
     - [X] Syötettävä päivämäärä ei voi olla mennyt päivämäärä
-  - [ ] Aihekategoria
+  - [X] Aihekategoria
+    - [X] Kategoria ei ole pakollinen.
+    - [X] Käyttäjä voi lisätä kategorian vain tehtävän luomisen yhteydessä.
+    - [X] Käyttäjä voi lisätä korkeintaan yhden kategorian per tehtävä.
+    - [X] Käyttäjä voi lisätä kokonaan uuden kategorian tehtävän luomisen yhteydessä tai valita kategorian aiemmin lisättyjen kategorioiden joukosta.
   - [X] Onko tehtävä tehty / tekemättä
 - [x] Käyttäjä näkee sovellukseen lisätyt tehtävät
     - [X] Tekemättömät ja tehdyt tehtävät näkyvät käyttäjälle erillisissä luetteloruuduissa
 - [X] Käyttäjä voi merkitä tekemättömiä tehtäviä tehdyksi
 - [X] Käyttäjä voi merkitä tehtyjä tehtäviä tekemättömäksi 
 - [x] Käyttäjä voi poistaa tehtäviä
+- [X] Käyttäjä voi poistaa lisäämiään kategorioita
+    - [X] Kategorian poistaminen poistaa kategorian niistä tehtävistä, joihin kyseinen kategoria on liitetty  
 - [ ] Käyttäjä voi muokata lisäämiään tehtäviä
 
 ## Jatkokehitysideoita
