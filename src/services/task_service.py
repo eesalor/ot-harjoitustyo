@@ -19,7 +19,7 @@ class TaskService:
         return self._task_repository.create_task(task, category_id)
 
     def get_all_tasks(self):
-        return self._task_repository.get_all_tasks()
+        return self._task_repository.get_all_tasks_as_objects()
 
     def get_tasks_with_categories(self):
         categories = self._category_repository.get_categories_with_id()
