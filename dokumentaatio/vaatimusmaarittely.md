@@ -20,7 +20,8 @@ Sovellukseen suunnitellut toiminnallisuudet:
     - [X] Kategoria ei ole pakollinen.
     - [X] Käyttäjä voi lisätä kategorian vain tehtävän luomisen yhteydessä.
     - [X] Käyttäjä voi lisätä korkeintaan yhden kategorian per tehtävä.
-    - [X] Käyttäjä voi lisätä kokonaan uuden kategorian tehtävän luomisen yhteydessä tai valita kategorian aiemmin lisättyjen kategorioiden joukosta.
+    - [X] Käyttäjä voi lisätä kokonaan uuden kategorian kirjoittamalla sen tehtävän luomisen yhteydessä tai valita kategorian aiemmin lisättyjen kategorioiden joukosta.
+    - [X] Olemassa olevaa kategoriaa ei lisätä moneen kertaan.
   - [X] Onko tehtävä tehty / tekemättä
 - [x] Käyttäjä näkee sovellukseen lisätyt tehtävät
     - [X] Tekemättömät ja tehdyt tehtävät näkyvät käyttäjälle erillisissä luetteloruuduissa
