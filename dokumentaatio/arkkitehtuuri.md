@@ -4,7 +4,7 @@
  ![Pakkauskaavio arkkitehtuurista](/dokumentaatio/kuvat/pakkauskaavio_arkkitehtuuri.png)
 
 
-## Luokkakaavio
+## Luokkakaaviot
 
 Kuvaus `Task`-luokasta, jossa määritellään sovellukseen lisättävän tehtävän rakenne.
 
@@ -14,9 +14,16 @@ Kuvaus `Task`-luokasta, jossa määritellään sovellukseen lisättävän tehtä
         title
         date
         completed
+        category
     }
 ```
-
+Kuvaus `Category`-luokasta, jossa määritellään sovellukseen lisättävän aihekategorian rakenne.
+```mermaid
+ classDiagram
+    class Category{
+        title
+    }
+```
 
 ## Pakkauskaavio arkkitehtuurista luokilla
 ![Pakkauskaavio arkkitehtuurista](/dokumentaatio/kuvat/pakkauskaavio_arkkitehtuuri_luokilla.png)
