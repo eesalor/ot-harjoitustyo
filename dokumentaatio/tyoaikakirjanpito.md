@@ -20,9 +20,9 @@
 | 22.4. | 9 |  Käyttöohjeen luonnostelun aloitus. Käyttöliittymän refaktorointia ja luetteloruutujen bugikorjauksia. Tkinterin Combobox-widgetiin perehtyminen. Alustava toiminnallisuus kategorian lisäämisestä tehtävään sisältäen muutoksia mm. sovelluslogiikkaan ja tietokantatauluihin. |
 | 23.4. | 5.5 | Toiminnallisuus aihekategorioiden lisäämiseksi. Tehtäviin liitettyjen kategorioiden näyttäminen tehtävien yhteydessä. Toiminnallisuus kategorioiden poistamiseksi. Yksikkötestien korjaamista. |
 | 24.4. | 3.0 | Yksikkötestien korjaamista. Yksikkötestejä kategorioiden tietokantaoperaatioista vastaavaan luokkaan. Vaatimusmäärittelyn päivittäminen. |
+| 25.4. | 2 | Käyttöohjeen 1. versio. Docstring-dokumentaation aloittaminen. |
+| 26.4. | 4 | Docstring-dokumentaatiota. Arkkitehtuurikuvauksen päivittäminen: pakkaus- ja luokkakaavioiden päivittäminen, alustava kuvaus sovelluksen rakenteesta, käyttöliittymästä, sovelluslogiikasta sekä tietojen tallennuksesta. |
 | . |  |  |
 | . |  |  |
 | . |  |  |
-| . |  |  |
-| . |  |  |
-| **Yhteensä**   |  **71.5**  | | 
+| **Yhteensä**   |  **77.5**  | | 
