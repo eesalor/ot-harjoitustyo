@@ -7,19 +7,17 @@
 ## Luokkakaaviot
 
 Kuvaus `Task`-luokasta, jossa määritellään sovellukseen lisättävän tehtävän rakenne.
+Kuvaus `Category`-luokasta, jossa määritellään sovellukseen lisättävän aihekategorian rakenne.
 
 ```mermaid
  classDiagram
+    Task "*" -- "0..1" Category
     class Task{
         title
         date
         completed
         category
     }
-```
-Kuvaus `Category`-luokasta, jossa määritellään sovellukseen lisättävän aihekategorian rakenne.
-```mermaid
- classDiagram
     class Category{
         title
     }
