@@ -2,10 +2,25 @@ from entities.task import Task
 from database_connection import get_database_connection
 
 class TaskRepository:
+    """Luokka, joka vastaa tehtäviin liittyvistä tietokantaoperaatioista."""
+
     def __init__(self, connection):
+        """Luokan konstruktori.
+
+        Args:
+            connection: SQL-tietokantayhteyttä edustava Connection-olio.
+        """
+
         self._connection = connection
 
     def create_task(self, task: Task, category_id):
+        """Tallentaa uuden tehtävän tietokantaan.
+
+        Args:
+            task: Task-oliomuodossa oleva tehtävä, joka tallennetaan tietokantaan.
+            category_id: Tehtävään liittyvän kategorian id, joka tallennetaan tietokantaan.
+        """
+
         cursor = self._connection.cursor()
 
         cursor.execute("""INSERT INTO Tasks (title, date, category_id, completed)
@@ -15,6 +30,13 @@ class TaskRepository:
         self._connection.commit()
 
     def get_all_tasks(self):
+        """Palauttaa kaikki tehtävät.
+
+        Returns:
+            Palauttaa kaikki tehtävät sanakirjana, jossa avaimena on tehtävän id ja
+            arvona tehtävät Task-oliomuodossa.
+        """
+
         cursor = self._connection.cursor()
         tasks = cursor.execute("SELECT id, title, date, completed FROM Tasks").fetchall()
         all_tasks = {}
@@ -30,6 +52,13 @@ class TaskRepository:
         return all_tasks
 
     def get_all_tasks_as_objects(self):
+        """Palauttaa kaikki tehtävät.
+
+        Returns:
+            Palauttaa kaikki tehtävät sanakirjana, jossa avaimena on tehtävän id ja
+            arvona tehtävät Task-oliomuodossa.
+        """
+
         cursor = self._connection.cursor()
         tasks = cursor.execute("""SELECT id, title, date, completed, category_id
                                FROM Tasks""").fetchall()
@@ -48,6 +77,16 @@ class TaskRepository:
         return all_task_objects
 
     def get_tasks_with_categories(self, categories):
+        """Palauttaa kaikki tehtävät.
+
+        Args:
+            categories: Kategoriat ja niiden id:t sanakirjana, jossa avaimena on kategorian id
+            ja arvona Category-olion merkkijonoesitys.
+
+        Returns:
+            Palauttaa kaikki tehtävät sanakirjana, jossa avaimena on tehtävän id ja
+            arvona tehtävät Task-olion merkkijonoesityksinä.
+        """
 
         cursor = self._connection.cursor()
         tasks = cursor.execute("""SELECT id, title, date, completed, category_id
@@ -72,6 +111,16 @@ class TaskRepository:
         return all_task_objects
 
     def get_uncompleted_tasks_with_categories(self, categories):
+        """Palauttaa kaikki tekemättömät tehtävät.
+
+        Args:
+            categories: Kategoriat ja niiden id:t sanakirjana, jossa avaimena on kategorian id
+            ja arvona Category-olion merkkijonoesitys.
+
+        Returns:
+            Palauttaa kaikki tekemättömät tehtävät sanakirjana, jossa avaimena on tehtävän id ja
+            arvona tehtävät Task-olion merkkijonoesityksinä.
+        """
 
         cursor = self._connection.cursor()
         tasks = cursor.execute("""SELECT id, title, date, completed, category_id FROM Tasks
@@ -92,6 +141,16 @@ class TaskRepository:
         return uncompleted_task_objects
 
     def get_completed_tasks_with_categories(self, categories):
+        """Palauttaa kaikki tehdyt tehtävät.
+
+        Args:
+            categories: Kategoriat ja niiden id:t sanakirjana, jossa avaimena on kategorian id
+            ja arvona Category-olion merkkijonoesitys.
+
+        Returns:
+            Palauttaa kaikki tehdyt tehtävät sanakirjana, jossa avaimena on tehtävän id ja
+            arvona tehtävät Task-olion merkkijonoesityksinä.
+        """
 
         cursor = self._connection.cursor()
         tasks = cursor.execute("""SELECT id, title, date, completed, category_id FROM Tasks
@@ -111,8 +170,13 @@ class TaskRepository:
 
         return completed_task_objects
 
-
     def get_uncompleted_tasks(self):
+        """Palauttaa kaikki tekemättömät tehtävät ilman kategoriaa.
+
+        Returns:
+            Palauttaa kaikki tekemättömät tehtävät sanakirjana, jossa avaimena on tehtävän id ja
+            arvona tehtävät Task-olion merkkijonoesityksinä.
+        """
         cursor = self._connection.cursor()
 
         tasks = cursor.execute("SELECT id, title, date, completed FROM Tasks").fetchall()
@@ -129,6 +193,13 @@ class TaskRepository:
         return all_uncompleted_tasks
 
     def get_completed_tasks(self):
+        """Palauttaa kaikki tekemättömät tehtävät ilman kategoriaa.
+
+        Returns:
+            Palauttaa kaikki tekemättömät tehtävät sanakirjana, jossa avaimena on tehtävän id ja
+            arvona tehtävät Task-olion merkkijonoesityksinä.
+        """
+
         cursor = self._connection.cursor()
 
         tasks = cursor.execute("SELECT id, title, date, completed FROM Tasks").fetchall()
@@ -145,6 +216,12 @@ class TaskRepository:
         return all_completed_tasks
 
     def delete_task(self, task_id):
+        """Poistaa tehtävän tietokannasta.
+
+        Args:
+            task_id: Poistettavan tehtävän id.
+        """
+
         cursor = self._connection.cursor()
 
         cursor.execute("DELETE FROM Tasks WHERE id = ?", [task_id])
@@ -152,6 +229,12 @@ class TaskRepository:
         self._connection.commit()
 
     def set_completed(self, task_id):
+        """Asettaa tehtävän tilan tehdyksi.
+
+        Args:
+            task_id: Tehtävän id, jonka perusteella tehtävä tila päivitetään tehdyksi.
+        """
+
         cursor = self._connection.cursor()
 
         cursor.execute("UPDATE Tasks SET completed = 1 WHERE id = ?",
@@ -160,6 +243,12 @@ class TaskRepository:
         self._connection.commit()
 
     def set_uncompleted(self, task_id):
+        """Asettaa tehtävän tilan tehdyksi.
+
+        Args:
+            task_id: Tehtävän id, jonka perusteella tehtävä tila päivitetään tekemättömäksi.
+        """
+
         cursor = self._connection.cursor()
 
         cursor.execute("UPDATE Tasks SET completed = 0 WHERE id = ?",
@@ -168,6 +257,13 @@ class TaskRepository:
         self._connection.commit()
 
     def delete_category_from_task(self, category_id):
+        """Poistaa tehtäviin liitetyn kategorian tietokannasta.
+
+        Args:
+            category_id: Poistettavan kategorian id, joka poistetaan tietokannassa
+            olevista tehtävistä.
+        """
+
         cursor = self._connection.cursor()
 
         cursor.execute("""UPDATE Tasks SET category_id = ?
