@@ -22,3 +22,10 @@
 - Käyttäjä voi poistaa sekä tekemättömiä että tehtyjä tehtäviä.
 - Sovellusta on testattu, että TaskReporitory-luokka merkitsee tehtävät tehdyksi/tekemättömäksi.
 - Sovellusta on testattu, että TaskRepository-luokka hakee tekemättömät ja tehdyt tehtävät.
+
+## Viikko 6
+- Käyttäjä voi lisätä tehtävään kategorian luodessaan uutta tehtävää.
+- Käyttäjä voi poistaa lisäämiään kategorioita.
+- Sovellusta on testattu, että TaskService-luokka merkitsee tehtäviä tehdyksi/tekemättömäksi.
+- Sovellusta on testattu, että CategoryRepository-luokka lisää kategorian, hakee kategorioita ja poistaa kategorian.
+- Sovellusta on testattu, että TaskRepository-luokka lisää tehtäviin kategorian ja hakee tiedon tehtävän kategoriasta.
