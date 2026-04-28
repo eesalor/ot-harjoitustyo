@@ -58,7 +58,7 @@ Taulussa `Tasks` jokaisen tehtävän kohdalla on viittaus tehtävän kategoriaan
 
 ## Sovelluksen päätoiminnallisuudet
 
-### Tehtävän lisääminen
+### Tehtävän lisääminen ilman kategoriaa
 Käyttäjä voi lisätä uuden tehtävän ollessaan sovelluksen päänäkymässä eli tehtävänäkymässä. Käyttäjä voi syöttää tekstikenttiin tehtävän kuvauksen ja määräajan ja lisätä uuden tehtävän painamalla "Create"-nappia. Oletuksena tehtävän tila on tekemätön. Tehtävän otsikko, määräaika ja tila tallennetaan SQL-tietokantatauluun. Lisätty tehtävä ilmestyy lopulta tehtävänäkymässä olevaan luetteloruutuun. Alla olevassa sekvenssikaaviossa on kuvattu sovelluksen toiminta pääpiirteittäin kyseisen käyttötapauksen osalta:
 
 ```mermaid
@@ -67,15 +67,16 @@ sequenceDiagram
   participant UI
   participant TaskService
   participant TaskRepository
+  participant CategoryRepository
   participant task
   participant Database@{ "type" : "database" }
 
   User->>UI: enter title: "Finalize your project"
   User->>UI: enter date: "10.05.2026"
   User->>UI: click "Create" button
-  UI->>TaskService: create_task("Finalize your project", "10.05.2026")
+  UI->>TaskService: create_task("Finalize your project", "10.05.2026", category=None)
   TaskService->>task: Task("Finalize your project", "10.05.2026")
-  TaskService->>TaskRepository: create_task(task)
+  TaskService->>TaskRepository: create_task(task, category_id=None)
   TaskRepository->>Database: INSERT INTO Tasks (title, date, completed) <br/>VALUES (task.title, task.date, 0);
   Database-->>TaskRepository:
   TaskRepository-->>TaskService:
@@ -83,6 +84,10 @@ sequenceDiagram
   UI->>UI: update_task_view()
   UI->>UI: show_task_view()
 ```
+Kun käyttäjä painaa "Create"-nappia, niin tapahtumakäsittelijä kutsuu sovelluslogiikan metodia `create_task`. Parametreiksi annetaan tehtävän kuvaus (`title`), määräaika (`date`) ja kategoria (`category`). 
+
+Sovelluslogiikan metodissa `create_task` tarkistetaan, onko parametrina annettu kategoriaa. Tässä käyttötapauksessa kategoriaa ei ole. Kyseinen metodi kutsuu edelleen luokan `TaskRepository` metodia `create_task`, joka lisää tehtävän tiedot tietokantaan. Lopuksi kutsutaan käyttöliittymän `UI` metodia `_update_task_view`, joka kutsuu metodia `show_task_view`. Tämän seurauksena käyttöliittymän näkymä `TaskView` päivitetään, jolloin uusi tehtävä ilmestyy näkyviin tehtävälistaan.
+
 
 ### Tehtävän merkitseminen tehdyksi
 Käyttäjä voi merkitä tehtävän tehdyksi ollessaan sovelluksen päänäkymässä eli tehtävänäkymässä. Käyttäjä voi valita luetteloruudusta jonkin tekemättömän tehtävän ja merkitä sen tehdyksi painamalla "Set completed" -nappia. Tehtävän tilan muuttuminen tehdyksi päivitetään SQL-tietokantatauluun. Kyseinen tehtävä siirtyy tehtävänäkymässä toiseen luetteloruutuun, jossa on valmiiksi merkityt tehtävät. Alla olevassa sekvenssikaaviossa on kuvattu sovelluksen toiminta pääpiirteittäin kyseisen käyttötapauksen osalta: 
@@ -106,3 +111,4 @@ sequenceDiagram
   UI->>UI: update_task_view()
   UI->>UI: show_task_view()
 ```
+Kun käyttäjä on valinnut tekemättömän tehtävän ja painaa ”Set completed”-nappia, tapahtumakäsittelijä tarkistaa, että tehtävä on valittu ja kutsuu sovelluslogiikan `TaskService` metodia `set_completed`. Metodi kutsuu luokan `TaskRepository` metodia `set_completed`, joka saa parametriksi valitun tehtävän id:n (`task_id`). Metodi päivittää tietokantaan tehtävän tilan `completed` tehdyksi. Lopuksi kutsutaan käyttöliittymän `UI` metodia `_update_task_view`, joka kutsuu metodia `show_task_view`. Tämän seurauksena käyttöliittymän näkymä `TaskView` päivitetään, jolloin tehdyksi merkitty tehtävä siirtyy tehtyjen tehtävien luetteloon.
