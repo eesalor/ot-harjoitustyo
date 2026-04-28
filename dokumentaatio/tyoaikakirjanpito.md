@@ -22,7 +22,7 @@
 | 24.4. | 3.0 | Yksikkötestien korjaamista. Yksikkötestejä kategorioiden tietokantaoperaatioista vastaavaan luokkaan. Vaatimusmäärittelyn päivittäminen. |
 | 25.4. | 2 | Käyttöohjeen 1. versio. Docstring-dokumentaation aloittaminen. |
 | 26.4. | 4 | Docstring-dokumentaatiota. Arkkitehtuurikuvauksen päivittäminen: pakkaus- ja luokkakaavioiden päivittäminen, alustava kuvaus sovelluksen rakenteesta, käyttöliittymästä, sovelluslogiikasta sekä tietojen tallennuksesta. |
+| 27.4. | 0.5 | Muutosloki viikon 6 osalta |
+| 28.4. | 1 | Arkkitehtuurikuvauksen päivittäminen: sekvenssikaavion päivittäminen, kuvaukset sovelluksen toiminnasta esimerkkikäyttötapauksissa. Toinen GitHub release. |
 | . |  |  |
-| . |  |  |
-| . |  |  |
-| **Yhteensä**   |  **77.5**  | | 
+| **Yhteensä**   |  **79.0**  | | 
