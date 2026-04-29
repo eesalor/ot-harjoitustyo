@@ -34,7 +34,7 @@ class TestTaskRepository(unittest.TestCase):
         self.assertEqual(self.task3.completed, False)
         self.assertEqual(self.task3.category, None)
 
-    def test_create_task_with_category_id(self):
+    def test_create_task_with_category(self):
         title = "Write down working hours"
         date = "9.4.2026"
         completed = False
