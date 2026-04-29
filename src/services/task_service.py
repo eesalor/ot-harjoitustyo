@@ -32,70 +32,23 @@ class TaskService:
 
         return self._task_repository.create_task(task, category_id)
 
-    def get_all_tasks(self):
-        """Palauttaa kaikki luodut tehtävät.
+    def get_tasks(self, completion_status):
+        """Palauttaa joko tehdyt tai tekemättömät tehtävät."
+
+        Args:
+            completion_status: Boolean-arvo tehtävän tilasta, jonka perusteella
+            tehtäviä haetaan.
 
         Returns:
-            Palauttaa kaikki luodut tehtävät sanakirjana,
+            Palauttaa tehdyt / tekemättömät tehtävät sanakirjana,
             jossa avaimena on tehtävän id ja arvona tehtävä Task-oliona.
         """
-        return self._task_repository.get_all_tasks()
-
-    def get_tasks_with_categories(self):
-        """Palauttaa kaikki luodut tehtävät.
-
-        Returns:
-            Palauttaa kaikki luodut tehtävät sanakirjana,
-            jossa avaimena on tehtävän id ja arvona tehtävä tehtävä Task-oliona.
-        """
-
         categories = self._category_repository.get_categories_with_id()
 
-        return self._task_repository.get_tasks_with_categories(categories)
+        if completion_status is False:
+            return self._task_repository.get_uncompleted_tasks(categories)
 
-    def get_uncompleted_tasks_with_categories(self):
-        """Palauttaa kaikki tekemättömät tehtävät.
-
-        Returns:
-            Palauttaa kaikki tekemättömät tehtävät sanakirjana,
-            jossa avaimena on tehtävän id ja arvona tehtävä tehtävä Task-oliona.
-        """
-
-        categories = self._category_repository.get_categories_with_id()
-
-        return self._task_repository.get_uncompleted_tasks_with_categories(categories)
-
-    def get_completed_tasks_with_categories(self):
-        """Palauttaa kaikki tehdyt tehtävät.
-
-        Returns:
-            Palauttaa kaikki tehdyt tehtävät sanakirjana,
-            jossa avaimena on tehtävän id ja arvona tehtävä tehtävä Task-oliona.
-        """
-
-        categories = self._category_repository.get_categories_with_id()
-
-        return self._task_repository.get_completed_tasks_with_categories(categories)
-
-    def get_uncompleted_tasks(self):
-        """Palauttaa kaikki tekemättömät tehtävät ilman kategoriaa.
-
-        Returns:
-            Palauttaa kaikki tekemättömät tehtävät sanakirjana,
-            jossa avaimena on tehtävän id ja arvona tehtävä tehtävä Task-oliona.
-        """
-
-        return self._task_repository.get_uncompleted_tasks()
-
-    def get_completed_tasks(self):
-        """Palauttaa kaikki tehdyt tehtävät ilman kategoriaa.
-
-        Returns:
-            Palauttaa kaikki tehdyt tehtävät sanakirjana,
-            jossa avaimena on tehtävän id ja arvona tehtävä tehtävä Task-oliona.
-        """
-
-        return self._task_repository.get_completed_tasks()
+        return self._task_repository.get_completed_tasks(categories)
 
     def delete_task(self, task_id):
         """Poistaa tehtävän.

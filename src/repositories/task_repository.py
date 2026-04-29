@@ -29,7 +29,7 @@ class TaskRepository:
 
         self._connection.commit()
 
-    def get_all_tasks(self):
+    def get_tasks(self):
         """Palauttaa kaikki tehtävät.
 
         Returns:
@@ -39,7 +39,7 @@ class TaskRepository:
 
         cursor = self._connection.cursor()
         tasks = cursor.execute("""SELECT id, title, date, completed, category_id
-                               FROM Tasks""").fetchall()
+                                FROM Tasks""").fetchall()
         all_tasks= {}
 
         for row in tasks:
@@ -54,41 +54,7 @@ class TaskRepository:
 
         return all_tasks
 
-    def get_tasks_with_categories(self, categories):
-        """Palauttaa kaikki tehtävät.
-
-        Args:
-            categories: Kategoriat ja niiden id:t sanakirjana, jossa avaimena on kategorian id
-            ja arvona Category-olion merkkijonoesitys.
-
-        Returns:
-            Palauttaa kaikki tehtävät sanakirjana, jossa avaimena on tehtävän id ja
-            arvona tehtävät Task-olion merkkijonoesityksinä.
-        """
-
-        cursor = self._connection.cursor()
-        tasks = cursor.execute("""SELECT id, title, date, completed, category_id
-                               FROM Tasks""").fetchall()
-
-        all_task_objects = {}
-
-        for row in tasks:
-            task_id = row[0]
-            task = Task(row[1], row[2])
-            completed = row[3]
-
-            if completed == 1:
-                task.completed = True
-
-            category_id = row[4]
-            if category_id:
-                task.category = categories[category_id]
-
-            all_task_objects[task_id] = str(task)
-
-        return all_task_objects
-
-    def get_uncompleted_tasks_with_categories(self, categories):
+    def get_uncompleted_tasks(self, categories):
         """Palauttaa kaikki tekemättömät tehtävät.
 
         Args:
@@ -104,7 +70,7 @@ class TaskRepository:
         tasks = cursor.execute("""SELECT id, title, date, completed, category_id FROM Tasks
                                WHERE completed = 0""").fetchall()
 
-        uncompleted_task_objects = {}
+        uncompleted_tasks = {}
 
         for row in tasks:
             task_id = row[0]
@@ -114,11 +80,11 @@ class TaskRepository:
             if category_id:
                 task.category = categories[category_id]
 
-            uncompleted_task_objects[task_id] = str(task)
+            uncompleted_tasks[task_id] = str(task)
 
-        return uncompleted_task_objects
+        return uncompleted_tasks
 
-    def get_completed_tasks_with_categories(self, categories):
+    def get_completed_tasks(self, categories):
         """Palauttaa kaikki tehdyt tehtävät.
 
         Args:
@@ -134,7 +100,7 @@ class TaskRepository:
         tasks = cursor.execute("""SELECT id, title, date, completed, category_id FROM Tasks
                                WHERE completed = 1""").fetchall()
 
-        completed_task_objects = {}
+        completed_tasks = {}
 
         for row in tasks:
             task_id = row[0]
@@ -144,54 +110,10 @@ class TaskRepository:
             if category_id:
                 task.category = categories[category_id]
 
-            completed_task_objects[task_id] = str(task)
+            completed_tasks[task_id] = str(task)
 
-        return completed_task_objects
+        return completed_tasks
 
-    def get_uncompleted_tasks(self):
-        """Palauttaa kaikki tekemättömät tehtävät ilman kategoriaa.
-
-        Returns:
-            Palauttaa kaikki tekemättömät tehtävät sanakirjana, jossa avaimena on tehtävän id ja
-            arvona tehtävät Task-olion merkkijonoesityksinä.
-        """
-        cursor = self._connection.cursor()
-
-        tasks = cursor.execute("SELECT id, title, date, completed FROM Tasks").fetchall()
-
-        all_uncompleted_tasks = {}
-
-        for row in tasks:
-            task_id = row[0]
-            task = Task(row[1], row[2])
-            completed = row[3]
-            if completed == 0:
-                all_uncompleted_tasks[task_id] = repr(task)
-
-        return all_uncompleted_tasks
-
-    def get_completed_tasks(self):
-        """Palauttaa kaikki tekemättömät tehtävät ilman kategoriaa.
-
-        Returns:
-            Palauttaa kaikki tekemättömät tehtävät sanakirjana, jossa avaimena on tehtävän id ja
-            arvona tehtävät Task-olion merkkijonoesityksinä.
-        """
-
-        cursor = self._connection.cursor()
-
-        tasks = cursor.execute("SELECT id, title, date, completed FROM Tasks").fetchall()
-
-        all_completed_tasks = {}
-
-        for row in tasks:
-            task_id = row[0]
-            task = Task(row[1], row[2])
-            completed = row[3]
-            if completed == 1:
-                all_completed_tasks[task_id] = repr(task)
-
-        return all_completed_tasks
 
     def delete_task(self, task_id):
         """Poistaa tehtävän tietokannasta.

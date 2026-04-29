@@ -280,7 +280,7 @@ class TaskView:
 
         self._listbox.grid(column=1, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
 
-        self._uncompleted_tasks = task_service.get_uncompleted_tasks_with_categories()
+        self._uncompleted_tasks = task_service.get_tasks(completion_status=False)
 
         self._listbox_dict_uncompleted_tasks = {}
 
@@ -301,7 +301,7 @@ class TaskView:
 
         self._listbox_completed_tasks.grid(row=6, column=3, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
 
-        self._completed_tasks = task_service.get_completed_tasks_with_categories()
+        self._completed_tasks = task_service.get_tasks(completion_status=True)
 
         self._listbox_dict_completed_tasks = {}
 
