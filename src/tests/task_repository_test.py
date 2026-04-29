@@ -26,7 +26,7 @@ class TestTaskRepository(unittest.TestCase):
         date = "9.4.2026"
         completed = False
         category_id = None
-        self.task3 = Task(title, date, completed, category_id)
+        self.task3 = Task(title, date, completed)
         self.database.create_task(self.task3, category_id)
 
         self.assertEqual(self.task3.title, "Write down working hours")
@@ -50,21 +50,30 @@ class TestTaskRepository(unittest.TestCase):
     def test_get_tasks_returns_tasks(self):
         tasks = self.database.get_tasks()
 
-        self.assertEqual(repr(tasks[1]), "(Write some unit tests, 28.04.2026, 2, False)")
-        self.assertEqual(repr(tasks[2]), "(Refactor your code, 5.5.2026, None, False)")
+        self.assertEqual(len(tasks), 2)
+        self.assertEqual(tasks[1].title, "Write some unit tests")
+        self.assertEqual(tasks[1].date, "28.04.2026")
+        self.assertEqual(tasks[1].category, "Studies")
+        self.assertEqual(tasks[1].completed, False)
+        self.assertEqual(tasks[2].title, "Refactor your code")
+        self.assertEqual(tasks[2].date, "5.5.2026")
+        self.assertEqual(tasks[2].category, None)
+        self.assertEqual(tasks[2].completed, False)
 
     def test_get_completed_tasks(self):
         self.database.set_completed(1)
-        completed_tasks = self.database.get_completed_tasks(self.categories)
+        completed_tasks = self.database.get_completed_tasks()
 
-        self.assertEqual(completed_tasks, {1: '28.04.2026, Write some unit tests, Studies'})
+        self.assertEqual(len(completed_tasks), 1)
+        self.assertEqual(str(completed_tasks[1]), "28.04.2026 Write some unit tests Studies")
 
     def test_get_uncompleted_tasks(self):
         self.database.set_completed(1)
 
-        uncompleted_tasks = self.database.get_uncompleted_tasks(self.categories)
+        uncompleted_tasks = self.database.get_uncompleted_tasks()
 
-        self.assertEqual(uncompleted_tasks, {2: '5.5.2026 Refactor your code (No category)'})
+        self.assertEqual(len(uncompleted_tasks), 1)
+        self.assertEqual(str(uncompleted_tasks[2]), "5.5.2026 Refactor your code (No category)")
 
     def test_delete_task(self):
         self.database.delete_task(1)
@@ -87,14 +96,10 @@ class TestTaskRepository(unittest.TestCase):
         self.assertEqual(tasks[1].completed, False)
 
     def test_tasks_have_right_completed_status(self):
-        self.database.create_task(self.task1, 2)
-        self.database.create_task(self.task2, None)
         self.database.set_completed(1)
         tasks = self.database.get_tasks()
 
         self.assertEqual(tasks[1].completed, True)
         self.assertEqual(tasks[2].completed, False)
 
-        self.assertEqual(repr(tasks[1]), "(Write some unit tests, 28.04.2026, 2, True)")
-        self.assertEqual(repr(tasks[2]), "(Refactor your code, 5.5.2026, None, False)")
 
