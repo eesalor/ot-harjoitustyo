@@ -39,8 +39,7 @@ class TaskService:
             Palauttaa kaikki luodut tehtävät sanakirjana,
             jossa avaimena on tehtävän id ja arvona tehtävä Task-oliona.
         """
-
-        return self._task_repository.get_all_tasks_as_objects()
+        return self._task_repository.get_all_tasks()
 
     def get_tasks_with_categories(self):
         """Palauttaa kaikki luodut tehtävät.

@@ -39,8 +39,8 @@ class TestTaskRepository(unittest.TestCase):
         self.assertEqual(self.task3.completed, False)
         self.assertEqual(self.task3.category, 3)
 
-    def test_get_all_tasks_as_objects_returns_tasks(self):
-        tasks = self.database.get_all_tasks_as_objects()
+    def test_get_all_tasks_returns_tasks(self):
+        tasks = self.database.get_all_tasks()
 
         self.assertEqual(repr(tasks[1]), "(Write some unit tests, 28.04.2026, 2, False)")
         self.assertEqual(repr(tasks[2]), "(Refactor your code, 5.5.2026, None, False)")
@@ -70,7 +70,7 @@ class TestTaskRepository(unittest.TestCase):
     def test_set_task_completed_updates_completed_status(self):
         self.database.set_completed(1)
 
-        tasks = self.database.get_all_tasks_as_objects()
+        tasks = self.database.get_all_tasks()
 
         self.assertEqual(tasks[1].completed, True)
 
@@ -78,7 +78,7 @@ class TestTaskRepository(unittest.TestCase):
         self.database.set_completed(1)
         self.database.set_uncompleted(1)
 
-        tasks = self.database.get_all_tasks_as_objects()
+        tasks = self.database.get_all_tasks()
 
         self.assertEqual(tasks[1].completed, False)
 
@@ -88,11 +88,11 @@ class TestTaskRepository(unittest.TestCase):
 
         self.database.set_completed(1)
 
-        tasks_as_objects = self.database.get_all_tasks_as_objects()
+        tasks = self.database.get_all_tasks()
 
-        self.assertEqual(tasks_as_objects[1].completed, True)
-        self.assertEqual(tasks_as_objects[2].completed, False)
+        self.assertEqual(tasks[1].completed, True)
+        self.assertEqual(tasks[2].completed, False)
 
-        self.assertEqual(repr(tasks_as_objects[1]), "(Write some unit tests, 28.04.2026, 2, True)")
-        self.assertEqual(repr(tasks_as_objects[2]), "(Refactor your code, 5.5.2026, None, False)")
+        self.assertEqual(repr(tasks[1]), "(Write some unit tests, 28.04.2026, 2, True)")
+        self.assertEqual(repr(tasks[2]), "(Refactor your code, 5.5.2026, None, False)")
 

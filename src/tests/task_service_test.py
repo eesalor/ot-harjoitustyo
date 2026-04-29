@@ -30,8 +30,8 @@ class TestTaskService(unittest.TestCase):
 
     def test_get_all_tasks(self):
         result = self.service.get_all_tasks()
-
-        self.assertEqual(result, self.task_repository.get_all_tasks_as_objects())
+        self.assertEqual(result, self.task_repository.get_all_tasks())
+        #self.assertEqual(result, self.task_repository.get_all_tasks_as_objects())
 
     def test_delete_task(self):
         result = self.service.delete_task(1)

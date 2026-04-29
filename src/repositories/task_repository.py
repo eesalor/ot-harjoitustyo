@@ -38,31 +38,9 @@ class TaskRepository:
         """
 
         cursor = self._connection.cursor()
-        tasks = cursor.execute("SELECT id, title, date, completed FROM Tasks").fetchall()
-        all_tasks = {}
-
-        for row in tasks:
-            task_id = row[0]
-            task = Task(row[1], row[2])
-            completed = row[3]
-            if completed == 1:
-                task.completed = True
-            all_tasks[task_id] = str(task)
-
-        return all_tasks
-
-    def get_all_tasks_as_objects(self):
-        """Palauttaa kaikki tehtävät.
-
-        Returns:
-            Palauttaa kaikki tehtävät sanakirjana, jossa avaimena on tehtävän id ja
-            arvona tehtävät Task-oliomuodossa.
-        """
-
-        cursor = self._connection.cursor()
         tasks = cursor.execute("""SELECT id, title, date, completed, category_id
                                FROM Tasks""").fetchall()
-        all_task_objects = {}
+        all_tasks= {}
 
         for row in tasks:
             task_id = row[0]
@@ -72,9 +50,9 @@ class TaskRepository:
                 task.completed = True
             task.category = row[4]
 
-            all_task_objects[task_id] = task
+            all_tasks[task_id] = task
 
-        return all_task_objects
+        return all_tasks
 
     def get_tasks_with_categories(self, categories):
         """Palauttaa kaikki tehtävät.
