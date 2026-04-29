@@ -1,4 +1,5 @@
 from entities.task import Task
+from repositories.category_repository import category_repository
 from database_connection import get_database_connection
 
 class TaskRepository:
@@ -12,6 +13,7 @@ class TaskRepository:
         """
 
         self._connection = connection
+        self._category_repository = category_repository
 
     def create_task(self, task: Task, category_id):
         """Tallentaa uuden tehtävän tietokantaan.
@@ -38,23 +40,14 @@ class TaskRepository:
         """
 
         cursor = self._connection.cursor()
-        tasks = cursor.execute("""SELECT id, title, date, completed, category_id
+        rows = cursor.execute("""SELECT id, title, date, completed, category_id
                                 FROM Tasks""").fetchall()
-        all_tasks= {}
 
-        for row in tasks:
-            task_id = row[0]
-            task = Task(row[1], row[2])
-            completed = row[3]
-            if completed == 1:
-                task.completed = True
-            task.category = row[4]
+        tasks = self._generate_tasks(rows)
 
-            all_tasks[task_id] = task
+        return tasks
 
-        return all_tasks
-
-    def get_uncompleted_tasks(self, categories):
+    def get_uncompleted_tasks(self):
         """Palauttaa kaikki tekemättömät tehtävät.
 
         Args:
@@ -67,24 +60,14 @@ class TaskRepository:
         """
 
         cursor = self._connection.cursor()
-        tasks = cursor.execute("""SELECT id, title, date, completed, category_id FROM Tasks
+        rows = cursor.execute("""SELECT id, title, date, completed, category_id FROM Tasks
                                WHERE completed = 0""").fetchall()
 
-        uncompleted_tasks = {}
+        tasks = self._generate_tasks(rows)
 
-        for row in tasks:
-            task_id = row[0]
-            task = Task(row[1], row[2])
-            task.completed = False
-            category_id = row[4]
-            if category_id:
-                task.category = categories[category_id]
+        return tasks
 
-            uncompleted_tasks[task_id] = str(task)
-
-        return uncompleted_tasks
-
-    def get_completed_tasks(self, categories):
+    def get_completed_tasks(self):
         """Palauttaa kaikki tehdyt tehtävät.
 
         Args:
@@ -97,23 +80,12 @@ class TaskRepository:
         """
 
         cursor = self._connection.cursor()
-        tasks = cursor.execute("""SELECT id, title, date, completed, category_id FROM Tasks
+        rows = cursor.execute("""SELECT id, title, date, completed, category_id FROM Tasks
                                WHERE completed = 1""").fetchall()
 
-        completed_tasks = {}
+        tasks = self._generate_tasks(rows)
 
-        for row in tasks:
-            task_id = row[0]
-            task = Task(row[1], row[2])
-            task.completed = True
-            category_id = row[4]
-            if category_id:
-                task.category = categories[category_id]
-
-            completed_tasks[task_id] = str(task)
-
-        return completed_tasks
-
+        return tasks
 
     def delete_task(self, task_id):
         """Poistaa tehtävän tietokannasta.
@@ -170,5 +142,25 @@ class TaskRepository:
                        WHERE category_id = ?""", [None, category_id])
 
         self._connection.commit()
+
+    def _generate_tasks(self, rows):
+        tasks = {}
+        categories = self._category_repository.get_categories_with_id()
+
+        for row in rows:
+            task_id = row[0]
+            task = Task(title=row[1], date=row[2])
+            completed = row[3]
+            if completed == 1:
+                task.completed = True
+            else:
+                task.completed = False
+            category_id = row[4]
+            if category_id:
+                task.category = categories[category_id]
+
+            tasks[task_id] = task
+
+        return tasks
 
 task_repository = TaskRepository(get_database_connection())

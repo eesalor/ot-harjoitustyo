@@ -43,12 +43,11 @@ class TaskService:
             Palauttaa tehdyt / tekemättömät tehtävät sanakirjana,
             jossa avaimena on tehtävän id ja arvona tehtävä Task-oliona.
         """
-        categories = self._category_repository.get_categories_with_id()
 
         if completion_status is False:
-            return self._task_repository.get_uncompleted_tasks(categories)
+            return self._task_repository.get_uncompleted_tasks()
 
-        return self._task_repository.get_completed_tasks(categories)
+        return self._task_repository.get_completed_tasks()
 
     def delete_task(self, task_id):
         """Poistaa tehtävän.
