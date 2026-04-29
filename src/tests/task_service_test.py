@@ -10,7 +10,6 @@ class TestTaskService(unittest.TestCase):
     def setUp(self):
         self.service = task_service
         self.task_repository = task_repository
-        self.category_repository = category_repository
 
         initialize_database()
 
@@ -21,17 +20,15 @@ class TestTaskService(unittest.TestCase):
 
     def test_create_task_without_category(self):
         category_none = None
-
         result = self.service.create_task(self.title, self.date, category_none)
-
         category_id = None
 
         self.assertEqual(result, self.task_repository.create_task(Task(self.title, self.date), category_id))
 
-    def test_get_all_tasks(self):
-        result = self.service.get_all_tasks()
-        self.assertEqual(result, self.task_repository.get_all_tasks())
-        #self.assertEqual(result, self.task_repository.get_all_tasks_as_objects())
+    def test_get_tasks(self):
+        completion_status = self.completed
+        result = self.service.get_tasks(completion_status)
+        self.assertEqual(result, self.task_repository.get_tasks())
 
     def test_delete_task(self):
         result = self.service.delete_task(1)
@@ -45,7 +42,6 @@ class TestTaskService(unittest.TestCase):
 
     def test_set_uncompleted(self):
         self.service.set_completed(1)
-
         result = self.service.set_uncompleted(1)
 
         self.assertEqual(result, self.task_repository.set_uncompleted(1))

@@ -1,17 +1,25 @@
 import unittest
 from entities.task import Task
+from entities.category import Category
 from repositories.task_repository import task_repository
+from repositories.category_repository import category_repository
 from initialize_database import initialize_database
 
 class TestTaskRepository(unittest.TestCase):
     def setUp(self):
         self.database = task_repository
+        self.categories_db = category_repository
         initialize_database()
 
         self.task1 = Task("Write some unit tests", "28.04.2026", False, 2)
         self.task2 = Task("Refactor your code", "5.5.2026", False, None)
         self.database.create_task(self.task1, 2)
         self.database.create_task(self.task2, None)
+
+        self.categories_db.create_category(Category("Work"))
+        self.categories_db.create_category(Category("Studies"))
+
+        self.categories = self.categories_db.get_categories_with_id()
 
     def test_create_task_without_category_id(self):
         title = "Write down working hours"
@@ -39,56 +47,50 @@ class TestTaskRepository(unittest.TestCase):
         self.assertEqual(self.task3.completed, False)
         self.assertEqual(self.task3.category, 3)
 
-    def test_get_all_tasks_returns_tasks(self):
-        tasks = self.database.get_all_tasks()
+    def test_get_tasks_returns_tasks(self):
+        tasks = self.database.get_tasks()
 
         self.assertEqual(repr(tasks[1]), "(Write some unit tests, 28.04.2026, 2, False)")
         self.assertEqual(repr(tasks[2]), "(Refactor your code, 5.5.2026, None, False)")
 
-    def test_get_completed_tasks_without_categories(self):
+    def test_get_completed_tasks(self):
         self.database.set_completed(1)
+        completed_tasks = self.database.get_completed_tasks(self.categories)
 
-        completed_tasks = self.database.get_completed_tasks()
-
-        self.assertEqual(completed_tasks, {1: '(Write some unit tests, 28.04.2026, None, False)'})
+        self.assertEqual(completed_tasks, {1: '28.04.2026, Write some unit tests, Studies'})
 
     def test_get_uncompleted_tasks(self):
         self.database.set_completed(1)
 
-        uncompleted_tasks = self.database.get_uncompleted_tasks()
+        uncompleted_tasks = self.database.get_uncompleted_tasks(self.categories)
 
-        self.assertEqual(uncompleted_tasks, {2: '(Refactor your code, 5.5.2026, None, False)'})
+        self.assertEqual(uncompleted_tasks, {2: '5.5.2026 Refactor your code (No category)'})
 
     def test_delete_task(self):
         self.database.delete_task(1)
         self.database.delete_task(2)
-
-        tasks = self.database.get_all_tasks()
+        tasks = self.database.get_tasks()
 
         self.assertEqual(tasks, {})
 
     def test_set_task_completed_updates_completed_status(self):
         self.database.set_completed(1)
-
-        tasks = self.database.get_all_tasks()
+        tasks = self.database.get_tasks()
 
         self.assertEqual(tasks[1].completed, True)
 
     def test_set_task_uncompleted_updates_completed_status(self):
         self.database.set_completed(1)
         self.database.set_uncompleted(1)
-
-        tasks = self.database.get_all_tasks()
+        tasks = self.database.get_tasks()
 
         self.assertEqual(tasks[1].completed, False)
 
     def test_tasks_have_right_completed_status(self):
         self.database.create_task(self.task1, 2)
         self.database.create_task(self.task2, None)
-
         self.database.set_completed(1)
-
-        tasks = self.database.get_all_tasks()
+        tasks = self.database.get_tasks()
 
         self.assertEqual(tasks[1].completed, True)
         self.assertEqual(tasks[2].completed, False)
