@@ -29,9 +29,9 @@ class Task:
 
     def __str__(self):
         if self.category:
-            return f"{self.date}, {self.title}, {self.category}"
+            return f"{self.date} {self.title} {self.category}"
 
         return f"{self.date} {self.title} (No category)"
 
     def __repr__(self):
-        return f"({self.title}, {self.date}, {self.category}, {self.completed})"
+        return f"{self.title}, {self.date}, {self.category}, {self.completed}"
