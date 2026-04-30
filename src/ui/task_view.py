@@ -30,12 +30,10 @@ class TaskView:
         self._task_error = False
         self._task_error_label = None
         self._task_error_label_var = None
-        self._task_error_message = None
 
         self._date_error = False
         self._date_error_label = None
         self._date_error_label_var = None
-        self._date_error_message = None
 
         self._initialize()
     
@@ -55,62 +53,6 @@ class TaskView:
         self._initialize_uncompleted_task_listbox()
 
         self._initialize_completed_task_listbox()
-
-        set_completed_button = ttk.Button(
-            master=self._frame,
-            text="Set completed",
-            command=self._handle_set_completed_button_click
-            )
-
-        set_completed_button.grid(
-            column=1,
-            columnspan=2,
-            sticky=(constants.E, constants.W),
-            padx=5,
-            pady=5)
-
-        delete_button = ttk.Button(
-            master=self._frame,
-            text="Delete selected task",
-            command=self._handle_delete_uncompleted_button_click
-            )
-
-        delete_button.grid(
-            column=1,
-            columnspan=2,
-            sticky=(constants.E, constants.W),
-            padx=5,
-            pady=5
-            )
-
-        set_uncompleted_button = ttk.Button(
-            master=self._frame,
-            text="Set uncompleted",
-            command=self._handle_set_uncompleted_button_click
-            )
-
-        set_uncompleted_button.grid(
-            row=7,
-            column=3,
-            columnspan=2,
-            sticky=(constants.E, constants.W),
-            padx=5,
-            pady=5)
-
-        delete_button = ttk.Button(
-            master=self._frame,
-            text="Delete selected task",
-            command=self._handle_delete_completed_button_click
-            )
-
-        delete_button.grid(
-            row=8,
-            column=3,
-            columnspan=2,
-            sticky=(constants.E, constants.W),
-            padx=5,
-            pady=5
-            )
 
         self._root.grid_columnconfigure(1, weight=1)
         self._root.grid_columnconfigure(2, weight=1)
@@ -237,10 +179,6 @@ class TaskView:
         self._validate_task_title_entry(title)
         self._validate_task_date_entry(date)
 
-        self._task_error_label_var.set(self._task_error_message)
-
-        self._date_error_label_var.set(self._date_error_message)
-
         if self._task_error or self._date_error:
             return
 
@@ -262,13 +200,11 @@ class TaskView:
         self._update_task_view()
 
     def _show_errors(self):
-        self._task_error_label_var = StringVar()
-        self._task_error_label_var.set("")
+        self._task_error_label_var = StringVar(self._frame)
         self._task_error_label = tk.Label(master=self._frame, textvariable=self._task_error_label_var, fg="red")
         self._task_error_label.grid(row=2, column=1, columnspan=2, padx=5, pady=5)
 
-        self._date_error_label_var = StringVar()
-        self._date_error_label_var.set("")
+        self._date_error_label_var = StringVar(self._frame)
         self._date_error_label = tk.Label(master=self._frame, textvariable=self._date_error_label_var, fg="red")
         self._date_error_label.grid(row=2, column=3, columnspan=2, padx=5, pady=5)
 
@@ -293,6 +229,33 @@ class TaskView:
 
             self._listbox.bind('<<ListboxSelect>>', self._select_uncompleted_task)
 
+        set_completed_button = ttk.Button(
+            master=self._frame,
+            text="Set completed",
+            command=self._handle_set_completed_button_click
+            )
+
+        set_completed_button.grid(
+            column=1,
+            columnspan=2,
+            sticky=(constants.E, constants.W),
+            padx=5,
+            pady=5)
+
+        delete_uncompleted_button = ttk.Button(
+            master=self._frame,
+            text="Delete selected task",
+            command=self._handle_delete_uncompleted_button_click
+            )
+
+        delete_uncompleted_button.grid(
+            column=1,
+            columnspan=2,
+            sticky=(constants.E, constants.W),
+            padx=5,
+            pady=5
+            )
+
     def _initialize_completed_task_listbox(self):
         label = ttk.Label(master=self._frame, text="Completed tasks:")
         label.grid(row=5, column=3, columnspan=2, padx=5, pady=5)
@@ -313,6 +276,35 @@ class TaskView:
                 n += 1
 
             self._listbox_completed_tasks.bind('<<ListboxSelect>>', self._select_completed_task)
+
+        set_uncompleted_button = ttk.Button(
+            master=self._frame,
+            text="Set uncompleted",
+            command=self._handle_set_uncompleted_button_click
+            )
+
+        set_uncompleted_button.grid(
+            row=7,
+            column=3,
+            columnspan=2,
+            sticky=(constants.E, constants.W),
+            padx=5,
+            pady=5)
+
+        delete_completed_button = ttk.Button(
+            master=self._frame,
+            text="Delete selected task",
+            command=self._handle_delete_completed_button_click
+            )
+
+        delete_completed_button.grid(
+            row=8,
+            column=3,
+            columnspan=2,
+            sticky=(constants.E, constants.W),
+            padx=5,
+            pady=5
+            )
 
     def _handle_delete_uncompleted_button_click(self):
         if self._selected_uncompleted_task_id:
@@ -359,19 +351,16 @@ class TaskView:
     def _validate_task_title_entry(self, entry):
         if len(entry) == 0:
             self._task_error = True
-            self._task_error_message = "Please enter a task"
-            self._task_error_label_var.set(self._task_error_message)
+            self._task_error_label_var.set("Please enter a task")
             return
 
         elif len(entry) > 100:
             self._task_error = True
-            self._task_error_message = "Maximum length is 100 character"
-            self._date_error_label_var.set(self._date_error_message)
+            self._task_error_label_var.set("Maximum length is 100 character")
             return
 
         self._task_error = False
-        self._task_error_message = ""
-        self._task_error_label_var.set(self._task_error_message)
+        self._task_error_label_var.set("")
         return
 
     def _validate_task_date_entry(self, entry):
@@ -379,15 +368,14 @@ class TaskView:
             validated_date_entry = datetime.strptime(entry,  "%d.%m.%Y")
         except:
             self._date_error = True
-            self._date_error_message="The date not in form dd.mm.yyyy"
+            self._date_error_label_var.set("The date not in form dd.mm.yyyy")
             return
 
         if validated_date_entry < datetime.now() - timedelta(days=1):
             self._date_error = True
-            self._date_error_message = "The date has already passed"
+            self._date_error_label_var.set("The date has already passed")
             return
 
         self._date_error = False
-        self._date_error_message = ""
-        self._date_error_label_var.set(self._date_error_message)
+        self._task_error_label_var.set("")
         return
