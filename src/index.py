@@ -5,7 +5,7 @@ from ui.ui import UI
 def main():
     window = Tk()
     window.title("Manage Your Tasks")
-    window.minsize(600, 500)
+    window.minsize(1700, 800)
 
     ui = UI(window)
     ui.start()

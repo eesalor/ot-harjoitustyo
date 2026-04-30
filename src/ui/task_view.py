@@ -50,6 +50,9 @@ class TaskView:
 
         self._show_errors()
 
+        label = ttk.Label(master=self._frame, text="Your tasks", font=("Arial", 12,"bold"))
+        label.grid(row=5, column=2, columnspan=2, padx=5, pady=5)
+
         self._initialize_uncompleted_task_listbox()
 
         self._initialize_completed_task_listbox()
@@ -58,9 +61,9 @@ class TaskView:
         self._root.grid_columnconfigure(2, weight=1)
 
     def _initialize_task_creation_form(self):
-        create_label= ttk.Label(master=self._frame, text="Create new task")
+        create_label= ttk.Label(master=self._frame, text="Create a new task", font=("Arial", 12,"bold"))
 
-        create_label.grid(row=0, column=0, padx=5, pady=5)
+        create_label.grid(row=0, column=2, columnspan=2, padx=5, pady=5)
 
         self._initialize_task_field()
 
@@ -74,14 +77,15 @@ class TaskView:
         self._task_title_entry = ttk.Entry(master=self._frame)
 
         task_title_label.grid(
-            row=0,
+            row=1,
             column=1,
+            columnspan=2,
             padx=5,
             pady=5
             )
 
         self._task_title_entry.grid(
-            row=1,
+            row=2,
             column=1,
             columnspan=2,
             sticky=(constants.E, constants.W),
@@ -95,7 +99,7 @@ class TaskView:
         self._task_date_entry = ttk.Entry(master=self._frame)
 
         task_date_label.grid(
-            row=0,
+            row=1,
             column=3,
             columnspan=2,
             padx=5,
@@ -103,7 +107,7 @@ class TaskView:
             )
 
         self._task_date_entry.grid(
-            row=1,
+            row=2,
             column=3,
             columnspan=2,
             sticky=(constants.E, constants.W),
@@ -118,7 +122,7 @@ class TaskView:
             )
 
         create_button.grid(
-            row=1,
+            row=2,
             column=11,
             columnspan=2,
             sticky=(constants.E, constants.W),
@@ -128,7 +132,7 @@ class TaskView:
 
     def _initialize_category_combobox(self):
         category_label = ttk.Label(master=self._frame, text="Enter or select category:")
-        category_label.grid(row=0, column=8, padx=5, pady=5)
+        category_label.grid(row=1, column=8, padx=5, pady=5)
 
         self._task_category_combobox = ttk.Combobox(
             master=self._frame,
@@ -142,7 +146,7 @@ class TaskView:
         self._task_category_combobox.bind('<<ComboboxSelected>>', self._select_category)
 
         self._task_category_combobox.grid(
-            row=1,
+            row=2,
             column=8,
             columnspan=2,
             sticky=(constants.E, constants.W),
@@ -157,7 +161,7 @@ class TaskView:
             )
 
         delete_category_button.grid(
-            row=2,
+            row=3,
             column=11,
             columnspan=2,
             sticky=(constants.E, constants.W),
@@ -202,19 +206,19 @@ class TaskView:
     def _show_errors(self):
         self._task_error_label_var = StringVar(self._frame)
         self._task_error_label = tk.Label(master=self._frame, textvariable=self._task_error_label_var, fg="red")
-        self._task_error_label.grid(row=2, column=1, columnspan=2, padx=5, pady=5)
+        self._task_error_label.grid(row=3, column=1, columnspan=2, padx=5, pady=5)
 
         self._date_error_label_var = StringVar(self._frame)
         self._date_error_label = tk.Label(master=self._frame, textvariable=self._date_error_label_var, fg="red")
-        self._date_error_label.grid(row=2, column=3, columnspan=2, padx=5, pady=5)
+        self._date_error_label.grid(row=3, column=3, columnspan=2, padx=5, pady=5)
 
     def _initialize_uncompleted_task_listbox(self):
         label = ttk.Label(master=self._frame, text="Uncompleted tasks:")
-        label.grid(row=5, column=1, columnspan=2, padx=5, pady=5)
+        label.grid(row=7, column=1, columnspan=2, padx=5, pady=5)
 
-        self._listbox = Listbox(master=self._frame, width=60)
+        self._listbox = Listbox(master=self._frame, width=80, height=20)
 
-        self._listbox.grid(column=1, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
+        self._listbox.grid(row=8, column=1, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
 
         self._uncompleted_tasks = task_service.get_tasks(completion_status=False)
 
@@ -236,6 +240,7 @@ class TaskView:
             )
 
         set_completed_button.grid(
+            row=9,
             column=1,
             columnspan=2,
             sticky=(constants.E, constants.W),
@@ -249,6 +254,7 @@ class TaskView:
             )
 
         delete_uncompleted_button.grid(
+            row=10,
             column=1,
             columnspan=2,
             sticky=(constants.E, constants.W),
@@ -258,11 +264,11 @@ class TaskView:
 
     def _initialize_completed_task_listbox(self):
         label = ttk.Label(master=self._frame, text="Completed tasks:")
-        label.grid(row=5, column=3, columnspan=2, padx=5, pady=5)
+        label.grid(row=7, column=3, columnspan=2, padx=5, pady=5)
 
-        self._listbox_completed_tasks = Listbox(master=self._frame, width=60)
+        self._listbox_completed_tasks = Listbox(master=self._frame, width=80,height=20)
 
-        self._listbox_completed_tasks.grid(row=6, column=3, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
+        self._listbox_completed_tasks.grid(row=8, column=3, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
 
         self._completed_tasks = task_service.get_tasks(completion_status=True)
 
@@ -284,7 +290,7 @@ class TaskView:
             )
 
         set_uncompleted_button.grid(
-            row=7,
+            row=9,
             column=3,
             columnspan=2,
             sticky=(constants.E, constants.W),
@@ -298,7 +304,7 @@ class TaskView:
             )
 
         delete_completed_button.grid(
-            row=8,
+            row=10,
             column=3,
             columnspan=2,
             sticky=(constants.E, constants.W),

@@ -16,9 +16,12 @@ class StartView:
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
-        welcome_label = ttk.Label(master=self._frame, text="Welcome to Manage Your Tasks app!")
-        
+        welcome_label = ttk.Label(master=self._frame,
+                                  text="Welcome to Manage Your Tasks app!",
+                                  font=("Arial", 16,"bold"))
+
         welcome_label.grid(row=0, column=1, sticky=(constants.E, constants.W), padx=5, pady=5)
+
         button = ttk.Button(
             master=self._frame,
             text="Start",
