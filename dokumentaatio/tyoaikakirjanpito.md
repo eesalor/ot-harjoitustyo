@@ -24,5 +24,9 @@
 | 26.4. | 4 | Docstring-dokumentaatiota. Arkkitehtuurikuvauksen päivittäminen: pakkaus- ja luokkakaavioiden päivittäminen, alustava kuvaus sovelluksen rakenteesta, käyttöliittymästä, sovelluslogiikasta sekä tietojen tallennuksesta. |
 | 27.4. | 0.5 | Muutosloki viikon 6 osalta |
 | 28.4. | 1 | Arkkitehtuurikuvauksen päivittäminen: sekvenssikaavion päivittäminen, kuvaukset sovelluksen toiminnasta esimerkkikäyttötapauksissa. Toinen GitHub release. |
+| 29.4. | 6.5 | Tehtävien hakemiseen liittyvien metodien muokkaamista, testien muokkaamista, tehtävien tietokantaoperaatioista vastaavan luokan refaktorointia, tehtävien kategorioihin liityviä testejä sovelluslogiikasta vastaavalle luokalle. |
+| 30.4. | 4.5 | Koodin refaktorointia, käyttöliittymän muokkaamista, testausdokumentin luonnostelua. |
+| 1.5. | 8 | Käyttöliittymän muokkaamista, sovelluslogiikkakerrokseen virheiden käsittely tehtävän lisäämisen osalta, virhetilanteiden testaaminen tehtävän lisäämisessä sovelluskerrokseen, arkkitehtuurikuvauksen täydentäminen mm. uuden toiminnallisuuden kuvaamisella ja siihen liittyvällä sekvenssikaaviolla. |
 | . |  |  |
-| **Yhteensä**   |  **79.0**  | | 
+| . |  |  |
+| **Yhteensä**   |  **98.0**  | | 
