@@ -1,7 +1,7 @@
 import unittest
 from entities.task import Task
 from entities.category import Category
-from services.task_service import task_service
+from services.task_service import task_service, InvalidTaskError
 from repositories.task_repository import task_repository
 from repositories.category_repository import category_repository
 from initialize_database import initialize_database
@@ -20,6 +20,25 @@ class TestTaskService(unittest.TestCase):
         self.category = "Studies"
 
         self.category_repository.create_category(Category(self.category))
+
+    def test_create_task_with_empty_task_title_entry(self):
+        with self.assertRaises(InvalidTaskError):
+            self.service.create_task(title="", date="22.03.2027", category=None)
+
+    def test_create_task_with_too_long_task_title(self):
+        with self.assertRaises(InvalidTaskError):
+            self.service.create_task(title=f"{101*"n"}", date="22.03.2027", category=None)
+
+    def test_create_task_with_empty_task_date_entry(self):
+        with self.assertRaises(InvalidTaskError):
+            self.service.create_task(title="Code", date="", category=None)
+
+    def test_create_task_with_invalid_task_date_entry(self):
+        with self.assertRaises(InvalidTaskError):
+            self.service.create_task(title="Code", date="12.2.2000", category=None)
+
+        with self.assertRaises(InvalidTaskError):
+            self.service.create_task(title="Code", date="not date in form dd.mm.yyyy", category=None)
 
     def test_create_task_without_category(self):
         category_none = None
