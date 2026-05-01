@@ -89,6 +89,42 @@ Kun käyttäjä painaa "Create"-nappia, niin tapahtumakäsittelijä kutsuu sovel
 Sovelluslogiikan metodissa `create_task` tarkistetaan, onko parametrina annettu kategoriaa. Tässä käyttötapauksessa kategoriaa ei ole. Kyseinen metodi kutsuu edelleen luokan `TaskRepository` metodia `create_task`, joka lisää tehtävän tiedot tietokantaan. Lopuksi kutsutaan käyttöliittymän `UI` metodia `_update_task_view`, joka kutsuu metodia `show_task_view`. Tämän seurauksena käyttöliittymän näkymä `TaskView` päivitetään, jolloin uusi tehtävä ilmestyy näkyviin tehtävälistaan.
 
 
+### Tehtävän lisääminen sisältäen kategorian
+
+```mermaid
+sequenceDiagram
+  actor User
+  participant UI
+  participant TaskService
+  participant TaskRepository
+  participant CategoryRepository
+  participant category
+  participant task
+  participant Database@{ "type" : "database" }
+
+  User->>UI: enter title: "Finalize your project"
+  User->>UI: enter date: "10.05.2026"
+  User->>UI: enter category: "Studies"
+  User->>UI: click "Create" button
+  UI->>TaskService: create_task("Finalize your project", "10.05.2026", "Studies")
+  TaskService->>TaskService: create_category("Studies")
+  TaskService->>category: Category("Studies")
+  TaskService->>CategoryRepository: create_category(category)
+  CategoryRepository->>Database: INSERT INTO Categories (title) <br>VALUES (category.title);
+  Database-->>CategoryRepository:
+  CategoryRepository-->>TaskService:
+  TaskService->>CategoryRepository: get_category_id("Studies")
+  CategoryRepository-->>TaskService: return "1"
+  TaskService->>task: Task("Finalize your project", "10.05.2026")
+  TaskService->>TaskRepository: create_task(task, category_id=1)
+  TaskRepository->>Database: INSERT INTO Tasks (title, date, category_id, completed) <br/>VALUES (task.title, task.date, category_id, 0);
+  Database-->>TaskRepository:
+  TaskRepository-->>TaskService:
+  TaskService-->>UI:
+  UI->>UI: update_task_view()
+  UI->>UI: show_task_view()
+```
+
 ### Tehtävän merkitseminen tehdyksi
 Käyttäjä voi merkitä tehtävän tehdyksi ollessaan sovelluksen päänäkymässä eli tehtävänäkymässä. Käyttäjä voi valita luetteloruudusta jonkin tekemättömän tehtävän ja merkitä sen tehdyksi painamalla "Set completed" -nappia. Tehtävän tilan muuttuminen tehdyksi päivitetään SQL-tietokantatauluun. Kyseinen tehtävä siirtyy tehtävänäkymässä toiseen luetteloruutuun, jossa on valmiiksi merkityt tehtävät. Alla olevassa sekvenssikaaviossa on kuvattu sovelluksen toiminta pääpiirteittäin kyseisen käyttötapauksen osalta: 
 
