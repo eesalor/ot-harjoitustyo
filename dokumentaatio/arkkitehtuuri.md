@@ -14,11 +14,11 @@ Sovelluksen käyttöliittymässä on kaksi näkymää: aloitusnäkymä ja tehtä
 
 Tehtävänäkymä on sovelluksen päänäkymä, jonka kautta sovelluksen sisältämiä päätoimintoja voidaan käyttää.
 
-Aloitusnäkymästä vastaa `StartView`-luokka. Tehtävänäkymä määritellään `TaskView`-luokassa. Eri näkymien näyttämisestä vastaa luokka `UI`.
+Aloitusnäkymästä vastaa ![StartView](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/start_view.py)-luokka. Tehtävänäkymä määritellään ![TaskView](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/task_view.py)-luokassa. Eri näkymien näyttämisestä vastaa luokka ![UI](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/ui.py).
 
 ## Sovelluslogiikka
 
-Oheisessa luokkakaaviossa on kuvattu sovelluksen tietokohteita määrittävät luokat, niiden välinen suhde sekä luokkien sisältämät attribuutit. Luokassa `Task` määritellään sovellukseen lisättävien tehtävien rakenne ja luokassa `Category` kategorioiden rakenne. Yhteen tehtävään voi liittyä enintään yksi kategoria, mutta yksi kategoria voi liittyä useampaan tehtävään.
+Oheisessa luokkakaaviossa on kuvattu sovelluksen tietokohteita määrittävät luokat, niiden välinen suhde sekä luokkien sisältämät attribuutit. Luokassa ![Task](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/entities/task.py) määritellään sovellukseen lisättävien tehtävien rakenne ja luokassa ![Category](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/entities/category.py) kategorioiden rakenne. Yhteen tehtävään voi liittyä enintään yksi kategoria, mutta yksi kategoria voi liittyä useampaan tehtävään.
 
 ```mermaid
  classDiagram
@@ -33,14 +33,14 @@ Oheisessa luokkakaaviossa on kuvattu sovelluksen tietokohteita määrittävät l
         title
     }
 ```
-Luokasta `TaskService` muodostettavan olion tehtävänä on sovelluksen toiminnallisuudet, kuten tehtävien lisääminen, merkitseminen tehdyksi ja poistaminen.
+Luokasta ![TaskService](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/services/task_service.py) muodostettavan olion tehtävänä on sovelluksen toiminnallisuudet, kuten tehtävien lisääminen, merkitseminen tehdyksi ja poistaminen.
 
 Esimerkkejä TaskService-luokan metodeista, joita käyttöliittymän eri toiminnoissa käytetään:
 * `create_task(title, date, category)`
 * `set_completed(task_id)`
 * `delete_task(task_id)`
 
-Sovelluslogiikasta vastaava palvelu *TaskService* käsittelee tehtäviä ja kategorioita luokkien `TaskRepository` ja `CategoryRepository` avulla. Luokat sijaitsevat hakemistossa *repositories*.
+Sovelluslogiikasta vastaava palvelu *TaskService* käsittelee tehtäviä ja kategorioita luokkien ![TaskRepository](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/repositories/task_repository.py) ja ![CategoryRepository](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/repositories/category_repository.py) avulla. Luokat sijaitsevat hakemistossa *repositories*.
 
 ![Pakkauskaavio arkkitehtuurista](/dokumentaatio/kuvat/pakkauskaavio_arkkitehtuuri_luokilla.png)
 
@@ -50,7 +50,7 @@ Sovelluslogiikasta vastaava palvelu *TaskService* käsittelee tehtäviä ja kate
 
 ### Tiedostot
 
-Sovellus tallentaa tehtäviä ja kategorioita SQLite-tietokantatauluihin. Tiedosto määritellään konfiguraatiotiedostossa ".env". Tehtävät tallennetaan tauluun `Tasks`, joka sisältää tehtävän `id`-numeron, tehtävän kuvauksen `title`, tehtävän tilan `completed` (0=tekemättä, 1 = tehty) sekä kategorian id-numeron `category_id`.
+Sovellus tallentaa tehtäviä ja kategorioita SQLite-tietokantatauluihin. Tiedosto määritellään konfiguraatiotiedostossa ![.env](https://github.com/eesalor/ot-harjoitustyo/blob/main/.env). Tehtävät tallennetaan tauluun `Tasks`, joka sisältää tehtävän `id`-numeron, tehtävän kuvauksen `title`, tehtävän tilan `completed` (0=tekemättä, 1 = tehty) sekä kategorian id-numeron `category_id`.
 
 Kategoriat tallennetaan tauluun `Categories` sisältäen kategorian `id`-numeron ja kategorian kuvauksen `title`.
 
