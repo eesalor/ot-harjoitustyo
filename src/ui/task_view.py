@@ -1,7 +1,7 @@
 from tkinter import ttk, constants
 from tkinter import *
 import tkinter as tk
-from services.task_service import task_service
+from services.task_service import task_service, InvalidTaskError
 
 from datetime import datetime, timedelta
 
@@ -180,16 +180,18 @@ class TaskView:
 
         self._all_categories = task_service.get_categories()
 
-        self._validate_task_title_entry(title)
-        self._validate_task_date_entry(date)
-
-        if self._task_error or self._date_error:
-            return
-
         if category != "":
             task_service.create_category(category)
 
-        task_service.create_task(title, date, category)
+        try:
+            task_service.create_task(title, date, category)
+
+        except InvalidTaskError:
+            self._generate_task_title_error(title)
+            self._generate_task_date_error(date)
+
+            if self._task_error or self._date_error:
+                return
 
         self._update_task_view()
 
@@ -362,13 +364,13 @@ class TaskView:
             index = selection[0]
             self._selected_completed_task_id = self._listbox_dict_completed_tasks[index][0]
 
-    def _validate_task_title_entry(self, entry):
-        if len(entry) == 0:
+    def _generate_task_title_error(self, title_entry):
+        if len(title_entry) == 0:
             self._task_error = True
             self._task_error_label_var.set("Please enter a task")
             return
 
-        elif len(entry) > 100:
+        elif len(title_entry) > 100:
             self._task_error = True
             self._task_error_label_var.set("Maximum length is 100 character")
             return
@@ -377,9 +379,9 @@ class TaskView:
         self._task_error_label_var.set("")
         return
 
-    def _validate_task_date_entry(self, entry):
+    def _generate_task_date_error(self, date_entry):
         try:
-            validated_date_entry = datetime.strptime(entry,  "%d.%m.%Y")
+            validated_date_entry = datetime.strptime(date_entry,  "%d.%m.%Y")
         except:
             self._date_error = True
             self._date_error_label_var.set("The date not in form dd.mm.yyyy")
@@ -391,5 +393,5 @@ class TaskView:
             return
 
         self._date_error = False
-        self._task_error_label_var.set("")
+        self._date_error_label_var.set("")
         return

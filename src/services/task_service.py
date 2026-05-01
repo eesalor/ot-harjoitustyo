@@ -1,7 +1,11 @@
+from datetime import datetime, timedelta
 from entities.task import Task
 from entities.category import Category
 from repositories.task_repository import task_repository
 from repositories.category_repository import category_repository
+
+class InvalidTaskError(Exception):
+    pass
 
 class TaskService:
     """Luokka, joka vastaa sovelluslogiikasta."""
@@ -22,6 +26,19 @@ class TaskService:
             category:
                Kategoria merkkijonona. Vapaaehtoinen.
         """
+        if len(title) == 0 or len(title) > 100:
+            raise InvalidTaskError
+
+        try:
+            datetime.strptime(date, "%d.%m.%Y")
+
+        except ValueError as error:
+            raise InvalidTaskError from error
+
+        validated_date = datetime.strptime(date, "%d.%m.%Y")
+
+        if validated_date < datetime.now() - timedelta(days=1):
+            raise InvalidTaskError
 
         task = Task(title, date)
 
