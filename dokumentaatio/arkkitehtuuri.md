@@ -109,6 +109,8 @@ sequenceDiagram
   UI->>TaskService: create_task("Finalize your project", "10.05.2026", "Studies")
   TaskService->>TaskService: create_category("Studies")
   TaskService->>category: Category("Studies")
+  TaskService->>CategoryRepository: find_category_by_name("Studies")
+  CategoryRepository-->>TaskService: return False
   TaskService->>CategoryRepository: create_category(category)
   CategoryRepository->>Database: INSERT INTO Categories (title) <br>VALUES (category.title);
   Database-->>CategoryRepository:
