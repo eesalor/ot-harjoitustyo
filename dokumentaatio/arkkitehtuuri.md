@@ -116,6 +116,8 @@ sequenceDiagram
   Database-->>CategoryRepository:
   CategoryRepository-->>TaskService:
   TaskService->>CategoryRepository: get_category_id("Studies")
+  CategoryRepository->>Database: SELECT id FROM Categories WHERE title = category;
+  Database-->>CategoryRepository:
   CategoryRepository-->>TaskService: return "1"
   TaskService->>task: Task("Finalize your project", "10.05.2026")
   TaskService->>TaskRepository: create_task(task, category_id=1)
