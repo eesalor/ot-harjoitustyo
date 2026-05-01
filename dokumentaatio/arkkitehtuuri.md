@@ -59,7 +59,7 @@ Taulussa `Tasks` jokaisen tehtävän kohdalla on viittaus tehtävän kategoriaan
 ## Sovelluksen päätoiminnallisuudet
 
 ### Tehtävän lisääminen ilman kategoriaa
-Käyttäjä voi lisätä uuden tehtävän ollessaan sovelluksen päänäkymässä eli tehtävänäkymässä. Käyttäjä voi syöttää tekstikenttiin tehtävän kuvauksen ja määräajan ja lisätä uuden tehtävän painamalla "Create"-nappia. Oletuksena tehtävän tila on tekemätön. Tehtävän otsikko, määräaika ja tila tallennetaan SQL-tietokantatauluun. Lisätty tehtävä ilmestyy lopulta tehtävänäkymässä olevaan luetteloruutuun. Alla olevassa sekvenssikaaviossa on kuvattu sovelluksen toiminta pääpiirteittäin kyseisen käyttötapauksen osalta:
+Käyttäjä voi lisätä uuden tehtävän ollessaan sovelluksen päänäkymässä eli tehtävänäkymässä. Käyttäjä voi syöttää tekstikenttiin tehtävän kuvauksen ja määräajan ja lisätä uuden tehtävän painamalla "Create"-nappia. Oletuksena tehtävän tila on tekemätön. Tehtävän otsikko, määräaika ja tila tallennetaan SQL-tietokantatauluun `Tasks`. Lisätty tehtävä ilmestyy lopulta tehtävänäkymässä olevaan luetteloruutuun. Alla olevassa sekvenssikaaviossa on kuvattu sovelluksen toiminta pääpiirteittäin kyseisen käyttötapauksen osalta:
 
 ```mermaid
 sequenceDiagram
@@ -90,6 +90,8 @@ Sovelluslogiikan metodissa `create_task` tarkistetaan, onko parametrina annettu 
 
 
 ### Tehtävän lisääminen sisältäen kategorian
+
+Sovelluksessa tehtävän lisäämisen yhteydessä tehtävälle voi määrittää kuvauksen ja määräajan lisäksi aihekategorian. Sen voi syöttää kenttään tai valita valikosta kategorian, mikäli sellaisia on aiemmin lisätty sovelluksen tietokantaan. Jos kategoria on uusi, niin se tallennetaan SQL-tietokantatauluun `Categories`. Lisäksi tehtävä tallennetaan SQL-tietokantatauluun `Tasks` kuten edellä olevassa esimerkissä, mutta tässä tapauksessa tehtävään tallennetaan myös kategorian id-numero. Alla olevassa sekvenssikaaviossa on kuvattu sovelluksen toiminta pääpiirteittäin kyseisen käyttötapauksen osalta:
 
 ```mermaid
 sequenceDiagram
@@ -128,6 +130,13 @@ sequenceDiagram
   UI->>UI: update_task_view()
   UI->>UI: show_task_view()
 ```
+Jos tehtävän lisäämisen yhteydessä annetaan kokonaan uusi kategoria, ”Create task”-napin painamisen jälkeen tapahtumakäsittelijä kutsuu sovelluslogiikan metodia `create_task`, jossa tarkistetaan, että parametrina on annettu kategoria.
+
+Tässä tapauksessa, kun on annettu kategoria, sovelluslogiikassa kutsutaan toista metodia `create_category`. Seuraavaksi tarkistetaan, onko kategoriaa jo olemassa tietokannassa siten, että kutsutaan `CategoryRepository`-luokan metodia `find_category_by_name(category)`, joka palauttaa tässä tapauksessa `False`.
+
+Sen jälkeen lisätään kategoria tietokantaan ja haetaan tietokannasta kyseisen kategorian `id`-numero hyödyntäen luokan `CategoryRepository` metodeita `create_category` ja `get_category_id`. Lopuksi itse tehtävä lisätään vielä tietokantaan kutsumalla sovelluslogiikasta luokan `TaskRepository` metodia `create_task`, jolle annetaan paremetriksi tehtävän kuvaus, määräaika ja kategorian id (`category_id`).
+
+Lopuksi käyttöliittymä päivitetään kuten edellisessä käyttötapauksessa, jossa tehtävä lisättiin ilman kategoriaa.
 
 ### Tehtävän merkitseminen tehdyksi
 Käyttäjä voi merkitä tehtävän tehdyksi ollessaan sovelluksen päänäkymässä eli tehtävänäkymässä. Käyttäjä voi valita luetteloruudusta jonkin tekemättömän tehtävän ja merkitä sen tehdyksi painamalla "Set completed" -nappia. Tehtävän tilan muuttuminen tehdyksi päivitetään SQL-tietokantatauluun. Kyseinen tehtävä siirtyy tehtävänäkymässä toiseen luetteloruutuun, jossa on valmiiksi merkityt tehtävät. Alla olevassa sekvenssikaaviossa on kuvattu sovelluksen toiminta pääpiirteittäin kyseisen käyttötapauksen osalta: 
