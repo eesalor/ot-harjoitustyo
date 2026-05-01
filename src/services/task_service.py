@@ -40,12 +40,13 @@ class TaskService:
         if validated_date < datetime.now() - timedelta(days=1):
             raise InvalidTaskError
 
-        task = Task(title, date)
-
         if category:
+            task_service.create_category(category)
             category_id = self._category_repository.get_category_id(category)
         else:
             category_id = None
+
+        task = Task(title, date)
 
         return self._task_repository.create_task(task, category_id)
 
