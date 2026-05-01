@@ -20,7 +20,7 @@ class StartView:
                                   text="Welcome to Manage Your Tasks app!",
                                   font=("Arial", 16,"bold"))
 
-        welcome_label.grid(row=0, column=1, sticky=(constants.E, constants.W), padx=5, pady=5)
+        welcome_label.grid(row=0, column=0, sticky=(constants.E, constants.W), padx=700, pady=100)
 
         button = ttk.Button(
             master=self._frame,
@@ -28,4 +28,7 @@ class StartView:
             command=self._handle_start
             )
 
-        button.grid(row=1, column=1, sticky=(constants.E, constants.W), padx=5, pady=5)
+        button.grid(row=1, column=0, sticky=(constants.E, constants.W), padx=700, pady=5)
+
+        self._frame.columnconfigure(0, weight=1)
+        self._frame.rowconfigure(0, weight=1)
