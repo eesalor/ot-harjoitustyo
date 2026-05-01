@@ -228,7 +228,11 @@ class TaskView:
         if len(self._uncompleted_tasks) != 0:
             for row in self._uncompleted_tasks.items():
                 self._listbox_dict_uncompleted_tasks[n] = row
-                self._listbox.insert(tk.END, row[1])
+                if row[1].category is None:
+                    task = f"{row[1].date:15} {row[1].title} {5*" "} (No category)"
+                else:
+                    task = (f"{row[1].date:15} {row[1].title} {5*" "} {row[1].category}")
+                self._listbox.insert(tk.END, task)
                 n += 1
 
             self._listbox.bind('<<ListboxSelect>>', self._select_uncompleted_task)
@@ -278,7 +282,11 @@ class TaskView:
         if len(self._completed_tasks) != 0:
             for row in self._completed_tasks.items():
                 self._listbox_dict_completed_tasks[n] = row
-                self._listbox_completed_tasks.insert(tk.END, row[1])
+                if row[1].category is None:
+                    task = f"{row[1].date:15} {row[1].title} {5*" "} (No category)"
+                else:
+                    task = (f"{row[1].date:15} {row[1].title} {5*" "} {row[1].category}")
+                self._listbox_completed_tasks.insert(tk.END, task)
                 n += 1
 
             self._listbox_completed_tasks.bind('<<ListboxSelect>>', self._select_completed_task)
