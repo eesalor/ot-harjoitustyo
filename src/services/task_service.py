@@ -55,7 +55,7 @@ class TaskService:
 
         task = Task(title, date)
 
-        return self._task_repository.create_task(task, category_id)
+        self._task_repository.create_task(task, category_id)
 
     def get_tasks(self, completion_status):
         """Palauttaa joko tehdyt tai tekemättömät tehtävät."
@@ -81,7 +81,7 @@ class TaskService:
             task_id: Poistettavan tehtävän id.
         """
 
-        return self._task_repository.delete_task(task_id)
+        self._task_repository.delete_task(task_id)
 
     def set_completed(self, task_id):
         """Asettaa tehtävän tehdyksi.
@@ -90,7 +90,7 @@ class TaskService:
             task_id: Tehtävän id, jonka perusteella kyseinen tehtävä merkitään tehdyksi.
         """
 
-        return self._task_repository.set_completed(task_id)
+        self._task_repository.set_completed(task_id)
 
     def set_uncompleted(self, task_id):
         """Asettaa tehtävän tekemättömäksi.
@@ -99,7 +99,7 @@ class TaskService:
             task_id: Tehtävän id, jonka perusteella kyseinen tehtävä merkitään tekemättömäksi.
         """
 
-        return self._task_repository.set_uncompleted(task_id)
+        self._task_repository.set_uncompleted(task_id)
 
     def get_categories_with_id(self):
         """Palauttaa kaikki kategoriat.
