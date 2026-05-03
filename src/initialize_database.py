@@ -2,6 +2,7 @@ from database_connection import get_database_connection
 
 
 def drop_tables(connection):
+    """Poistaa tehtävien ja kategorioiden SQL-tietokantataulut."""
     cursor = connection.cursor()
 
     cursor.execute('''
@@ -16,6 +17,7 @@ def drop_tables(connection):
 
 
 def create_tables(connection):
+    """Luo tehtävien ja kategorioiden SQL-tietokantataulut."""
     cursor = connection.cursor()
 
     cursor.execute('''
@@ -38,6 +40,7 @@ def create_tables(connection):
 
 
 def initialize_database():
+    """Alustaa sovelluksen SQL-tietokantataulut."""
     connection = get_database_connection()
 
     drop_tables(connection)

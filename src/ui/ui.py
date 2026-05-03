@@ -2,11 +2,23 @@ from ui.start_view import StartView
 from ui.task_view import TaskView
 
 class UI:
+    """Luokka, joka vastaa sovelluksen käyttöliittymästä."""
+
     def __init__(self, root):
+        """Luokan konstruktori, joka muodostaa uuden käyttöliittymästä vastaavan luokan.
+
+        Args:
+            root:
+                TKinterin Tk-luokasta muodostettu käyttöliittymän juurikomponentti, johon
+                käyttöliittymän komponentit alustetaan.
+
+        """
+
         self._root = root
         self._current_view = None
 
     def start(self):
+        """Käynnistää sovelluksen käyttöliittymän."""
         self._show_start_view()
 
     def _hide_current_view(self):

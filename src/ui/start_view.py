@@ -1,7 +1,20 @@
 from tkinter import ttk, constants
 
 class StartView:
+    """Luokka, joka vastaa sovelluksen aloitusnäkymästä."""
+
     def __init__(self, root, handle_start):
+        """Luokan konstruktori, joka luo uuden aloitusnäkymän.
+
+        Args:
+            root:
+                TKinterin Tk-luokasta muodostettu käyttöliittymän juurikomponentti, johon
+                käyttöliittymän komponentit alustetaan.
+            handle_start:
+                Kutsuttava-arvo, jota kutsutaan käyttäjän painaessa käyttöliittymän
+                aloituspainiketta.
+        """
+
         self._root = root
         self._handle_start = handle_start
         self._frame = None
@@ -9,9 +22,11 @@ class StartView:
         self._initialize()
 
     def pack(self):
+        """Näyttää näkymän."""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Tuhoaa kaikki näkymän komponentit."""
         self._frame.destroy()
 
     def _initialize(self):

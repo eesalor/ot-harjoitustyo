@@ -6,7 +6,20 @@ from services.task_service import task_service, InvalidTaskError
 from datetime import datetime, timedelta
 
 class TaskView:
+    """Luokka, joka vastaa sovelluksen tehtävänäkymästä."""
+
     def __init__(self, root, update_task_view):
+        """Luokan konstruktori, joka luo uuden tehtävänäkymän.
+
+        Args:
+            root:
+                TKinterin Tk-luokasta muodostettu käyttöliittymän juurikomponentti, johon
+                käyttöliittymän komponentit alustetaan.
+            update_task_view:
+                Kutsuttava-arvo, jota kutsutaan, kun käyttäjä luo uuden tehtävän, merkitsee
+                tehtävän tehdyksi tai tekemättömäksi, poistaa tehtävän tai kategorian.
+        """
+
         self._root = root
         self._frame = None
         self._update_task_view = update_task_view
@@ -38,9 +51,11 @@ class TaskView:
         self._initialize()
     
     def pack(self):
+        """Näyttää näkymän."""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Tuhoaa kaikki näkymän komponentit."""
         self._frame.destroy()
     
     def _initialize(self):
@@ -180,8 +195,8 @@ class TaskView:
 
         self._all_categories = task_service.get_categories()
 
-        if category != "":
-            task_service.create_category(category)
+        #if category != "":
+        #    task_service.create_category(category)
 
         try:
             task_service.create_task(title, date, category)
