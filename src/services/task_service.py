@@ -25,7 +25,14 @@ class TaskService:
             date: Tehtävän määräaika merkkijonona.
             category:
                Kategoria merkkijonona. Vapaaehtoinen.
+
+        Raises:
+            InvalidTaskError:
+                Virhe, joka tapahtuu, jos tehtävä on tyhjä tai tehtävän pituus on yli 100 merkkiä,
+                tai jos päivämäärä ei ole muodossa pp.kk.vvvv tai jos päivämäärä on jo mennyt.
+
         """
+
         if len(title) == 0 or len(title) > 100:
             raise InvalidTaskError
 
