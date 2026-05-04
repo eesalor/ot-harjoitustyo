@@ -10,7 +10,7 @@ class InvalidTaskError(Exception):
 class TaskService:
     """Luokka, joka vastaa sovelluslogiikasta."""
 
-    def __init__(self):
+    def __init__(self, task_repository=task_repository, category_repository=category_repository):
         """Luokan konstruktori, joka muodostaa sovelluslogiikasta huolehtivan palvelun."""
 
         self._task_repository = task_repository
