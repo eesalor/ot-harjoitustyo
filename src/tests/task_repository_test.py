@@ -77,9 +77,16 @@ class TestTaskRepository(unittest.TestCase):
 
     def test_delete_task(self):
         self.database.delete_task(1)
+
+        tasks = self.database.get_tasks()
+
+        self.assertEqual(len(tasks), 1)
+        self.assertEqual(repr(tasks), '{2: Refactor your code, 5.5.2026, None, False}')
+
         self.database.delete_task(2)
         tasks = self.database.get_tasks()
 
+        self.assertEqual(len(tasks), 0)
         self.assertEqual(tasks, {})
 
     def test_set_task_completed_updates_completed_status(self):

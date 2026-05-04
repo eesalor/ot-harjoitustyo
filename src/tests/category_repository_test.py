@@ -20,11 +20,13 @@ class TestTaskService(unittest.TestCase):
 
         categories = self.database.get_categories()
 
+        self.assertEqual(len(categories), 3)
         self.assertEqual(categories, ['Studies', 'Work', 'Home'])
 
     def test_get_categories(self):
         categories = self.database.get_categories()
 
+        self.assertEqual(len(categories), 2)
         self.assertEqual(categories, ['Studies', 'Work'])
 
     def test_get_categories_with_id(self):
@@ -33,9 +35,11 @@ class TestTaskService(unittest.TestCase):
         self.assertEqual(result, {1: 'Studies', 2: 'Work'})
 
     def test_get_category_id(self):
-        category_id = self.database.get_category_id(self.category1.title)
+        category_id_1 = self.database.get_category_id(self.category1.title)
+        category_id_2 = self.database.get_category_id(self.category2.title)
 
-        self.assertEqual(category_id, 1)
+        self.assertEqual(category_id_1, 1)
+        self.assertEqual(category_id_2, 2)
 
     def test_find_category_by_name(self):
         result = self.database.find_category_by_name("Studies")
