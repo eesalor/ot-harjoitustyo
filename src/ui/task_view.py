@@ -195,9 +195,6 @@ class TaskView:
 
         self._all_categories = task_service.get_categories()
 
-        #if category != "":
-        #    task_service.create_category(category)
-
         try:
             task_service.create_task(title, date, category)
 
