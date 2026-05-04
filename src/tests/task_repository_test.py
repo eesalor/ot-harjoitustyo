@@ -31,8 +31,8 @@ class TestTaskRepository(unittest.TestCase):
 
         self.assertEqual(self.task3.title, "Write down working hours")
         self.assertEqual(self.task3.date, "9.4.2026")
-        self.assertEqual(self.task3.completed, False)
-        self.assertEqual(self.task3.category, None)
+        self.assertFalse(self.task3.completed)
+        self.assertIsNone(self.task3.category)
 
     def test_create_task_with_category(self):
         title = "Write down working hours"
@@ -44,7 +44,7 @@ class TestTaskRepository(unittest.TestCase):
 
         self.assertEqual(self.task3.title, "Write down working hours")
         self.assertEqual(self.task3.date, "9.4.2026")
-        self.assertEqual(self.task3.completed, False)
+        self.assertFalse(self.task3.completed)
         self.assertEqual(self.task3.category, 3)
 
     def test_get_tasks_returns_tasks(self):
@@ -54,11 +54,11 @@ class TestTaskRepository(unittest.TestCase):
         self.assertEqual(tasks[1].title, "Write some unit tests")
         self.assertEqual(tasks[1].date, "28.04.2026")
         self.assertEqual(tasks[1].category, "Studies")
-        self.assertEqual(tasks[1].completed, False)
+        self.assertFalse(tasks[1].completed)
         self.assertEqual(tasks[2].title, "Refactor your code")
         self.assertEqual(tasks[2].date, "5.5.2026")
-        self.assertEqual(tasks[2].category, None)
-        self.assertEqual(tasks[2].completed, False)
+        self.assertIsNone(tasks[2].category)
+        self.assertFalse(tasks[2].completed)
 
     def test_get_completed_tasks(self):
         self.database.set_completed(1)
@@ -93,7 +93,7 @@ class TestTaskRepository(unittest.TestCase):
         self.database.set_completed(1)
         tasks = self.database.get_tasks()
 
-        self.assertEqual(tasks[1].completed, True)
+        self.assertTrue(tasks[1].completed, True)
 
     def test_set_task_uncompleted_updates_completed_status(self):
         self.database.set_completed(1)
@@ -106,7 +106,5 @@ class TestTaskRepository(unittest.TestCase):
         self.database.set_completed(1)
         tasks = self.database.get_tasks()
 
-        self.assertEqual(tasks[1].completed, True)
-        self.assertEqual(tasks[2].completed, False)
-
-
+        self.assertTrue(tasks[1].completed)
+        self.assertFalse(tasks[2].completed)

@@ -42,13 +42,9 @@ class TestTaskService(unittest.TestCase):
         self.assertEqual(category_id_2, 2)
 
     def test_find_category_by_name(self):
-        result = self.database.find_category_by_name("Studies")
+        self.assertTrue(self.database.find_category_by_name("Studies"))
 
-        self.assertEqual(result, True)
-
-        result = self.database.find_category_by_name("Home")
-
-        self.assertEqual(result, False)
+        self.assertFalse(self.database.find_category_by_name("Home"))
 
     def test_delete_category(self):
         category_id = self.database.get_category_id(self.category1.title)

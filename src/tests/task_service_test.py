@@ -143,4 +143,4 @@ class TestTaskService(unittest.TestCase):
 
         self.assertEqual(tasks[1].title, "Write some unit tests")
         self.assertEqual(tasks[1].date, "4.4.2030")
-        self.assertEqual(tasks[1].category, None)
+        self.assertIsNone(tasks[1].category)
