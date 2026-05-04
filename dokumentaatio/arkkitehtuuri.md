@@ -44,7 +44,7 @@ Esimerkkejä TaskService-luokan metodeista, joita käyttöliittymän eri toiminn
 * `set_completed(task_id)`
 * `delete_task(task_id)`
 
-Sovelluslogiikasta vastaava palvelu *TaskService* käsittelee tehtäviä ja kategorioita luokkien ![TaskRepository](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/repositories/task_repository.py) ja ![CategoryRepository](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/repositories/category_repository.py) avulla. Luokat sijaitsevat hakemistossa *repositories*.
+Sovelluslogiikasta vastaava palvelu *TaskService* käsittelee tehtäviä ja kategorioita luokkien ![TaskRepository](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/repositories/task_repository.py) ja ![CategoryRepository](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/repositories/category_repository.py) avulla. Luokat sijaitsevat hakemistossa *repositories*. Kun sovelluslogiikasta vastaava palvelu luodaan, luokasta `TaskService` muodostettavalle oliolle annetaan ulkopuolelta riippuvuudet luokille `TaskRepository` ja `CategoryRepository`.
 
 Oheinen pakkauskaavio havainnollistaa sovelluksen eri osien välisiä suhteita.
 
