@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
 from entities.task import Task
 from entities.category import Category
-from repositories.task_repository import task_repository
-from repositories.category_repository import category_repository
+from repositories.task_repository import task_repository as default_task_repository
+from repositories.category_repository import category_repository as default_category_repository
 
 class InvalidTaskError(Exception):
     pass
@@ -10,8 +10,18 @@ class InvalidTaskError(Exception):
 class TaskService:
     """Luokka, joka vastaa sovelluslogiikasta."""
 
-    def __init__(self, task_repository=task_repository, category_repository=category_repository):
-        """Luokan konstruktori, joka muodostaa sovelluslogiikasta huolehtivan palvelun."""
+    def __init__(self, task_repository=default_task_repository,
+                 category_repository=default_category_repository):
+        """Luokan konstruktori, joka muodostaa sovelluslogiikasta huolehtivan palvelun.
+
+        Args:
+            task_repository:
+                Oletuksena TaskRepository-luokasta muodostettu olio. Sisältää
+                TaskRepository-luokan metodit. Ei pakollinen.
+            category_repository:
+                Oletuksena CategoryRepository-luokasta muodostettu olio. Sisältää
+                CategoryRepository-luokan metodit. Ei pakollinen.
+        """
 
         self._task_repository = task_repository
         self._category_repository = category_repository
