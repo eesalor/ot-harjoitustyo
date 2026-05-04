@@ -25,37 +25,58 @@ class TestTaskService(unittest.TestCase):
         with self.assertRaises(InvalidTaskError):
             self.service.create_task(title="", date="22.03.2027", category=None)
 
+        self.assertEqual(len(self.service.get_tasks(False)), 0)
+        self.assertEqual(len(self.service.get_tasks(True)), 0)
+
     def test_create_task_with_too_long_task_title(self):
         with self.assertRaises(InvalidTaskError):
             self.service.create_task(title=f"{101*"n"}", date="22.03.2027", category=None)
+
+        self.assertEqual(len(self.service.get_tasks(False)), 0)
 
     def test_create_task_with_empty_task_date_entry(self):
         with self.assertRaises(InvalidTaskError):
             self.service.create_task(title="Code", date="", category=None)
 
-    def test_create_task_with_invalid_task_date_entry(self):
+        self.assertEqual(len(self.service.get_tasks(False)), 0)
+
+    def test_create_task_with_passed_task_date_entry(self):
         with self.assertRaises(InvalidTaskError):
             self.service.create_task(title="Code", date="12.2.2000", category=None)
 
+        self.assertEqual(len(self.service.get_tasks(False)), 0)
+
+    def test_create_task_with_invalid_task_date_entry(self):
         with self.assertRaises(InvalidTaskError):
-            self.service.create_task(title="Code", date="not date in form dd.mm.yyyy", category=None)
+            self.service.create_task(title="Code", date="This is not date in form dd.mm.yyyy",
+                                     category=None)
+
+        self.assertEqual(len(self.service.get_tasks(False)), 0)
 
     def test_create_task_without_category(self):
         category_none = None
-        result = self.service.create_task(self.title, self.date, category_none)
-        category_id = None
+        self.service.create_task(self.title, self.date, category_none)
 
-        self.assertEqual(result, self.task_repository.create_task(Task(self.title, self.date), category_id))
+        self.assertEqual(len(self.service.get_tasks(False)), 1)
+
+    def test_create_task_with_empty_category(self):
+        self.service.delete_category("Studies")
+        category_entry = ""
+        self.service.create_task(self.title, self.date, category_entry)
+
+        self.assertEqual(self.service.get_categories(), [])
 
     def test_create_task_with_category(self):
         category = self.category
         result = self.service.create_task(self.title, self.date, category)
 
         self.assertEqual(result, self.task_repository.create_task(Task(self.title, self.date), 1))
+        self.assertEqual(self.service.get_categories_with_id(), {1: 'Studies'})
 
     def test_get_uncompleted_tasks(self):
         completion_status = self.completed
         result = self.service.get_tasks(completion_status)
+
         self.assertEqual(result, self.task_repository.get_uncompleted_tasks())
 
     def test_get_completed_tasks(self):
@@ -111,3 +132,15 @@ class TestTaskService(unittest.TestCase):
         categories = self.service.get_categories()
 
         self.assertEqual(len(categories), 0)
+        self.assertEqual(self.category_repository.find_category_by_name(self.category), False)
+
+    def test_delete_category_deletes_the_category_from_tasks(self):
+        self.service.create_task(self.title, self.date, self.category)
+
+        self.service.delete_category(self.category)
+
+        tasks = self.service.get_tasks(False)
+
+        self.assertEqual(tasks[1].title, "Write some unit tests")
+        self.assertEqual(tasks[1].date, "4.4.2030")
+        self.assertEqual(tasks[1].category, None)
