@@ -27,6 +27,8 @@
 | 29.4. | 6.5 | Tehtävien hakemiseen liittyvien metodien muokkaamista, testien muokkaamista, tehtävien tietokantaoperaatioista vastaavan luokan refaktorointia, tehtävien kategorioihin liityviä testejä sovelluslogiikasta vastaavalle luokalle. |
 | 30.4. | 4.5 | Koodin refaktorointia, käyttöliittymän muokkaamista, testausdokumentin luonnostelua. |
 | 1.5. | 8 | Käyttöliittymän muokkaamista, sovelluslogiikkakerrokseen virheiden käsittely tehtävän lisäämisen osalta, virhetilanteiden testaaminen tehtävän lisäämisessä sovelluskerrokseen, arkkitehtuurikuvauksen täydentäminen mm. uuden toiminnallisuuden kuvaamisella ja siihen liittyvällä sekvenssikaaviolla. |
+| 3.5. | 2 | Docstring-dokumentaatiota, kuvankaappaukset käyttöohjetta varten, vaatimusmäärittelyn päivittäminen. |
+| 4.5. | 8 | Arkkitehtuurin täydentäminen toiminnallisuuksien ja puutteiden osalta, käyttöohjeen päivittäminen, yksikkötestien lisäämistä ja päivittämistä, testausdokumentin laatiminen. |
 | . |  |  |
 | . |  |  |
-| **Yhteensä**   |  **98.0**  | | 
+| **Yhteensä**   |  **108.0**  | | 
