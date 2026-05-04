@@ -29,3 +29,9 @@
 - Sovellusta on testattu, että TaskService-luokka merkitsee tehtäviä tehdyksi/tekemättömäksi.
 - Sovellusta on testattu, että CategoryRepository-luokka lisää kategorian, hakee kategorioita ja poistaa kategorian.
 - Sovellusta on testattu, että TaskRepository-luokka lisää tehtäviin kategorian ja hakee tiedon tehtävän kategoriasta.
+
+## Viikko 7
+- Sovellusta on testattu, että TaskService-luokka lisää, hakee ja poistaa tehtäviin liittyviä kategorioita.
+- Refaktoroitu erityisesti luokkia TaskRepository, TaskService ja TaskView.
+- Tehtävien lisäämisessä virheellisten syötteiden validointia lisätty myös TaskService-luokkaan.
+- Sovellusta on testattu myös virheellisten syötteiden osalta.
