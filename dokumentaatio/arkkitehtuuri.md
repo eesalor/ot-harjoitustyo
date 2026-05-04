@@ -139,6 +139,7 @@ Sen jälkeen lisätään kategoria tietokantaan ja haetaan tietokannasta kyseise
 Lopuksi käyttöliittymä päivitetään kuten edellisessä käyttötapauksessa, jossa tehtävä lisättiin ilman kategoriaa.
 
 ### Tehtävän merkitseminen tehdyksi
+
 Käyttäjä voi merkitä tehtävän tehdyksi ollessaan sovelluksen päänäkymässä eli tehtävänäkymässä. Käyttäjä voi valita luetteloruudusta jonkin tekemättömän tehtävän ja merkitä sen tehdyksi painamalla "Set completed" -nappia. Tehtävän tilan muuttuminen tehdyksi päivitetään SQL-tietokantatauluun. Kyseinen tehtävä siirtyy tehtävänäkymässä toiseen luetteloruutuun, jossa on valmiiksi merkityt tehtävät. Alla olevassa sekvenssikaaviossa on kuvattu sovelluksen toiminta pääpiirteittäin kyseisen käyttötapauksen osalta: 
 
 ```mermaid
@@ -161,3 +162,37 @@ sequenceDiagram
   UI->>UI: show_task_view()
 ```
 Kun käyttäjä on valinnut tekemättömän tehtävän ja painaa ”Set completed”-nappia, tapahtumakäsittelijä tarkistaa, että tehtävä on valittu ja kutsuu sovelluslogiikan `TaskService` metodia `set_completed`. Metodi kutsuu luokan `TaskRepository` metodia `set_completed`, joka saa parametriksi valitun tehtävän id:n (`task_id`). Metodi päivittää tietokantaan tehtävän tilan `completed` tehdyksi. Lopuksi kutsutaan käyttöliittymän `UI` metodia `_update_task_view`, joka kutsuu metodia `show_task_view`. Tämän seurauksena käyttöliittymän näkymä `TaskView` päivitetään, jolloin tehdyksi merkitty tehtävä siirtyy tehtyjen tehtävien luetteloon.
+
+## Tehtävän poistaminen
+
+Tehdyn tehtävän poistaminen tapahtuu siten, että valitaan tehtyjen tehtävien luettelosta tehtävä, joka aiotaan poistaa. Kun käyttäjä valitsee jonkin tehtävän luettelosta, niin valitun tehtävän id saadaan selville käyttöliittymän metodilla `_select_completed_task`. Kun käyttäjä klikkaa tehtyjen tehtävien alapuolella olevaa ”Delete selected”-nappia, tapahtumakäsittelijä kutsuu sovelluslogiikan metodia `delete_task`, joka sisältää parametrina on tehtävän id. Sovelluslogiikan metodissa `delete_task` kutsuu edelleen luokan `TaskRepository`metodia `delete_task` ja parametrina tehtävän id, jolloin tehtävä poistetaan tietokannasta. Lopuksi päivitetään käyttöliittymän tehtävänäkymää `TaskView`, jolloin näkymään päivitetään jäljellä olevat tehtävät.
+
+```mermaid
+sequenceDiagram
+  actor User
+  participant UI
+  participant TaskService
+  participant TaskRepository
+  participant Database@{ "type" : "database" }
+  User->>UI: select task: "Finalize your project 10.05.2026"
+  User->>UI: click "Delete selected" button
+  UI->>TaskService: delete_task(selected_task_id)
+  TaskService->>TaskRepository: delete_task(task_id)
+  TaskRepository->>Database: DELETE FROM Tasks WHERE id = task_id;
+  Database-->>TaskRepository:
+  TaskRepository-->>TaskService:
+  TaskService-->>UI:
+  UI->>UI: update_task_view()
+  UI->>UI: show_task_view()
+```
+Tekemättömän tehtävän poistaminen tapahtuu muuten vastaavasti, mutta tehtävä valitaan tekemättömien tehtävien luettelosta ja valitun tehtävän id saadaan käyttöliittymän metodilla `_select_uncompleted_task`.
+
+## Muut toiminnallisuudet
+
+Sovelluksen muut toiminnallisuudet, kuten tehdyn tehtävän merkitseminen tekemättömäksi tai kategorian poistaminen, on toteutettu samalla idealla siten, että käyttöliittymästä kutsutaan tarvittavia sovelluslogiikan metodeja, jotka edelleen kutsuvat tarvittavia luokkien `TaskRepository` ja `CategoryRepository` metodeja. Tarvittavien tietokantaoperaatioiden jälkeen käyttöliittymän tehtävänäkymä päivitetään, jolloin muutokset tulevat näkyviin käyttäjälle.
+
+## Sovelluksen rakenteen puutteet
+
+Vaikka sovelluksen rakenne ja koodin laatu on pääosin hyviä, niin erityisesti käyttöliittymän tehtävänäkymästä vastaavassa luokassa `TaskView` on parannettavaa.
+
+Sovelluksen varsinaiset toiminnallisuudet on käytännössä toteutettu tämän yhden luokan avulla. Näin ollen luokka on melko pitkä ja sen olisi voinut pilkkoa pienempiin osiin, jotta koodi olisi selkeämpää sekä helpommin muokattavaa ja ylläpidettävää. Esimerkiksi tehtävien lisäämisestä ja näyttämisestä olisi voinut tehdä oman luokkansa. Luokka sisältää myös joitakin melko pitkiä metodeja, ja niitä olisi voinut myös refaktoroida enemmän.
