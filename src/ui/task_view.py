@@ -57,34 +57,6 @@ class TaskView:
     def destroy(self):
         """Tuhoaa kaikki näkymän komponentit."""
         self._frame.destroy()
-    
-    def _initialize(self):
-        self._frame = ttk.Frame(master=self._root)
-
-        self._initialize_task_creation_form()
-
-        self._show_errors()
-
-        label = ttk.Label(master=self._frame, text="Your tasks", font=("Arial", 12,"bold"))
-        label.grid(row=5, column=2, columnspan=2, padx=5, pady=5)
-
-        self._initialize_uncompleted_task_listbox()
-
-        self._initialize_completed_task_listbox()
-
-        self._root.grid_columnconfigure(1, weight=1)
-        self._root.grid_columnconfigure(2, weight=1)
-
-    def _initialize_task_creation_form(self):
-        create_label= ttk.Label(master=self._frame, text="Create a new task", font=("Arial", 12,"bold"))
-
-        create_label.grid(row=0, column=2, columnspan=2, padx=5, pady=5)
-
-        self._initialize_task_field()
-
-        self._initialize_date_field()
-
-        self._initialize_category_combobox()
 
     def _initialize_task_field(self):
         task_title_label = ttk.Label(master=self._frame, text="Task*")
@@ -188,6 +160,47 @@ class TaskView:
         self._selected_category = event.widget.get()
         return
 
+    def _show_errors(self):
+        self._task_error_label_var = StringVar(self._frame)
+        self._task_error_label = tk.Label(master=self._frame, textvariable=self._task_error_label_var, fg="red")
+        self._task_error_label.grid(row=3, column=1, columnspan=2, padx=5, pady=5)
+
+        self._date_error_label_var = StringVar(self._frame)
+        self._date_error_label = tk.Label(master=self._frame, textvariable=self._date_error_label_var, fg="red")
+        self._date_error_label.grid(row=3, column=3, columnspan=2, padx=5, pady=5)
+
+    def _generate_task_title_error(self, title_entry):
+        if len(title_entry) == 0:
+            self._task_error = True
+            self._task_error_label_var.set("Please enter a task")
+            return
+
+        elif len(title_entry) > 100:
+            self._task_error = True
+            self._task_error_label_var.set("Maximum length is 100 characters")
+            return
+
+        self._task_error = False
+        self._task_error_label_var.set("")
+        return
+
+    def _generate_task_date_error(self, date_entry):
+        try:
+            validated_date_entry = datetime.strptime(date_entry,  "%d.%m.%Y")
+        except:
+            self._date_error = True
+            self._date_error_label_var.set("The date not in form dd.mm.yyyy")
+            return
+
+        if validated_date_entry < datetime.now() - timedelta(days=1):
+            self._date_error = True
+            self._date_error_label_var.set("The date has already passed")
+            return
+
+        self._date_error = False
+        self._date_error_label_var.set("")
+        return
+
     def _handle_create_button_click(self):
         title = self._task_title_entry.get()
         date = self._task_date_entry.get()
@@ -216,15 +229,6 @@ class TaskView:
         task_service.delete_category(category)
 
         self._update_task_view()
-
-    def _show_errors(self):
-        self._task_error_label_var = StringVar(self._frame)
-        self._task_error_label = tk.Label(master=self._frame, textvariable=self._task_error_label_var, fg="red")
-        self._task_error_label.grid(row=3, column=1, columnspan=2, padx=5, pady=5)
-
-        self._date_error_label_var = StringVar(self._frame)
-        self._date_error_label = tk.Label(master=self._frame, textvariable=self._date_error_label_var, fg="red")
-        self._date_error_label.grid(row=3, column=3, columnspan=2, padx=5, pady=5)
 
     def _initialize_uncompleted_task_listbox(self):
         label = ttk.Label(master=self._frame, text="Uncompleted tasks:")
@@ -376,34 +380,26 @@ class TaskView:
             index = selection[0]
             self._selected_completed_task_id = self._listbox_dict_completed_tasks[index][0]
 
-    def _generate_task_title_error(self, title_entry):
-        if len(title_entry) == 0:
-            self._task_error = True
-            self._task_error_label_var.set("Please enter a task")
-            return
+    def _initialize(self):
+        self._frame = ttk.Frame(master=self._root)
 
-        elif len(title_entry) > 100:
-            self._task_error = True
-            self._task_error_label_var.set("Maximum length is 100 character")
-            return
+        create_label= ttk.Label(master=self._frame, text="Create a new task", font=("Arial", 12,"bold"))
+        create_label.grid(row=0, column=2, columnspan=2, padx=5, pady=5)
 
-        self._task_error = False
-        self._task_error_label_var.set("")
-        return
+        self._initialize_task_field()
 
-    def _generate_task_date_error(self, date_entry):
-        try:
-            validated_date_entry = datetime.strptime(date_entry,  "%d.%m.%Y")
-        except:
-            self._date_error = True
-            self._date_error_label_var.set("The date not in form dd.mm.yyyy")
-            return
+        self._initialize_date_field()
 
-        if validated_date_entry < datetime.now() - timedelta(days=1):
-            self._date_error = True
-            self._date_error_label_var.set("The date has already passed")
-            return
+        self._initialize_category_combobox()
 
-        self._date_error = False
-        self._date_error_label_var.set("")
-        return
+        self._show_errors()
+
+        label = ttk.Label(master=self._frame, text="Your tasks", font=("Arial", 12,"bold"))
+        label.grid(row=5, column=2, columnspan=2, padx=5, pady=5)
+
+        self._initialize_uncompleted_task_listbox()
+
+        self._initialize_completed_task_listbox()
+
+        self._root.grid_columnconfigure(1, weight=1)
+        self._root.grid_columnconfigure(2, weight=1)
