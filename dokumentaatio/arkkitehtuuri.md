@@ -16,7 +16,7 @@ Tehtävänäkymä on sovelluksen päänäkymä, jonka kautta sovelluksen sisält
 
 Aloitusnäkymästä vastaa ![StartView](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/start_view.py)-luokka. Tehtävänäkymä määritellään ![TaskView](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/task_view.py)-luokassa. Eri näkymien näyttämisestä vastaa luokka ![UI](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/ui.py).
 
-Sovelluksen tehtävänäkymä päivittyy metodin `_update_task_view` avulla, joka edelleen kutsuu metodia `_show_task_list`. Tämän seurauksena näkymä luodaan uudelleen luokan `TaskView` avulla, jolloin ikkuna päivittyy. Näin tapahtuu esimerkiksi silloin, kun käyttäjä lisää tehtävän, merkitsee tehtävän tehdyksi / tekemättömäksi tai poistaa tehtävän tai kategorian.
+Sovelluksen tehtävänäkymä päivittyy metodin ![update_task_view](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/ui.py#L47) avulla, joka edelleen kutsuu metodia ![show_task_list](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/ui.py#L40). Tämän seurauksena näkymä luodaan uudelleen luokan `TaskView` avulla, jolloin ikkuna päivittyy. Näin tapahtuu esimerkiksi silloin, kun käyttäjä lisää tehtävän, merkitsee tehtävän tehdyksi / tekemättömäksi tai poistaa tehtävän tai kategorian.
 
 Käyttöliittymä hyödyntää luokan ![TaskService](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/services/task_service.py) metodeja. Sovellus on rakennettu siten, että käyttöliittymästä vastaava koodi on eriytetty sovelluslogiikasta.
 
@@ -91,7 +91,7 @@ sequenceDiagram
   UI->>UI: update_task_view()
   UI->>UI: show_task_view()
 ```
-Kun käyttäjä painaa "Create"-nappia, niin tapahtumakäsittelijä kutsuu sovelluslogiikan metodia ![create_task](). Parametreiksi annetaan tehtävän kuvaus (`title`), määräaika (`date`) ja kategoria (`category`). 
+Kun käyttäjä painaa "Create"-nappia, niin ![tapahtumakäsittelijä](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/task_view.py#L203) kutsuu sovelluslogiikan metodia ![create_task](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/services/task_service.py#L29). Parametreiksi annetaan tehtävän kuvaus (`title`), määräaika (`date`) ja kategoria (`category`). 
 
 Sovelluslogiikan metodissa `create_task` tarkistetaan, onko parametrina annettu kategoriaa. Tässä käyttötapauksessa kategoriaa ei ole. Kyseinen metodi kutsuu edelleen luokan `TaskRepository` metodia `create_task`, joka lisää tehtävän tiedot tietokantaan. Lopuksi kutsutaan käyttöliittymän `UI` metodia `_update_task_view`, joka kutsuu metodia `show_task_view`. Tämän seurauksena käyttöliittymän näkymä `TaskView` päivitetään, jolloin uusi tehtävä ilmestyy näkyviin tehtävälistaan.
 
@@ -137,7 +137,7 @@ sequenceDiagram
   UI->>UI: update_task_view()
   UI->>UI: show_task_view()
 ```
-Jos tehtävän lisäämisen yhteydessä annetaan kokonaan uusi kategoria, ”Create task”-napin painamisen jälkeen tapahtumakäsittelijä kutsuu sovelluslogiikan metodia ![create_task](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/services/task_service.py#L29), jossa tarkistetaan, että parametrina on annettu kategoria.
+Jos tehtävän lisäämisen yhteydessä annetaan kokonaan uusi kategoria, ”Create task”-napin painamisen jälkeen ![tapahtumakäsittelijä](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/task_view.py#L203) kutsuu sovelluslogiikan metodia ![create_task](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/services/task_service.py#L29), jossa tarkistetaan, että parametrina on annettu kategoria.
 
 Tässä tapauksessa, kun on annettu kategoria, sovelluslogiikassa kutsutaan toista metodia ![create_category](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/services/task_service.py#L134). Seuraavaksi tarkistetaan, onko kategoriaa jo olemassa tietokannassa siten, että kutsutaan `CategoryRepository`-luokan metodia `find_category_by_name(category)`, joka palauttaa tässä tapauksessa `False`.
 
@@ -168,11 +168,11 @@ sequenceDiagram
   UI->>UI: update_task_view()
   UI->>UI: show_task_view()
 ```
-Kun käyttäjä on valinnut tekemättömän tehtävän ja painaa ”Set completed”-nappia, tapahtumakäsittelijä tarkistaa, että tehtävä on valittu ja kutsuu sovelluslogiikan `TaskService` metodia ![set_completed](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/services/task_service.py#L96). Metodi kutsuu luokan `TaskRepository` metodia `set_completed`, joka saa parametriksi valitun tehtävän id:n (`task_id`). Metodi päivittää tietokantaan tehtävän tilan `completed` tehdyksi. Lopuksi kutsutaan käyttöliittymän `UI` metodia `_update_task_view`, joka kutsuu metodia `show_task_view`. Tämän seurauksena käyttöliittymän näkymä `TaskView` päivitetään, jolloin tehdyksi merkitty tehtävä siirtyy tehtyjen tehtävien luetteloon.
+Kun käyttäjä on valinnut tekemättömän tehtävän ja painaa ”Set completed”-nappia, ![tapahtumakäsittelijä](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/task_view.py#L352) tarkistaa, että tehtävä on valittu ja kutsuu sovelluslogiikan `TaskService` metodia ![set_completed](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/services/task_service.py#L96). Metodi kutsuu luokan `TaskRepository` metodia `set_completed`, joka saa parametriksi valitun tehtävän id:n (`task_id`). Metodi päivittää tietokantaan tehtävän tilan `completed` tehdyksi. Lopuksi kutsutaan käyttöliittymän `UI` metodia `_update_task_view`, joka kutsuu metodia `show_task_view`. Tämän seurauksena käyttöliittymän näkymä `TaskView` päivitetään, jolloin tehdyksi merkitty tehtävä siirtyy tehtyjen tehtävien luetteloon.
 
-## Tehtävän poistaminen
+## Tehdyn tehtävän poistaminen
 
-Tehdyn tehtävän poistaminen tapahtuu siten, että valitaan tehtyjen tehtävien luettelosta tehtävä, joka aiotaan poistaa. Kun käyttäjä valitsee jonkin tehtävän luettelosta, niin valitun tehtävän id saadaan selville käyttöliittymän metodilla `_select_completed_task`. Kun käyttäjä klikkaa tehtyjen tehtävien alapuolella olevaa ”Delete selected”-nappia, tapahtumakäsittelijä kutsuu sovelluslogiikan metodia ![delete_task](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/services/task_service.py#L87), joka sisältää parametrina on tehtävän id. Sovelluslogiikan metodissa `delete_task` kutsuu edelleen luokan `TaskRepository`metodia `delete_task` ja parametrina tehtävän id, jolloin tehtävä poistetaan tietokannasta. Lopuksi päivitetään käyttöliittymän tehtävänäkymää `TaskView`, jolloin näkymään päivitetään jäljellä olevat tehtävät.
+Tehdyn tehtävän poistaminen tapahtuu siten, että valitaan tehtyjen tehtävien luettelosta tehtävä, joka aiotaan poistaa. Kun käyttäjä valitsee jonkin tehtävän luettelosta, niin valitun tehtävän id saadaan selville käyttöliittymän metodilla `_select_completed_task`. Kun käyttäjä klikkaa tehtyjen tehtävien alapuolella olevaa ”Delete selected”-nappia, ![tapahtumakäsittelijä](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/task_view.py#L346) kutsuu sovelluslogiikan metodia ![delete_task](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/services/task_service.py#L87), joka sisältää parametrina on tehtävän id. Sovelluslogiikan metodissa `delete_task` kutsuu edelleen luokan `TaskRepository`metodia `delete_task` ja parametrina tehtävän id, jolloin tehtävä poistetaan tietokannasta. Lopuksi päivitetään käyttöliittymän tehtävänäkymää `TaskView`, jolloin näkymään päivitetään jäljellä olevat tehtävät.
 
 ```mermaid
 sequenceDiagram
@@ -192,7 +192,7 @@ sequenceDiagram
   UI->>UI: update_task_view()
   UI->>UI: show_task_view()
 ```
-Tekemättömän tehtävän poistaminen tapahtuu muuten vastaavasti, mutta tehtävä valitaan tekemättömien tehtävien luettelosta ja valitun tehtävän id saadaan käyttöliittymän metodilla `_select_uncompleted_task`.
+**Tekemättömän tehtävän poistaminen** tapahtuu muuten vastaavasti, tehtävä valitaan tekemättömien tehtävien luettelosta ja toiminnolle on oma ![tapahtumakäsittelijänsä](https://github.com/eesalor/ot-harjoitustyo/blob/main/src/ui/task_view.py#L340) ja valitun tehtävän id saadaan tapahtumakäsittelijässä olevalla metodilla `_select_uncompleted_task`, jonka perusteella valittu tehtävä voidaan poistaa.
 
 ## Muut toiminnallisuudet
 
