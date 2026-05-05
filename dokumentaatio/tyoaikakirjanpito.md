@@ -29,6 +29,6 @@
 | 1.5. | 8 | Käyttöliittymän muokkaamista, sovelluslogiikkakerrokseen virheiden käsittely tehtävän lisäämisen osalta, virhetilanteiden testaaminen tehtävän lisäämisessä sovelluskerrokseen, arkkitehtuurikuvauksen täydentäminen mm. uuden toiminnallisuuden kuvaamisella ja siihen liittyvällä sekvenssikaaviolla. |
 | 3.5. | 2 | Docstring-dokumentaatiota, kuvankaappaukset käyttöohjetta varten, vaatimusmäärittelyn päivittäminen. |
 | 4.5. | 8 | Arkkitehtuurin täydentäminen toiminnallisuuksien ja puutteiden osalta, käyttöohjeen päivittäminen, yksikkötestien lisäämistä ja päivittämistä, testausdokumentin laatiminen. |
+| 5.5 | 1 | Käyttöliittymän refaktorointia, arkkitehtuurikuvauksen täydentäminen. |
 | . |  |  |
-| . |  |  |
-| **Yhteensä**   |  **108.0**  | | 
+| **Yhteensä**   |  **109.0**  | | 
