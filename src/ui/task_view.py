@@ -1,9 +1,8 @@
+from datetime import datetime, timedelta
 from tkinter import ttk, constants
 from tkinter import *
 import tkinter as tk
 from services.task_service import task_service, InvalidTaskError
-
-from datetime import datetime, timedelta
 
 class TaskView:
     """Luokka, joka vastaa sovelluksen tehtävänäkymästä."""
