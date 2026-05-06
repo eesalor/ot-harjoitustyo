@@ -22,6 +22,10 @@ Sovelluksen riippuvuudet asennetaan komennolla
 ```
 poetry install
 ```
+  - Huom. Jos asennuksessa tulee alla oleva virhe, suorita komento `poetry lock` ja sen jälkeen asenna uudelleen `poetry install`.
+
+    - ```pyproject.toml changed significantly since poetry.lock was last generated. Run 'poetry lock' to fix the lock file```
+
 Sovelluksen tietokanta alustetaan ennen käynnistämistä komennolla
 ```
 poetry run invoke init-database
