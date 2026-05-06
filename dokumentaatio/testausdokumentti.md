@@ -1,13 +1,17 @@
 # Testausdokumentti
 
+Sovelluksen testaamisen osalta on suoritettu yksikkö- ja integraatiotestausta sekä järjestelmätestausta. Yksikkö- ja integraatiotesteissä on käytetty automatisoituja testejä, kun taas järjestelmätestaus on suoritettu manuaalisesti käyttöliittymän kautta.
+
 ## Yksikkö- ja integraatiotestaus
 
 ### Sovelluslogiikka
-Testiluokan ![TestTaskService](/src/tests/task_service_test.py) avulla testattiin sovelluslogiikasta vastaavaa `TaskService`-luokkaa. 
+Testiluokan ![TestTaskService](/src/tests/task_service_test.py) avulla testataan sovelluslogiikasta vastaavaa `TaskService`-luokkaa. Testiluokassa muodostetaan luokan `TaskService` olio. 
+Tehtävien ja kategorioiden tietokantaoperaatiosta vastaavista luokista `TaskRepository` ja `CategoryRepository` muodostetut oliot annetaan riippuvuutena kyseiselle `TaskService`-luokan oliolle.
+Testaamisessa käytetään testitietokantatiedostoa `test_database.db`.
 
 ### Repositorio-luokat
 
-Sovelluksen tietokantaoperaatioista vastaavien luokan `TaskRepository` testaamisessa käytettiin testiluokkaa ![TestTaskRepository](/src/tests/task_repository_test.py)
+Sovelluksen tietokantaoperaatioista vastaavien luokan `TaskRepository` testaamisessa käytetään testiluokkaa ![TestTaskRepository](/src/tests/task_repository_test.py)
 ja luokan `CategoryRepository` osalta ![TestCategoryRepository](/src/tests/category_repository_test.py)-luokkaa.
 
 Näiden repositorio-luokkien testaamisessa käytetään testitietokantatiedostoa `test_database.db`, joka on määritelty konfiguraatiotiedostossa ![.env.test](/.env.test).
@@ -16,12 +20,17 @@ Näiden repositorio-luokkien testaamisessa käytetään testitietokantatiedostoa
 
 Sovelluksen testauskattavuus on 98 %. Käyttöliittymän testaaminen on jätetty testauskattavuuden laskemisen ulkopuolelle.
 
-Projektin juuressa tiedossa ![.coveragerc](/.coveragerc) on määritelty testauksen kohdekansio *src* ja tiedostot, joita ei lasketa mukaan testikattavuuden laskemisessa.
-Esimerkiksi hakemistossa *ui* sijaitsevia käyttöliittymän tiedostoja, hakemistossa *tests* sijaitsevia testitiedostoja, `__init__.py`-tiedostoja eikä pääohjelman sisältävää `index.py` oteta mukaan.
+![](/dokumentaatio/kuvat/testikattavuus.png)
 
-
+Testauskattavuuden laskemiseen mukaan otettavat tiedostot on määritelty tiedostossa ![.coveragerc](/.coveragerc), joka sijaitsee projektin juuressa. Testauksen kohdekansioksi on määritelty *src*.
+Lisäksi on määritelty, että testauskattavuuden laskemisen ulkopuolelle jätetään
+- Käyttöliittymään liittyvät tiedostot, jotka sijaitsevat hakemistossa *ui*
+- Testitiedostot, jotka sijaitsevat hakemistossa *tests*
+- `__init__.py`-tiedostot
+- Pääohjelman sisältävä `index.py`
 
 Testiraportin perusteella tiedostoja *config.py* ja *initialize_database.py* ei testattu.
+Sovelluksen päätoiminnallisuudet eli tehtäviin liittyvät toiminnot testattiin monipuolisesti erilaisilla testitapauksilla.
 
 ## Järjestelmätestaus
 
@@ -29,6 +38,7 @@ Sovelluksen toimivuutta testattiin myös manuaalisella järjestelmätestauksella
 
 ### Sovelluksen asennus ja konfigurointi
 
+Sovellusta on kokeiltu asentaa ja testata Linux-ympäristössä. Sovellusta on testattu Pythonin versiolla 3.12.
 
 ### Toiminnallisuudet
 
