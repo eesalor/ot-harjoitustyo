@@ -38,7 +38,8 @@ Sovelluksen toimivuutta testattiin myös manuaalisella järjestelmätestauksella
 
 ### Sovelluksen asennus ja konfigurointi
 
-Sovellusta on kokeiltu asentaa ja testata Linux-ympäristössä. Sovellusta on testattu Pythonin versiolla 3.12.
+Sovelluksen ![käyttöohjeessa](/dokumentaatio/kayttoohje.md) sisältää ohjeet sovelluksen asentamiseen, konfiguroimiseen sekä sovelluksen käyttämiseen.
+Sovellusta on näiden ohjeiden perusteella kokeiltu asentaa ja testata Linux-ympäristössä käyttäen Pythonin versiota 3.12. Sovelluksen konfiguraatiotiedostossa ![.env](/.env) määriteltyä tietokantatiedoston nimeä on kokeiltu vaihtaa ja testata sovelluksen toimintaa. Sovelluksen eri käyttötilanteet on käyty läpi.
 
 ### Toiminnallisuudet
 
