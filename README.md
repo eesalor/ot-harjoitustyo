@@ -6,7 +6,7 @@ Sovellus on ohjelmistotekniikan harjoitustyö.
 
 ## Versiot
 
-- Sovelluksen viimeisin GitHub release: [viikko6](https://github.com/eesalor/ot-harjoitustyo/releases/tag/viikko6)
+- Sovelluksen viimeisin GitHub release: [loppupalautus](https://github.com/eesalor/ot-harjoitustyo/releases/tag/loppupalautus)
 
 ## Dokumentaatio
 
