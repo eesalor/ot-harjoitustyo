@@ -49,3 +49,14 @@ Tehtävän määräajan osalta kokeiltiin myös tyhjää tai väärässä muodss
 
 Tehtävien poistamisen ja tehdyksi / tekemättömäksi merkitsemisen osalta testattiin, että toiminnallisuudet kohdistuvat oikeisiin tehtäviin. Lisäksi testattiin,
 että tekemättömiä tehtäviä voi poistaa tai merkitä tehdyksi vain niihin tarkoitetuilla painikkeilla. Vastaavaa testattiin myös tehdyiksi merkittyjen tehtävien osalta.
+
+## Sovelluksen laatuongelmat
+**Sovelluksen asentamiseen ja käyttöön liittyvät puutteet**
+- Tietokannan alustaminen tulee tehdä ennen sovelluksen käyttöä komennolla `poetry run invoke init-database`. Käyttäjälle ei kuitenkaan anneta hyvää virheilmoitusta ongelman korjaamiseksi.
+
+**Käyttöliittymä**
+
+Sovelluksen käyttöliittymän käytettävyyttä voisi vielä parantaa.
+- Käyttäjän syöttämää kategoriaa ei validoida ollenkaan esimerkiksi enimmäispituuden osalta.
+- Sovellukseen lisättävät tehtävät voisi asetella selkeämmin siten, että päivämäärä, tehtävän nimi ja kategoria olisivat esimerkiksi omissa sarakkeissaan.
+- Käyttäjältä ei pyydetä varmistusviestiä esimerkiksi tilanteessa, jossa käyttäjä poistaa tehtävän tai kategorian.
