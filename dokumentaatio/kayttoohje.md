@@ -1,5 +1,16 @@
 # Käyttöohje
 
+## Sovelluksen lataaminen
+
+Manage Your Tasks -sovelluksen julkaistut versiot eli releaset löydät ![täältä](https://github.com/eesalor/ot-harjoitustyo/releases).
+
+Lataa uusimman version lähdekoodi (*Source code*) kohdan *Assets* alta.
+
+
+## Konfigurointi
+
+Sovelluksen käyttämän tietokantatiedoston nimi ja sijainti määritellään tiedostossa ![.env](https://github.com/eesalor/ot-harjoitustyo/blob/main/.env).
+
 ## Sovelluksen käynnistäminen
 
 Sovelluksen riippuvuudet asennetaan komennolla
@@ -17,7 +28,7 @@ poetry run invoke start
 
 ## Käynnistyminen / aloitusnäkymä
 
-Sovellus käynnistämisen jälkeen ilmestyy ensin aloitusnäkymä.
+Sovelluksen käynnistämisen jälkeen ilmestyy ensin aloitusnäkymä.
 
 Sovelluksen päänäkymään eli tehtävänäkymään pääsee painamalla nappia ”Start”.
 
@@ -40,7 +51,7 @@ Alla on kuvattu näitä toiminnallisuuksia tarkemmin.
 Sovelluksessa on mahdollista lisätä uusia tehtäviä ja niihin liittyviä määräaikoja. Molemmat ovat pakollisia tietoja. Lisäksi tehtävään voi halutessaan lisätä kategorian.
 
 Kenttään ”Task” kirjoitetaan tehtävän nimi, jonka enimmäispituus on 100 merkkiä. Kenttään ”Date” kirjoitetaan määräaika muodossa ”pp.kk.vvvv”. Lisättävä päivämäärä ei voi olla mennyt päivämäärä.
-Kategoriakenttään ”Enter or select category” voi kirjoittaa kategorian tai valita valikosta aiemmin lisätyn kategorian.
+Kategoriakenttään ”Enter or select category” voi kirjoittaa kategorian tai valita valikosta aiemmin lisätyn kategorian. Jos kategoriaa ei lisätä, tehtävään tulee näkyviin "(No category)".
 
 Tehtävä luodaan painamalla nappia ”Create task”.
 
@@ -52,7 +63,9 @@ Mikäli tehtävän luominen onnistuu, lisätty tehtävä siirtyy luetteloruutuun
 
 ### Uuden kategorian luominen
 
-Uuden kategorian lisääminen valikkoon on mahdollista vain tehtävän lisäämisen yhteydessä. Erillistä toimintoa pelkän kategorian lisäämiselle ei ole.
+Uuden kategorian lisääminen on mahdollista vain tehtävän lisäämisen yhteydessä, kuten on kuvattu edellisessä kohdassa. Erillistä toimintoa pelkän kategorian lisäämiselle ei ole.
+
+Kun tehtävän lisäämisen yhteydessä kategoriakenttään syötetään uusi kategoria, se tallennetaan sovelluksen tietokantaan. Seuraavaa tehtävää luodessa käyttäjän on mahdollista valita pudotusvalikosta jokin aiemmin luoduista kategorioista.
 
 ### Tehtävien merkitseminen tehdyksi / tekemättömäksi
 
