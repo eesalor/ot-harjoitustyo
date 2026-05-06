@@ -10,7 +10,11 @@ Lataa uusimman releasen lähdekoodi (*Source code*) kohdan *Assets* alta, kuten 
 
 ## Konfigurointi
 
-Sovelluksen käyttämän tietokantatiedoston nimi ja sijainti määritellään tiedostossa ![.env](https://github.com/eesalor/ot-harjoitustyo/blob/main/.env).
+Sovelluksen käyttämän tietokantatiedoston nimi määritellään tiedostossa ![.env](https://github.com/eesalor/ot-harjoitustyo/blob/main/.env).
+
+Oletusarvoisesti nimi määritellään `DATABASE`-muuttujan avulla seuraavasti: `DATABASE=database.db`.
+
+Jos tietokantatiedostoa ei ole vielä luotu, se tehdään projektin juureen.
 
 ## Sovelluksen käynnistäminen
 
