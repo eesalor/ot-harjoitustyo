@@ -7,9 +7,9 @@ from initialize_database import initialize_database
 
 class TestTaskRepository(unittest.TestCase):
     def setUp(self):
+        initialize_database()
         self.database = task_repository
         self.categories_db = category_repository
-        initialize_database()
 
         self.task1 = Task("Write some unit tests", "28.04.2026", False, 2)
         self.task2 = Task("Refactor your code", "5.5.2026", False, None)

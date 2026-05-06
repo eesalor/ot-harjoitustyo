@@ -5,9 +5,8 @@ from initialize_database import initialize_database
 
 class TestTaskService(unittest.TestCase):
     def setUp(self):
-        self.database = category_repository
-
         initialize_database()
+        self.database = category_repository
 
         self.category1 = Category("Studies")
         self.database.create_category(self.category1)
