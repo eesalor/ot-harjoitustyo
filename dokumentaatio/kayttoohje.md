@@ -4,8 +4,9 @@
 
 Manage Your Tasks -sovelluksen julkaistut versiot eli releaset löydät ![täältä](https://github.com/eesalor/ot-harjoitustyo/releases).
 
-Lataa uusimman version lähdekoodi (*Source code*) kohdan *Assets* alta.
+Lataa uusimman releasen lähdekoodi (*Source code*) kohdan *Assets* alta, kuten on havainnollistettu alla olevassa kuvassa.
 
+![](/dokumentaatio/kuvat/kayttoohje_lataus.png)
 
 ## Konfigurointi
 
@@ -66,6 +67,8 @@ Mikäli tehtävän luominen onnistuu, lisätty tehtävä siirtyy luetteloruutuun
 Uuden kategorian lisääminen on mahdollista vain tehtävän lisäämisen yhteydessä, kuten on kuvattu edellisessä kohdassa. Erillistä toimintoa pelkän kategorian lisäämiselle ei ole.
 
 Kun tehtävän lisäämisen yhteydessä kategoriakenttään syötetään uusi kategoria, se tallennetaan sovelluksen tietokantaan. Seuraavaa tehtävää luodessa käyttäjän on mahdollista valita pudotusvalikosta jokin aiemmin luoduista kategorioista.
+
+![](/dokumentaatio/kuvat/kayttoohje_kategorian_valinta.png)
 
 ### Tehtävien merkitseminen tehdyksi / tekemättömäksi
 
